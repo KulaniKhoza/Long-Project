@@ -400,15 +400,15 @@ MonoBehaviour:
   grass: {fileID: 1955284129479591297, guid: cde7da86ff8124245928652a64ff6e96, type: 3}
   RowLength: 6
   ColumnLength: 6
-  X_space: 1.2
-  Y_space: 1.1
+  X_space: 1.15
+  Y_space: 1.05
   GameGrid: []
   gotgrid: 0
   basicCursor: {fileID: 2800000, guid: 8a33cf9ba6dbe5a4abd786b941d25305, type: 3}
   cursorMode: 0
   hotspot: {x: 0, y: 0}
   gridOriginObject: {fileID: 1804519027}
-  highlightColor: {r: 1, g: 0, b: 0, a: 1}
+  highlightColor: {r: 0, g: 0.21118164, b: 1, a: 0.47843137}
   selectionColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!4 &1882656534
 Transform:
