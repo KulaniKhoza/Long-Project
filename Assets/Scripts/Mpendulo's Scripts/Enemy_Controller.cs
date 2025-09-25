@@ -5,6 +5,7 @@ public class Enemy_Controller : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject EnemytoClone;
     public Transform player;
+    public float speed = 2f;   // Movement speed
 
     void Start()
     {
@@ -33,6 +34,9 @@ public class Enemy_Controller : MonoBehaviour
             TheClone.transform.position = ClonePos;
 
             TheClone.GetComponent<Move_enemy>().target = player;
+
+            Vector2 direction = (player.position - TheClone.transform.position).normalized;
+            TheClone.GetComponent<Rigidbody2D>().linearVelocity = (Vector3)direction * speed;
 
         }
     }
