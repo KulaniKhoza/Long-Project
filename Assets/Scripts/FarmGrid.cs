@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -12,15 +13,23 @@ public class FarmGrid : MonoBehaviour
     public GameObject[] GameGrid;
     public bool gotgrid;
 
-    public Texture2D basicCursor;
+    public GameObject field;
+    public bool Sow;
+    public bool CreateField;
+    public Texture2D basicCursor, SeedCursor;
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotspot = Vector2.zero;
-
+    public enum SeedType { None, Normal, Tomato, Corn }
+    public SeedType currentSeed = SeedType.None;
+    public GameObject normalSeedPrefab;
+    public GameObject tomatoSeedPrefab;
+    public GameObject cornSeedPrefab;
     public GameObject gridOriginObject;
 
     private Transform highlight;
     private Transform selection;
-
+    private int plowprice = 10;
+    public TextMeshProUGUI textPrefab;
     // Colors for highlight and selection
     public Color highlightColor = Color.red;
     public Color selectionColor = Color.magenta;
@@ -53,10 +62,11 @@ public class FarmGrid : MonoBehaviour
 
     void Update()
     {
-        Vector2 mousePos = Mouse.current.position.ReadValue(); // new Input System
-        Vector2 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        // Read mouse position and convert to world
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 0));
 
-        // Remove previous highlight if it’s not selected
+        // Remove previous highlight if not selected
         if (highlight != null && highlight != selection)
         {
             SpriteRenderer sr = highlight.GetComponent<SpriteRenderer>();
@@ -65,7 +75,7 @@ public class FarmGrid : MonoBehaviour
             highlight = null;
         }
 
-        // Raycast 2D
+        // Raycast for highlight
         if (!EventSystem.current.IsPointerOverGameObject())
         {
             RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
@@ -73,49 +83,134 @@ public class FarmGrid : MonoBehaviour
             if (hit.collider != null && hit.collider.CompareTag("grid") && hit.collider.transform != selection)
             {
                 highlight = hit.collider.transform;
-
                 SpriteRenderer sr = highlight.GetComponent<SpriteRenderer>();
-                if (sr != null)
-                    sr.color = highlightColor;
-            }
-            else
-            {
-                highlight = null;
+                if (sr != null) sr.color = highlightColor;
             }
         }
 
-        // Selection
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        // Handle left click
+        if (Mouse.current.leftButton.wasPressedThisFrame && !EventSystem.current.IsPointerOverGameObject())
         {
             if (highlight != null)
             {
-                // Reset previous selection
+                // Reset old selection
                 if (selection != null)
                 {
                     SpriteRenderer prevSR = selection.GetComponent<SpriteRenderer>();
-                    if (prevSR != null)
-                        prevSR.color = defaultColor;
+                    if (prevSR != null) prevSR.color = defaultColor;
                 }
 
+                // New selection
                 selection = highlight;
                 SpriteRenderer selSR = selection.GetComponent<SpriteRenderer>();
-                if (selSR != null)
-                    selSR.color = selectionColor;
+                if (selSR != null) selSR.color = selectionColor;
 
-                highlight = null;
+                // =======================
+                // Create field
+                // =======================
+                if (CreateField)
+                {
+                    GameObject newField = Instantiate(field, selection.position, Quaternion.identity);
+                    GameManager.Instance.Money -= plowprice;
+                    GameManager.Instance.SpawnUIAboveField(newField.transform, "-15");
+
+                    Cursor.SetCursor(basicCursor, hotspot, cursorMode);
+                    Sow = false;
+                }
             }
             else
             {
-                // Deselect if clicked empty
+                // Clicked empty space - deselect
                 if (selection != null)
                 {
                     SpriteRenderer selSR = selection.GetComponent<SpriteRenderer>();
-                    if (selSR != null)
-                        selSR.color = defaultColor;
-
+                    if (selSR != null) selSR.color = defaultColor;
                     selection = null;
                 }
             }
+
+            // =======================
+            // Sow seeds (SEPARATE from grid selection)
+            // =======================
+            if (Sow && !CreateField)
+            {
+                // Raycast specifically for fields
+                int fieldLayerMask = LayerMask.GetMask("FieldLayer");
+                RaycastHit2D fieldHit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, fieldLayerMask);
+
+                if (fieldHit.collider != null && fieldHit.collider.CompareTag("field"))
+                {
+                    GameObject seedToPlant = null;
+                    bool hasSeed = false;
+                    Debug.Log("Hit field: " + fieldHit.collider.name);
+
+                    switch (currentSeed)
+                    {
+                        case SeedType.Normal:
+                            if (GameManager.Instance.seeds > 0)
+                            {
+                                seedToPlant = normalSeedPrefab;
+                                GameManager.Instance.seeds--;
+                                hasSeed = true;
+                            }
+                            break;
+
+                        case SeedType.Tomato:
+                            if (GameManager.Instance.tomatoSeeds > 0)
+                            {
+                                seedToPlant = tomatoSeedPrefab;
+                                GameManager.Instance.tomatoSeeds--;
+                                hasSeed = true;
+                            }
+                            break;
+
+                        case SeedType.Corn:
+                            if (GameManager.Instance.cornSeeds > 0)
+                            {
+                                seedToPlant = cornSeedPrefab;
+                                GameManager.Instance.cornSeeds--;
+                                hasSeed = true;
+                            }
+                            break;
+                    }
+
+                    if (hasSeed && seedToPlant != null)
+                    {
+                        // Offset slightly upward
+                        Vector3 spawnPos = fieldHit.collider.transform.position + new Vector3(0, 0.1f, 0);
+                        Instantiate(seedToPlant, spawnPos, Quaternion.identity);
+                        Debug.Log("Planted seed at: " + spawnPos);
+                    }
+                    else if (!hasSeed)
+                    {
+                        Debug.Log("Not enough seeds!");
+                    }
+                }
+                else
+                {
+                    Debug.Log("No field found at mouse position");
+                }
+            }
         }
+    }
+
+    public void PlantCorn()
+    {
+        PrepareSowing(SeedType.Corn);
+    }
+
+    public void PrepareSowing(SeedType seedType)
+    {
+        currentSeed = seedType;
+        Cursor.SetCursor(SeedCursor, hotspot, cursorMode);
+        Sow = true;
+        CreateField = false;
+    }
+
+    public void Sowing()
+    {
+        Cursor.SetCursor(SeedCursor, hotspot, cursorMode);
+        CreateField = false;
+        Sow = true;
     }
 }
