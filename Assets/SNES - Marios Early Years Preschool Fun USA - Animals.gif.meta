@@ -1,0 +1,972 @@
+fileFormatVersion: 2
+guid: 426ccc10d1883944daf9442591ef191c
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 116
+        width: 52
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e693b353773a8ba46b9251cf674fb645
+      internalID: -2128970135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_1
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 112
+        width: 52
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cea43e48efda94e4ea344f0c3c7d7e15
+      internalID: -172782873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_2
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 116
+        width: 51
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d5e1b7c6fae0da418b6203a394c5d4f
+      internalID: -1586513587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_3
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 117
+        width: 38
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54261d306777bb048aff6b0e1fa06ebd
+      internalID: 876766646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_4
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 118
+        width: 52
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93646cb6dab568345a34128b9aa52e50
+      internalID: 648555520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_5
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 76
+        width: 46
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cb6f887cde86e741934cd0491b9c31e
+      internalID: -490837051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_6
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 64
+        width: 46
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cba1ad1f8ff7814f88475beabd58bb6
+      internalID: -1964910229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_7
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 62
+        width: 33
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bce1916311a110478d90e372eb878ac
+      internalID: 909697378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_8
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 62
+        width: 52
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ef1271b7a53d2c41ab1ec89353dee82
+      internalID: 4510369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_9
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 63
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ceae1cc22a2b784f97748780432bb4e
+      internalID: 973699169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_10
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 53
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 746cffe94ea611b4fa07a1f3d5138a0e
+      internalID: -300029071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_11
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 22
+        width: 40
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00c5c09fb3456a047b7e8e06360aed37
+      internalID: 1843042891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_12
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 22
+        width: 32
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 120255e78b1e83b4caf5f70116e63683
+      internalID: 882382200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_13
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 21
+        width: 31
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af79bff5af37d744b9462cbc5c55fd02
+      internalID: 673808082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_14
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 15
+        width: 41
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d408903999f5fd4a942779ebdf19937
+      internalID: 1528131147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_15
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 16
+        width: 37
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aec42fa91d212940a4325c5f623f25c
+      internalID: 653882964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_16
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 22
+        width: 27
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33e9c016b45199646b3ae71746e97e36
+      internalID: 1807593270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_17
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 22
+        width: 31
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 894ab0cd01532504483ab7fbccbf7b61
+      internalID: -1788639152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_18
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 3
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9d23944cf11fbf4485a7af7168238d7
+      internalID: -1534542714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_19
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 0
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 797afbd52e0b0aa43a7c35bd261efa65
+      internalID: -2040609668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_20
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 787bada3c8d59014db6ae5d40ca855c1
+      internalID: -1831412450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_21
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 3
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb22b975c8f7ab14d80625241a8e48ae
+      internalID: 1293605826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_22
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 3
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bc25608daa61344abb6cdacedc7ae91
+      internalID: 2085088602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_23
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 3
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00881fa46596c504e99b3936b9eb72e8
+      internalID: 1033397851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_24
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 0
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bbcfe8142d43a84f82be61938c73002
+      internalID: -1205424070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_25
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 3
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c8bd706f0bee5f4ebfeba2e936fb105
+      internalID: 1639665080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_26
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 3
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 149ea704d8f9f294e9c2a5df8031cc0a
+      internalID: -1152900530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_27
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 3
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32ead7c12a0515b49bba7ef3052fcfa4
+      internalID: -1100427800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_28
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 3
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 238579a44b3bbf1478460b985c583d5a
+      internalID: -2027000216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_29
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 3
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c874c9b09028a145bfd4914f9852917
+      internalID: -1560235242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_30
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 3
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5de4fae2c0113fd45bf33385a52b29d4
+      internalID: 1556443462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_31
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 3
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 115633a3ebb535f49881e9247f26827a
+      internalID: -517884223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_32
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 3
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ae29bb4523e8a9449741a670aeba752
+      internalID: -1236196939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_33
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 3
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 529800cfcfd205e4e9502ba2885fcf38
+      internalID: 893881523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_34
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 0
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d459b3101b18d4440ae61917a2d676d3
+      internalID: -967951278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_35
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 3
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 610d008de9b1d2b4aaf6d13d8ea32269
+      internalID: -208052278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_36
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 3
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec43a420712343c4bbff41fc25ce29d3
+      internalID: 926206860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_37
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 3
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7058b9c939b2a4498454d3af95a7147
+      internalID: 1670021508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SNES - Marios Early Years Preschool Fun USA - Animals_38
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 0
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30b137c539286bc4f8748ec25589a36e
+      internalID: -382374662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      SNES - Marios Early Years Preschool Fun USA - Animals_0: -2128970135
+      SNES - Marios Early Years Preschool Fun USA - Animals_1: -172782873
+      SNES - Marios Early Years Preschool Fun USA - Animals_10: -300029071
+      SNES - Marios Early Years Preschool Fun USA - Animals_11: 1843042891
+      SNES - Marios Early Years Preschool Fun USA - Animals_12: 882382200
+      SNES - Marios Early Years Preschool Fun USA - Animals_13: 673808082
+      SNES - Marios Early Years Preschool Fun USA - Animals_14: 1528131147
+      SNES - Marios Early Years Preschool Fun USA - Animals_15: 653882964
+      SNES - Marios Early Years Preschool Fun USA - Animals_16: 1807593270
+      SNES - Marios Early Years Preschool Fun USA - Animals_17: -1788639152
+      SNES - Marios Early Years Preschool Fun USA - Animals_18: -1534542714
+      SNES - Marios Early Years Preschool Fun USA - Animals_19: -2040609668
+      SNES - Marios Early Years Preschool Fun USA - Animals_2: -1586513587
+      SNES - Marios Early Years Preschool Fun USA - Animals_20: -1831412450
+      SNES - Marios Early Years Preschool Fun USA - Animals_21: 1293605826
+      SNES - Marios Early Years Preschool Fun USA - Animals_22: 2085088602
+      SNES - Marios Early Years Preschool Fun USA - Animals_23: 1033397851
+      SNES - Marios Early Years Preschool Fun USA - Animals_24: -1205424070
+      SNES - Marios Early Years Preschool Fun USA - Animals_25: 1639665080
+      SNES - Marios Early Years Preschool Fun USA - Animals_26: -1152900530
+      SNES - Marios Early Years Preschool Fun USA - Animals_27: -1100427800
+      SNES - Marios Early Years Preschool Fun USA - Animals_28: -2027000216
+      SNES - Marios Early Years Preschool Fun USA - Animals_29: -1560235242
+      SNES - Marios Early Years Preschool Fun USA - Animals_3: 876766646
+      SNES - Marios Early Years Preschool Fun USA - Animals_30: 1556443462
+      SNES - Marios Early Years Preschool Fun USA - Animals_31: -517884223
+      SNES - Marios Early Years Preschool Fun USA - Animals_32: -1236196939
+      SNES - Marios Early Years Preschool Fun USA - Animals_33: 893881523
+      SNES - Marios Early Years Preschool Fun USA - Animals_34: -967951278
+      SNES - Marios Early Years Preschool Fun USA - Animals_35: -208052278
+      SNES - Marios Early Years Preschool Fun USA - Animals_36: 926206860
+      SNES - Marios Early Years Preschool Fun USA - Animals_37: 1670021508
+      SNES - Marios Early Years Preschool Fun USA - Animals_38: -382374662
+      SNES - Marios Early Years Preschool Fun USA - Animals_4: 648555520
+      SNES - Marios Early Years Preschool Fun USA - Animals_5: -490837051
+      SNES - Marios Early Years Preschool Fun USA - Animals_6: -1964910229
+      SNES - Marios Early Years Preschool Fun USA - Animals_7: 909697378
+      SNES - Marios Early Years Preschool Fun USA - Animals_8: 4510369
+      SNES - Marios Early Years Preschool Fun USA - Animals_9: 973699169
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
