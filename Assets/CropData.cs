@@ -8,4 +8,8 @@ public class CropData : ScriptableObject
     public float growthTime;
     public GameObject cropPrefab;
     public Vector3 spawnOffset;
+    public int plantlevel;
+    public float waterlevel;
+    public float maxwater;
+    
 }

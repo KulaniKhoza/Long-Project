@@ -210,6 +210,10 @@ public class FarmGrid : MonoBehaviour
     {
         PrepareSowing(SeedType.Corn);
     }
+    public void PlantNormal()
+    {
+        PrepareSowing(SeedType.Normal);
+    }
 
     public void PrepareSowing(SeedType seedType)
     {
