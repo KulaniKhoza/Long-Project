@@ -25,7 +25,7 @@ public class FarmGrid : MonoBehaviour
     public GameObject tomatoSeedPrefab;
     public GameObject cornSeedPrefab;
     public GameObject gridOriginObject;
-
+    public static FarmGrid instance;
     private Transform highlight;
     private Transform selection;
     private int plowprice = 10;
@@ -34,6 +34,18 @@ public class FarmGrid : MonoBehaviour
     public Color highlightColor = Color.red;
     public Color selectionColor = Color.magenta;
     private Color defaultColor = Color.white;
+
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        Time.timeScale = 1.0f;
+
+
+    }
 
     void Start()
     {

@@ -14,7 +14,7 @@ public class Crops : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            if (FarmGrid.Instance.Sow == false )
+            if (FarmGrid.instance.Sow == false )
             {
                 var Mousepos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 var mousePosXRounded = Mathf.Round(Mousepos.x);

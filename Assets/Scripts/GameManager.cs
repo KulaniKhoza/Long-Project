@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public GameObject uiPrefab;
     public Transform parentCanvas;
 
-    private bool level3MessageShown = false;
+ 
 
 
     private void Awake()
