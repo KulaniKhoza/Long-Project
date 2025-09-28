@@ -222,7 +222,16 @@ public class FarmGrid : MonoBehaviour
         Sow = true;
         CreateField = false;
     }
+    // Add this method to your existing FarmGrid class
+    public void SetSeedType(int seedTypeIndex)
+    {
+        currentSeed = (SeedType)seedTypeIndex;
+        Cursor.SetCursor(SeedCursor, hotspot, cursorMode);
+        Sow = true;
+        CreateField = false;
 
+        Debug.Log($"Selected seed type: {currentSeed}");
+    }
     public void Sowing()
     {
         Cursor.SetCursor(SeedCursor, hotspot, cursorMode);

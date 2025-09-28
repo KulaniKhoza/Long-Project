@@ -53,6 +53,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8644703433504420903}
     - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
+      propertyPath: waterProgressBar
+      value: 
+      objectReference: {fileID: 6862739000235640076, guid: e88ff8df0b1c9dc409e780496b843905, type: 3}
+    - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: levelSprites.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -70,11 +74,11 @@ PrefabInstance:
       objectReference: {fileID: -2104290878, guid: 91655bd4027b81d4a93c3fd26fecf8cb, type: 3}
     - target: {fileID: 3723184083726143596, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.92479
+      value: 1109.941
       objectReference: {fileID: 0}
     - target: {fileID: 3723184083726143596, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.07039
+      value: 294.9409
       objectReference: {fileID: 0}
     - target: {fileID: 3723184083726143596, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: m_LocalPosition.z
