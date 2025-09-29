@@ -1,15 +1,65 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
 
 public class Enemy_Controller : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject EnemytoClone;
+    public GameObject GridObject;
+    public GameObject gridOriginObject;
     public Transform player;
     public float speed = 2f;   // Movement speed
+    public List<GameObject> clones = new List<GameObject>();
+
+    public List<List<Vector2>> grid = new List<List<Vector2>>();
 
     void Start()
     {
+
+
+
+        int rows = GridObject.GetComponent<FarmGrid>().RowLength;
+        int cols = GridObject.GetComponent<FarmGrid>().ColumnLength;
+
+        // Build the grid with coordinates
+        for (int i = 0; i < rows; i++)
+        {
+            grid.Add(new List<Vector2>()); // Add a new row
+
+            for (int j = 0; j < cols; j++)
+            {
+                grid[i].Add(new Vector2(0, 0));
+            }
+        }
+
+        // Example: Access a coordinate
+
+        //Vector2 coord = grid[1][3];
+
+        Vector3 gridOrigin = gridOriginObject != null ? gridOriginObject.transform.position : Vector3.zero;
+
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < cols; col++)
+            {
+                Vector3 position = gridOrigin + new Vector3(col * GridObject.GetComponent<FarmGrid>().X_space, row * GridObject.GetComponent<FarmGrid>().Y_space, 0);
+                grid[row].Insert(col, new Vector2(position.x, position.y));
+                //Debug.Log(position);
+            }
+        }
+        for (int row = 0; row < rows; row++)
+        {
+            for (int col = 0; col < cols; col++)
+            {
+                Vector2 coord = grid[row][col];
+                //Debug.Log(coord);
+            }
+        }
+
         Spawn1();
+
     }
 
     // Update is called once per frame
@@ -20,66 +70,83 @@ public class Enemy_Controller : MonoBehaviour
 
     public void Spawn1()
     {
+        GameObject TheClone = Instantiate(EnemytoClone);
+        TheClone.SetActive(true);
 
-        //int rand = Random.Range(0, enemyPatterns.Length);
-        for (int i = 0; i < 4; i++)
+        Vector2 ClonePos = Vector2.zero;
+        bool foundSpot = false;
+
+        int maxAttempts = 20; // safety limit
+        int attempts = 0;
+
+        while (!foundSpot && attempts < maxAttempts)
         {
+            attempts++;
 
-            GameObject TheClone = Instantiate(EnemytoClone);
-            TheClone.SetActive(true);
-            Vector3 ClonePos = new Vector2();
+            int YorX = Random.Range(0, 2);
+            int[] choices = { 0, 5 };
+            int randomValue = choices[Random.Range(0, choices.Length)];
 
-            ClonePos.y = GenerateRandomY(Random.Range(0, 2));
-            ClonePos.x = GenerateRandomX(Random.Range(0, 2));
-            TheClone.transform.position = ClonePos;
+            if (YorX == 0)
+            {
+                ClonePos = grid[randomValue][GenerateRandomX()];
+            }
+            else
+            {
+                ClonePos = grid[GenerateRandomX()][randomValue];
+            }
 
-            TheClone.GetComponent<Move_enemy>().target = player;
+            // Check for overlap
+            bool occupied = false;
+            for (int i = 0; i < clones.Count; i++)
+            {
+                if ((Vector2)clones[i].transform.position == ClonePos)
+                {
+                    occupied = true;
+                    break;
+                }
+            }
 
-            Vector2 direction = (player.position - TheClone.transform.position).normalized;
-            TheClone.GetComponent<Rigidbody2D>().linearVelocity = (Vector3)direction * speed;
+            if (!occupied) foundSpot = true;
+        }
 
+        // If no free spot found, cancel spawn
+        if (!foundSpot)
+        {
+            Destroy(TheClone);
+            Debug.LogWarning("No free spawn position found!");
+            return;
+        }
+
+        // Place clone
+        TheClone.transform.position = ClonePos;
+        clones.Add(TheClone);
+
+        // Assign behaviour
+        //TheClone.GetComponent<Move_enemy>().target = player;
+
+        // Schedule more spawns if under limit
+        if (clones.Count < 4)
+        {
+            float spawnDelay = Random.Range(1f, 3f);
+            StartCoroutine(SpawnEnemies(spawnDelay));
         }
     }
 
-    public int GenerateRandomX(int region)
+    public int GenerateRandomX()
     {
-        float left = -8;
-        float right = 8;
 
         int num = 0;
 
-
-        if (region == 1)
-        {
-            num = (int)Random.Range(2f, right);
-        }
-        else
-        {
-            num = (int)Random.Range(left, -2f);
-        }
+        num = (int)Random.Range(2f, 3f);
 
         return num;
 
     }
 
-    public int GenerateRandomY(int region)
+    private IEnumerator SpawnEnemies(float delay)
     {
-        int Up = -4;
-        int Down = 4;
-
-        int num = 0;
-
-
-        if (region == 1)
-        {
-            num = (int)Random.Range(2, Up);
-        }
-        else
-        {
-            num = (int)Random.Range(Down, -2);
-        }
-
-        return num;
-
+        yield return new WaitForSeconds(delay);
+        Spawn1();
     }
 }

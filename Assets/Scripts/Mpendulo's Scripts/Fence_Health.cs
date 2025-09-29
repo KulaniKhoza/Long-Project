@@ -32,7 +32,7 @@ public class Fence_Health : MonoBehaviour
         if (collision.transform.tag == "pest" && Health >= 0)
         {
             Health--;
-            Debug.Log(Health);
+            //Debug.Log(Health);
 
         }
         //Health--;
