@@ -9,8 +9,8 @@ public class Enemy_Controller : MonoBehaviour
     public GameObject EnemytoClone;
     public GameObject GridObject;
     public GameObject gridOriginObject;
-    public Transform player;
-    public float speed = 2f;   // Movement speed
+    //public Transform player;
+    public float speed = 1f;   // Movement speed
     public List<GameObject> clones = new List<GameObject>();
 
     public List<List<Vector2>> grid = new List<List<Vector2>>();

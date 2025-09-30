@@ -265,8 +265,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: R100
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
-  m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -767,7 +767,7 @@ MonoBehaviour:
   GridObject: {fileID: 901075949}
   gridOriginObject: {fileID: 1639876830}
   player: {fileID: 85400819}
-  speed: 2
+  speed: 1
   clones: []
 --- !u!1 &505055956
 GameObject:
@@ -1111,14 +1111,22 @@ MonoBehaviour:
   field: {fileID: 1402193351068762934, guid: f222e97f214a9604ca7ae69c5a345d5b, type: 3}
   Sow: 0
   CreateField: 0
+  PlaceDefenders: 0
   basicCursor: {fileID: 2800000, guid: 8a33cf9ba6dbe5a4abd786b941d25305, type: 3}
   SeedCursor: {fileID: 2800000, guid: 6b6e8a3bc3a93f14997e43fc7331f279, type: 3}
+  FieldCursor: {fileID: 0}
+  DefenderCursor: {fileID: 0}
   cursorMode: 0
   hotspot: {x: 0, y: 0}
+  currentMode: 0
   currentSeed: 0
+  currentDefender: 0
   normalSeedPrefab: {fileID: 6026742902950436601, guid: 65ac7b81a98383a4e8f5e3d1aeb493df, type: 3}
   tomatoSeedPrefab: {fileID: 9124510512987317584, guid: 0177f4f781be921449292d6d5daad590, type: 3}
   cornSeedPrefab: {fileID: 7001639929870259104, guid: 7984ce351882be94a8c27955503fdbce, type: 3}
+  archerDefenderPrefab: {fileID: 0}
+  mageDefenderPrefab: {fileID: 0}
+  fenceDefenderPrefab: {fileID: 0}
   gridOriginObject: {fileID: 1639876830}
   textPrefab: {fileID: 236435485}
   highlightColor: {r: 1, g: 0, b: 0, a: 1}
@@ -1277,7 +1285,10 @@ MonoBehaviour:
   seeds: 3
   cropData: {fileID: 0}
   uiPrefab: {fileID: 8818731800857999140, guid: 09184be17a80bea419ab20b46d548b43, type: 3}
+  progressBarPrefab: {fileID: 0}
   parentCanvas: {fileID: 910404289}
+  moneyGenerationInterval: 4
+  baseMoneyAmount: 5
 --- !u!4 &1219924487
 Transform:
   m_ObjectHideFlags: 0
@@ -1398,9 +1409,11 @@ MonoBehaviour:
   pest: {fileID: 1236244854}
   target: {x: 0, y: 0, z: 0}
   speed: 2
-  pos: 0
+  posX: -1
+  posY: -1
   Controller: {fileID: 483580097}
   enemy: {fileID: 0}
+  destroyed: 0
 --- !u!58 &1236244853
 CircleCollider2D:
   m_ObjectHideFlags: 0
