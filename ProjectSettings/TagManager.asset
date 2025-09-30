@@ -11,6 +11,7 @@ TagManager:
   - Crops
   - Chicken
   - Defender
+  - Fence
   layers:
   - Default
   - TransparentFX
