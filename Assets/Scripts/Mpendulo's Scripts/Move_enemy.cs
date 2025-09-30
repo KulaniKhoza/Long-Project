@@ -7,12 +7,15 @@ public class Move_enemy : MonoBehaviour
 
     public Rigidbody2D pest;
     public Vector3 target;   // The thing enemies should move toward
-    public float speed = 2f;   // Movement speed
+    public float speed = 1f;   // Movement speed
     public int posX = -1;
     public int posY = -1;
+    int columns;
+    int Rows;
 
     public GameObject Controller;
     public Enemy_Controller enemy;
+    public bool destroyed = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,9 +24,8 @@ public class Move_enemy : MonoBehaviour
 
         pest = GetComponent<Rigidbody2D>();
         enemy = Controller.GetComponent<Enemy_Controller>();
-
-        int columns = (enemy.grid[0].Count / 2) - 1;
-        int Rows = (enemy.grid.Count) - 1;
+        columns = (enemy.grid[0].Count / 2) - 1;
+        Rows = (enemy.grid.Count) - 1;
 
         if (transform.position.x == enemy.grid[3][0].x)
         {
@@ -97,6 +99,12 @@ public class Move_enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (posX != -1 && posX == 0 && !destroyed)
+        {
+            enemy.clones.RemoveAt(0);
+            Destroy(gameObject, 1f);
+            destroyed = true;
+        }
 
         if (target != null)
         {
@@ -105,14 +113,17 @@ public class Move_enemy : MonoBehaviour
             transform.position += (Vector3)direction * speed * Time.deltaTime;
 
         }
+
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Vector2 direction = (target.position - transform.position).normalized;
-        // pest.linearVelocity = (Vector3)direction * -speed;
+        if (collision.transform.tag == "Fence")
+        {
+            Move("Left");
 
-        //StartCoroutine(ResetVelocityAfterDelay(1f));
+        }
 
     }
     private IEnumerator MovementDelay(string direction)
@@ -123,22 +134,38 @@ public class Move_enemy : MonoBehaviour
 
     public void Move(string direction)
     {
-        if (direction == "Left")
+        if (direction == "Left" && posX < columns)
         {
             target = enemy.grid[posY][posX + 1];
+            posX++;
+            StartCoroutine(MovementDelay(direction));
+
         }
-        else if (direction == "Right")
+        else if (direction == "Right" && posX > 0)
         {
+
             target = enemy.grid[posY][posX - 1];
+            posX--;
+            StartCoroutine(MovementDelay(direction));
+
         }
-        else if (direction == "Up")
+        else if (direction == "Up" && posY > 0)
         {
             target = enemy.grid[posY - 1][posX];
+            posY--;
+            StartCoroutine(MovementDelay(direction));
+
         }
-        else if (direction == "Down")
+        else if (direction == "Down" && posY < Rows)
         {
             target = enemy.grid[posY + 1][posX];
+            posY++;
+            StartCoroutine(MovementDelay(direction));
+
         }
+
+
+
     }
 
 

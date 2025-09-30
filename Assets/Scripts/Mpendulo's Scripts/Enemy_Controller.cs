@@ -15,6 +15,8 @@ public class Enemy_Controller : MonoBehaviour
 
     public List<List<Vector2>> grid = new List<List<Vector2>>();
 
+    bool shouldSpawn = true;
+
     void Start()
     {
 
@@ -65,7 +67,11 @@ public class Enemy_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (shouldSpawn)
+        {
+            StartCoroutine(SpawnWaves(50f));
+            shouldSpawn = false;
+        }
     }
 
     public void Spawn1()
@@ -83,9 +89,11 @@ public class Enemy_Controller : MonoBehaviour
         {
             attempts++;
 
-            int YorX = Random.Range(0, 2);
-            int[] choices = { 0, 5 };
-            int randomValue = choices[Random.Range(0, choices.Length)];
+            //int YorX = Random.Range(0, 2);
+            int YorX = 1;
+            //int[] choices = { 0, 5 };
+            //int randomValue = choices[Random.Range(0, choices.Length)];
+            int randomValue = (grid[0].Count / 2) - 1;
 
             if (YorX == 0)
             {
@@ -137,8 +145,9 @@ public class Enemy_Controller : MonoBehaviour
     {
 
         int num = 0;
+        float endPoint = (grid.Count) - 1;
 
-        num = (int)Random.Range(2f, 3f);
+        num = (int)Random.Range(0f, endPoint);
 
         return num;
 
@@ -148,5 +157,12 @@ public class Enemy_Controller : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         Spawn1();
+    }
+
+    private IEnumerator SpawnWaves(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Spawn1();
+        shouldSpawn = true;
     }
 }
