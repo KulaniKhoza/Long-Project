@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - grid
+  - pest
   - field
   - LiveStock
   - Crops
@@ -18,9 +19,9 @@ TagManager:
   - Water
   - UI
   - FieldLayer
-  - 
-  - 
-  - 
+  - Plant
+  - Fence
+  - Enemy
   - 
   - 
   - 
