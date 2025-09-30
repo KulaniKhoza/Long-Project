@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 055b845e0d13dd34ea76917eae5693d9, type: 3}
+  m_Name: NormalSeed
+  m_EditorClassIdentifier: 
+  cropName: NormalSeed
+  harvestValue: 80
+  growthTime: 3
+  cropPrefab: {fileID: 4181786779876131601, guid: b670c7e76679e164096bd67c2df5ac92, type: 3}
+  spawnOffset: {x: -0.176, y: 0.1, z: 0}
+  plantlevel: 1
+  waterlevel: 1
+  maxwater: 30

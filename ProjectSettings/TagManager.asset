@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - grid
+  - field
+  - LiveStock
+  - Crops
+  - Chicken
   layers:
   - Default
   - TransparentFX
@@ -12,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - FieldLayer
   - 
   - 
   - 
@@ -41,6 +45,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: FieldLayer
+    uniqueID: 1716769663
     locked: 0
   m_RenderingLayers:
   - Default
