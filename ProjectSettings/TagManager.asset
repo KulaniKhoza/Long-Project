@@ -9,6 +9,7 @@ TagManager:
   - LiveStock
   - Crops
   - Chicken
+  - Defender
   layers:
   - Default
   - TransparentFX

@@ -18,14 +18,26 @@ public class FarmGrid : MonoBehaviour
     public GameObject field;
     public bool Sow;
     public bool CreateField;
-    public Texture2D basicCursor, SeedCursor,FieldCursor; 
+    public bool PlaceDefenders;
+    public Texture2D basicCursor, SeedCursor, FieldCursor, DefenderCursor;
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotspot = Vector2.zero;
+
+    public enum Mode { Farming, Defending }
+    public Mode currentMode = Mode.Farming;
+
     public enum SeedType { None, Normal, Tomato, Corn }
     public SeedType currentSeed = SeedType.None;
+    public enum DefenderType { None, Archer, Mage, Fence }
+    public DefenderType currentDefender = DefenderType.None;
+
     public GameObject normalSeedPrefab;
     public GameObject tomatoSeedPrefab;
     public GameObject cornSeedPrefab;
+    public GameObject archerDefenderPrefab;
+    public GameObject mageDefenderPrefab;
+    public GameObject fenceDefenderPrefab;
+
     public GameObject gridOriginObject;
     public static FarmGrid instance;
     private Transform highlight;
@@ -131,6 +143,15 @@ public class FarmGrid : MonoBehaviour
 
                     Cursor.SetCursor(basicCursor, hotspot, cursorMode);
                     Sow = false;
+                    CreateField = false;
+                }
+
+                // =======================
+                // Place defenders
+                // =======================
+                if (PlaceDefenders)
+                {
+                    PlaceDefender(selection.position);
                 }
             }
             else
@@ -147,7 +168,7 @@ public class FarmGrid : MonoBehaviour
             // =======================
             // Sow seeds (SEPARATE from grid selection)
             // =======================
-            if (Sow && !CreateField)
+            if (Sow && !CreateField && !PlaceDefenders)
             {
                 // Raycast specifically for fields
                 int fieldLayerMask = LayerMask.GetMask("FieldLayer");
@@ -157,7 +178,6 @@ public class FarmGrid : MonoBehaviour
                 {
                     GameObject seedToPlant = null;
                     bool hasSeed = false;
-                    Debug.Log("Hit field: " + fieldHit.collider.name);
 
                     switch (currentSeed)
                     {
@@ -225,6 +245,77 @@ public class FarmGrid : MonoBehaviour
         {
             Sowing();
         }
+
+        // Toggle between farming and defending modes
+        if (Keyboard.current.tabKey.wasPressedThisFrame)
+        {
+            ToggleMode();
+        }
+    }
+
+    void PlaceDefender(Vector3 position)
+    {
+        GameObject defenderToPlace = null;
+
+        switch (currentDefender)
+        {
+            case DefenderType.Archer:
+                defenderToPlace = archerDefenderPrefab;
+                break;
+
+            case DefenderType.Mage:
+                defenderToPlace = mageDefenderPrefab;
+                break;
+
+            case DefenderType.Fence:
+                defenderToPlace = fenceDefenderPrefab;
+                break;
+        }
+
+        if (defenderToPlace != null)
+        {
+            // Check if position is not occupied
+            if (!IsPositionOccupied(position))
+            {
+                // NO MONEY DEDUCTION - just place the defender
+                Instantiate(defenderToPlace, position, Quaternion.identity);
+                Debug.Log($"Placed {currentDefender} at {position}");
+            }
+            else
+            {
+                Debug.Log("Position already occupied!");
+            }
+        }
+    }
+
+    bool IsPositionOccupied(Vector3 position)
+    {
+        // Check for existing defenders or crops at this position
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, 0.3f);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Defender") || collider.CompareTag("Crops") || collider.CompareTag("field"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void ToggleMode()
+    {
+        if (currentMode == Mode.Farming)
+        {
+            currentMode = Mode.Defending;
+            Normal(); // Reset to basic mode when switching
+            Debug.Log("Switched to DEFENDING mode");
+        }
+        else
+        {
+            currentMode = Mode.Farming;
+            Normal(); // Reset to basic mode when switching
+            Debug.Log("Switched to FARMING mode");
+        }
     }
 
     public void Normal()
@@ -232,43 +323,66 @@ public class FarmGrid : MonoBehaviour
         Cursor.SetCursor(basicCursor, hotspot, cursorMode);
         CreateField = false;
         Sow = false;
+        PlaceDefenders = false;
         currentSeed = SeedType.None;
+        currentDefender = DefenderType.None;
         Debug.Log("Switched to Normal mode");
     }
 
     public void plowing()
     {
+        if (currentMode != Mode.Farming) return;
+
         Cursor.SetCursor(FieldCursor, hotspot, cursorMode);
         CreateField = true;
         Sow = false;
+        PlaceDefenders = false;
         currentSeed = SeedType.None;
+        currentDefender = DefenderType.None;
         Debug.Log("Switched to Plowing mode");
     }
 
     public void Sowing()
     {
+        if (currentMode != Mode.Farming) return;
+
         Cursor.SetCursor(SeedCursor, hotspot, cursorMode);
         CreateField = false;
         Sow = true;
+        PlaceDefenders = false;
+        currentDefender = DefenderType.None;
         Debug.Log("Switched to Sowing mode");
     }
 
-    public void PlantCorn()
-    {
-        PrepareSowing(SeedType.Corn);
-    }
-
-    public void PlantNormal()
-    {
-        PrepareSowing(SeedType.Normal);
-    }
-
+    // Methods for CropButton system
     public void PrepareSowing(SeedType seedType)
     {
+        if (currentMode != Mode.Farming) return;
+
         currentSeed = seedType;
         Cursor.SetCursor(SeedCursor, hotspot, cursorMode);
         Sow = true;
         CreateField = false;
+        PlaceDefenders = false;
+        currentDefender = DefenderType.None;
         Debug.Log($"Selected {seedType} seed for planting");
     }
+
+    public void PrepareDefender(DefenderType defenderType)
+    {
+        if (currentMode != Mode.Defending) return;
+
+        currentDefender = defenderType;
+        Cursor.SetCursor(DefenderCursor, hotspot, cursorMode);
+        PlaceDefenders = true;
+        CreateField = false;
+        Sow = false;
+        currentSeed = SeedType.None;
+        Debug.Log($"Selected {defenderType} for placement");
+    }
+
+    // Check methods for button interactivity - NO MONEY CHECKS
+    public bool HasSeeds() { return GameManager.Instance.seeds > 0; }
+    public bool HasCornSeeds() { return GameManager.Instance.cornSeeds > 0; }
+    public bool HasTomatoSeeds() { return GameManager.Instance.tomatoSeeds > 0; }
 }
