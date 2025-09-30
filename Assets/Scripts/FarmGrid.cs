@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.EventSystems;
 
 public class FarmGrid : MonoBehaviour
 {
+    // Your existing variables...
     public GameObject grass;
     public int RowLength, ColumnLength;
     public float X_space, Y_space;
@@ -16,7 +18,7 @@ public class FarmGrid : MonoBehaviour
     public GameObject field;
     public bool Sow;
     public bool CreateField;
-    public Texture2D basicCursor, SeedCursor;
+    public Texture2D basicCursor, SeedCursor,FieldCursor; 
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotspot = Vector2.zero;
     public enum SeedType { None, Normal, Tomato, Corn }
@@ -30,11 +32,11 @@ public class FarmGrid : MonoBehaviour
     private Transform selection;
     private int plowprice = 10;
     public TextMeshProUGUI textPrefab;
+
     // Colors for highlight and selection
     public Color highlightColor = Color.red;
     public Color selectionColor = Color.magenta;
     private Color defaultColor = Color.white;
-
 
     private void Awake()
     {
@@ -43,8 +45,6 @@ public class FarmGrid : MonoBehaviour
             instance = this;
         }
         Time.timeScale = 1.0f;
-
-
     }
 
     void Start()
@@ -74,6 +74,9 @@ public class FarmGrid : MonoBehaviour
 
     void Update()
     {
+        // Handle keyboard shortcuts
+        HandleKeyboardInput();
+
         // Read mouse position and convert to world
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 0));
@@ -124,7 +127,7 @@ public class FarmGrid : MonoBehaviour
                 {
                     GameObject newField = Instantiate(field, selection.position, Quaternion.identity);
                     GameManager.Instance.Money -= plowprice;
-                    GameManager.Instance.SpawnUIAboveField(newField.transform, "-15");
+                    GameManager.Instance.SpawnUIAboveField(newField.transform, "-10");
 
                     Cursor.SetCursor(basicCursor, hotspot, cursorMode);
                     Sow = false;
@@ -206,10 +209,55 @@ public class FarmGrid : MonoBehaviour
         }
     }
 
+    void HandleKeyboardInput()
+    {
+        if (Keyboard.current.aKey.wasPressedThisFrame)
+        {
+            Normal();
+        }
+
+        if (Keyboard.current.sKey.wasPressedThisFrame)
+        {
+            plowing();
+        }
+
+        if (Keyboard.current.dKey.wasPressedThisFrame)
+        {
+            Sowing();
+        }
+    }
+
+    public void Normal()
+    {
+        Cursor.SetCursor(basicCursor, hotspot, cursorMode);
+        CreateField = false;
+        Sow = false;
+        currentSeed = SeedType.None;
+        Debug.Log("Switched to Normal mode");
+    }
+
+    public void plowing()
+    {
+        Cursor.SetCursor(FieldCursor, hotspot, cursorMode);
+        CreateField = true;
+        Sow = false;
+        currentSeed = SeedType.None;
+        Debug.Log("Switched to Plowing mode");
+    }
+
+    public void Sowing()
+    {
+        Cursor.SetCursor(SeedCursor, hotspot, cursorMode);
+        CreateField = false;
+        Sow = true;
+        Debug.Log("Switched to Sowing mode");
+    }
+
     public void PlantCorn()
     {
         PrepareSowing(SeedType.Corn);
     }
+
     public void PlantNormal()
     {
         PrepareSowing(SeedType.Normal);
@@ -221,21 +269,6 @@ public class FarmGrid : MonoBehaviour
         Cursor.SetCursor(SeedCursor, hotspot, cursorMode);
         Sow = true;
         CreateField = false;
-    }
-    // Add this method to your existing FarmGrid class
-    public void SetSeedType(int seedTypeIndex)
-    {
-        currentSeed = (SeedType)seedTypeIndex;
-        Cursor.SetCursor(SeedCursor, hotspot, cursorMode);
-        Sow = true;
-        CreateField = false;
-
-        Debug.Log($"Selected seed type: {currentSeed}");
-    }
-    public void Sowing()
-    {
-        Cursor.SetCursor(SeedCursor, hotspot, cursorMode);
-        CreateField = false;
-        Sow = true;
+        Debug.Log($"Selected {seedType} seed for planting");
     }
 }
