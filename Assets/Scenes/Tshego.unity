@@ -895,11 +895,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3075520645829402545, guid: afeedd15c83fc824ba508024e91ddb06, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 197
       objectReference: {fileID: 0}
     - target: {fileID: 3075520645829402545, guid: afeedd15c83fc824ba508024e91ddb06, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -205.00002
+      value: -191
       objectReference: {fileID: 0}
     - target: {fileID: 3075520645829402545, guid: afeedd15c83fc824ba508024e91ddb06, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -919,7 +919,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6611354144120532577, guid: afeedd15c83fc824ba508024e91ddb06, type: 3}
       propertyPath: m_text
-      value: Options
+      value: Tutorial/Controls
+      objectReference: {fileID: 0}
+    - target: {fileID: 6611354144120532577, guid: afeedd15c83fc824ba508024e91ddb06, type: 3}
+      propertyPath: m_margin.x
+      value: -214.58047
       objectReference: {fileID: 0}
     - target: {fileID: 6611354144120532577, guid: afeedd15c83fc824ba508024e91ddb06, type: 3}
       propertyPath: m_fontAsset

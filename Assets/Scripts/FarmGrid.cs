@@ -182,7 +182,7 @@ public class FarmGrid : MonoBehaviour
                     switch (currentSeed)
                     {
                         case SeedType.Normal:
-                            if (GameManager.Instance.seeds > 0)
+                            if (GameManager.Instance.seeds > 0 )
                             {
                                 seedToPlant = normalSeedPrefab;
                                 GameManager.Instance.seeds--;
