@@ -9,6 +9,7 @@ TagManager:
   - LiveStock
   - Crops
   - Chicken
+  - Enemy
   layers:
   - Default
   - TransparentFX
