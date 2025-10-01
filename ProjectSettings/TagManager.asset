@@ -5,11 +5,13 @@ TagManager:
   serializedVersion: 3
   tags:
   - grid
+  - pest
   - field
   - LiveStock
   - Crops
   - Chicken
   - Defender
+  - Fence
   layers:
   - Default
   - TransparentFX
@@ -18,9 +20,9 @@ TagManager:
   - Water
   - UI
   - FieldLayer
-  - 
-  - 
-  - 
+  - Plant
+  - Fence
+  - Enemy
   - 
   - 
   - 
