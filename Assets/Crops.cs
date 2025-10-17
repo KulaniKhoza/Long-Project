@@ -4,41 +4,47 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class Crops : MonoBehaviour
 {
-    // Your existing crop variables...
+    [Header("Crop References")]
     public GameManager MoneyManager;
     public CropData cropData;
     public SpriteRenderer spriteRenderer;
     public Sprite[] levelSprites;
 
-    // Crop state variables
+    [Header("Crop State")]
     public int plantLevel = 0;
     public int waterLevel = 0;
     public int maxWater = 100;
 
-    // Watering variables
+    [Header("Watering Settings")]
     private bool isWatering = false;
     private float wateringTimer = 0f;
-    public float wateringInterval = 0.1f;
-    public int holdWaterAmount = 5;
+    public float wateringInterval = 0.2f;
+    public int holdWaterAmount = 8;
 
-    // Fixed money generation timer
+    [Header("Money Generation")]
     private float moneyTimer = 0f;
-    public float moneyGenerationInterval = 4f; // Fixed 4 seconds
-    public int moneyAmount = 5; // Fixed R5
+    public float moneyGenerationInterval = 4f;
+    public int moneyAmount = 5;
     private bool isAlive = true;
 
-    // Progress Bar
-    private SimpleProgressBar waterProgressBar;
+    [Header("Progress Bar")]
+    public Image waterProgressBar;
+    public TextMeshProUGUI waterProgressText;
+
+    [Header("Watering Settings")]
+    private bool mouseOverCrop = false;
+    private bool waterKeyHeld = false;
 
     // Camera reference
     private Camera mainCamera;
 
     void Start()
     {
-        // Your existing Start code...
+        // Initialize components
         if (spriteRenderer == null)
             spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -46,14 +52,45 @@ public class Crops : MonoBehaviour
             MoneyManager = GameManager.Instance;
 
         mainCamera = Camera.main;
+
+        // Initialize progress bar
+        InitializeProgressBar();
         UpdateSprite();
+    }
+
+    void InitializeProgressBar()
+    {
+        if (waterProgressBar != null)
+        {
+            waterProgressBar.type = Image.Type.Filled;
+            waterProgressBar.fillMethod = Image.FillMethod.Horizontal;
+            waterProgressBar.fillAmount = 0f;
+        }
+
+        if (waterProgressText != null)
+        {
+            waterProgressText.text = $"0/{maxWater}";
+        }
     }
 
     void Update()
     {
         if (!isAlive) return;
 
-        // Your existing Update code...
+        // Handle W key input using the same system as FarmGrid
+        HandleWaterInput();
+
+        // Handle continuous watering while water key is held AND mouse is over crop
+        if (waterKeyHeld && mouseOverCrop && !isWatering)
+        {
+            StartWatering();
+        }
+        else if ((!waterKeyHeld || !mouseOverCrop) && isWatering)
+        {
+            StopWatering();
+        }
+
+        // Handle the actual watering process
         if (isWatering)
         {
             HandleContinuousWatering();
@@ -61,13 +98,38 @@ public class Crops : MonoBehaviour
 
         UpdateProgressBar();
 
+        // Level up check
         if (plantLevel < 3 && waterLevel >= maxWater)
         {
             LevelUp();
         }
 
-        // Individual crop money generation - FIXED TIMER & AMOUNT
         GenerateMoney();
+    }
+
+    void HandleWaterInput()
+    {
+        // Check for W key using the same input system as FarmGrid
+        if (Keyboard.current != null)
+        {
+            // W key pressed
+            if (Keyboard.current.wKey.wasPressedThisFrame)
+            {
+                waterKeyHeld = true;
+
+                // If W is pressed and mouse is over this crop, start watering
+                if (mouseOverCrop && !isWatering)
+                {
+                    StartWatering();
+                }
+            }
+
+            // W key released
+            if (Keyboard.current.wKey.wasReleasedThisFrame)
+            {
+                waterKeyHeld = false;
+            }
+        }
     }
 
     void GenerateMoney()
@@ -76,21 +138,14 @@ public class Crops : MonoBehaviour
 
         if (moneyTimer >= moneyGenerationInterval)
         {
-            // Fixed money amount - always R5
             int moneyToAdd = moneyAmount;
 
-            // Add money to manager
             if (MoneyManager != null)
             {
                 MoneyManager.Money += moneyToAdd;
-
-                // Show floating text using existing system
                 MoneyManager.SpawnUIAboveField(transform, $"+R{moneyToAdd}");
-
-                Debug.Log($"Crop generated R{moneyToAdd}! Total: {MoneyManager.Money}");
             }
 
-            // Reset timer
             moneyTimer = 0f;
         }
     }
@@ -114,7 +169,12 @@ public class Crops : MonoBehaviour
         if (waterProgressBar != null)
         {
             float progress = (float)waterLevel / maxWater;
-            waterProgressBar.SetProgress(progress, $"{waterLevel}/{maxWater}");
+            waterProgressBar.fillAmount = progress;
+        }
+
+        if (waterProgressText != null)
+        {
+            waterProgressText.text = $"{waterLevel}/{maxWater}";
         }
     }
 
@@ -122,35 +182,40 @@ public class Crops : MonoBehaviour
     {
         if (plantLevel >= 3) return;
 
+        int oldWaterLevel = waterLevel;
         waterLevel = Mathf.Min(waterLevel + amount, maxWater);
-        Debug.Log($"Watering crop. Water level: {waterLevel}/{maxWater}");
 
-        // Create progress bar if it doesn't exist
-        if (waterProgressBar == null)
+        // Visual feedback when water level changes significantly
+        if (waterLevel / 20 != oldWaterLevel / 20)
         {
-            waterProgressBar = GameManager.Instance.SpawnProgressBar(transform);
+            Debug.Log($"Watering crop. Water level: {waterLevel}/{maxWater}");
         }
 
-        // Update progress bar
-        if (waterProgressBar != null)
-        {
-            float progress = (float)waterLevel / maxWater;
-            waterProgressBar.SetProgress(progress, $"{waterLevel}/{maxWater}");
-        }
+        // Visual feedback for watering
+        ShowWateringEffect();
     }
 
-    public void ToggleWatering()
+    void ShowWateringEffect()
+    {
+        // Optional: Add particle effect or visual feedback here
+        // Example: 
+        // if (wateringParticles != null) wateringParticles.Play();
+    }
+
+    public void StartWatering()
     {
         if (plantLevel >= 3) return;
 
-        isWatering = !isWatering;
+        isWatering = true;
+        Debug.Log("Started watering crop");
+    }
 
+    public void StopWatering()
+    {
         if (isWatering)
         {
-            Debug.Log("Started watering crop");
-        }
-        else
-        {
+            isWatering = false;
+            wateringTimer = 0f;
             Debug.Log("Stopped watering crop");
         }
     }
@@ -163,12 +228,8 @@ public class Crops : MonoBehaviour
             UpdateSprite();
             waterLevel = 0;
 
-            // Remove progress bar when leveling up
-            if (waterProgressBar != null)
-            {
-                Destroy(waterProgressBar.gameObject);
-                waterProgressBar = null;
-            }
+            // Reset progress bar for new level
+            InitializeProgressBar();
 
             Debug.Log($"Crop leveled up to level {plantLevel}!");
         }
@@ -180,38 +241,36 @@ public class Crops : MonoBehaviour
             plantLevel >= 0 && plantLevel < levelSprites.Length)
         {
             spriteRenderer.sprite = levelSprites[plantLevel];
-            Debug.Log($"Updated sprite to level {plantLevel}");
         }
     }
 
-    void LateUpdate()
+    // Mouse enter/exit events to detect when mouse is over crop
+    void OnMouseEnter()
     {
-        HandleWateringInput();
-    }
-
-    void HandleWateringInput()
-    {
-        if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
+        // Check if we're not over UI and in farming mode
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            if (IsMouseOverCrop())
-            {
-                ToggleWatering();
-            }
+            mouseOverCrop = true;
+            Debug.Log("Mouse entered crop");
         }
     }
 
-    bool IsMouseOverCrop()
+    void OnMouseExit()
     {
-        if (mainCamera == null) return false;
+        mouseOverCrop = false;
+        Debug.Log("Mouse exited crop");
+    }
 
-        Vector2 mouseScreenPosition = Mouse.current.position.ReadValue();
-        Vector3 mouseWorldPosition = mainCamera.ScreenToWorldPoint(new Vector3(mouseScreenPosition.x, mouseScreenPosition.y, mainCamera.nearClipPlane));
-        Vector2 mousePos2D = new Vector2(mouseWorldPosition.x, mouseWorldPosition.y);
+   
 
-        int layerMask = LayerMask.GetMask("CropsLayer");
-        RaycastHit2D hit2D = Physics2D.Raycast(mousePos2D, Vector2.zero, Mathf.Infinity, layerMask);
-
-        return hit2D.collider != null && hit2D.collider.CompareTag("Crops") && hit2D.collider.gameObject == this.gameObject;
+    // Optional: Visual feedback when crop can be watered
+    void OnMouseOver()
+    {
+        // Optional: Highlight crop when mouse is over and water key can be used
+        if (plantLevel < 3)
+        {
+            // You could change color or show a tooltip here
+        }
     }
 
     void HarvestCrop()
@@ -231,10 +290,7 @@ public class Crops : MonoBehaviour
 
     void OnDestroy()
     {
-        // Clean up progress bar
-        if (waterProgressBar != null)
-        {
-            Destroy(waterProgressBar.gameObject);
-        }
+        // Clean up
+        StopWatering();
     }
 }

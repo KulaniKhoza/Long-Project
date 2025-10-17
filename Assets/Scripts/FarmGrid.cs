@@ -215,6 +215,7 @@ public class FarmGrid : MonoBehaviour
                         Vector3 spawnPos = fieldHit.collider.transform.position + new Vector3(0, 0.1f, 0);
                         Instantiate(seedToPlant, spawnPos, Quaternion.identity);
                         Debug.Log("Planted seed at: " + spawnPos);
+                        Normal();
                     }
                     else if (!hasSeed)
                     {
