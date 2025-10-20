@@ -42,6 +42,7 @@ public class FarmGrid : MonoBehaviour
     public static FarmGrid instance;
     private Transform highlight;
     private Transform selection;
+    private Crops selectedCrop; // Track selected crop for watering
     private int plowprice = 10;
     public TextMeshProUGUI textPrefab;
 
@@ -156,7 +157,7 @@ public class FarmGrid : MonoBehaviour
             }
             else
             {
-                // Clicked empty space - deselect
+                // Clicked empty space - deselect grid
                 if (selection != null)
                 {
                     SpriteRenderer selSR = selection.GetComponent<SpriteRenderer>();
@@ -182,7 +183,7 @@ public class FarmGrid : MonoBehaviour
                     switch (currentSeed)
                     {
                         case SeedType.Normal:
-                            if (GameManager.Instance.seeds > 0 )
+                            if (GameManager.Instance.seeds > 0)
                             {
                                 seedToPlant = normalSeedPrefab;
                                 GameManager.Instance.seeds--;
@@ -227,6 +228,56 @@ public class FarmGrid : MonoBehaviour
                     Debug.Log("No field found at mouse position");
                 }
             }
+
+            // =======================
+            // NEW: Select crops for watering (works in any farming mode)
+            // =======================
+            // =======================
+            // Select crops for watering (works in ANY farming mode except when actively placing things)
+            // =======================
+            if (currentMode == Mode.Farming && !CreateField && !PlaceDefenders)
+            {
+                // Raycast specifically for crops - use a separate raycast to avoid conflicts
+                RaycastHit2D cropHit = Physics2D.Raycast(worldPos, Vector2.zero);
+
+                if (cropHit.collider != null && cropHit.collider.CompareTag("Crops"))
+                {
+                    Debug.Log("Found crop object!");
+                    Crops crop = cropHit.collider.GetComponent<Crops>();
+                    if (crop != null)
+                    {
+                        // Deselect previous crop
+                        if (selectedCrop != null && selectedCrop != crop)
+                        {
+                            selectedCrop.DeselectCrop();
+                        }
+
+                        // Select new crop
+                        selectedCrop = crop;
+                        selectedCrop.SelectCrop();
+                        Debug.Log("Selected crop for watering - Hold W to water");
+
+                        // IMPORTANT: Return here to prevent other actions when clicking crops
+                        return;
+                    }
+                }
+                else
+                {
+                    DebugRaycastInfo(worldPos); 
+                    // Clicked empty space - deselect crop
+                    if (selectedCrop != null)
+                    {
+                        selectedCrop.DeselectCrop();
+                        selectedCrop = null;
+                    }
+                }
+            }
+        }
+
+        // NEW: Handle W key for watering selected crop
+        if (Keyboard.current.wKey.wasPressedThisFrame && selectedCrop != null)
+        {
+            Debug.Log("Hold W to water the selected crop");
         }
     }
 
@@ -327,6 +378,14 @@ public class FarmGrid : MonoBehaviour
         PlaceDefenders = false;
         currentSeed = SeedType.None;
         currentDefender = DefenderType.None;
+
+        // Deselect any selected crop
+        if (selectedCrop != null)
+        {
+            selectedCrop.DeselectCrop();
+            selectedCrop = null;
+        }
+
         Debug.Log("Switched to Normal mode");
     }
 
@@ -380,6 +439,20 @@ public class FarmGrid : MonoBehaviour
         Sow = false;
         currentSeed = SeedType.None;
         Debug.Log($"Selected {defenderType} for placement");
+    }
+
+    void DebugRaycastInfo(Vector3 worldPos)
+    {
+        RaycastHit2D[] allHits = Physics2D.RaycastAll(worldPos, Vector2.zero);
+        Debug.Log($"Raycast at {worldPos} found {allHits.Length} objects:");
+
+        foreach (RaycastHit2D hit in allHits)
+        {
+            if (hit.collider != null)
+            {
+                Debug.Log($"- {hit.collider.gameObject.name} (Tag: {hit.collider.tag}, Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)})");
+            }
+        }
     }
 
     // Check methods for button interactivity - NO MONEY CHECKS
