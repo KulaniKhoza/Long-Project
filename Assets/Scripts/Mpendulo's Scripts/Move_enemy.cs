@@ -17,9 +17,13 @@ public class Move_enemy : MonoBehaviour
     public Enemy_Controller enemy;
     public bool destroyed = false;
 
+    public GameObject gameOverScreen;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameOverScreen.SetActive(false);
+
         target = transform.position;
 
         pest = GetComponent<Rigidbody2D>();
@@ -104,6 +108,8 @@ public class Move_enemy : MonoBehaviour
             enemy.clones.RemoveAt(0);
             Destroy(gameObject, 1f);
             destroyed = true;
+            gameOverScreen.SetActive(true);
+            Time.timeScale = 0f;
         }
 
         if (target != null)
