@@ -104,7 +104,12 @@ public class GameManager : MonoBehaviour
             Debug.Log($"Unregistered crop. Total crops: {activeCrops.Count}");
         }
     }
-
+    public void AddMoney(int amount)
+    {
+        Money += amount;
+        
+        Debug.Log($"Money added: R{amount}. Total: R{Money}");
+    }
     public void SpawnUIAboveField(Transform field, string textToShow)
     {
         if (uiPrefab == null || parentCanvas == null) return;

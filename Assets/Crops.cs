@@ -24,11 +24,11 @@ public class Crops : MonoBehaviour
     private float wateringTimer = 0f;
     public float wateringInterval = 0.2f;
     public int holdWaterAmount = 8;
+    public float waterCostPerSecond = 5f; // Water consumed per second from tank
 
     [Header("Money Generation")]
     private float moneyTimer = 0f;
     public float moneyGenerationInterval = 4f;
-    public int moneyAmount = 5;
     private bool isAlive = true;
 
     [Header("Progress Bar")]
@@ -56,6 +56,8 @@ public class Crops : MonoBehaviour
         // Initialize progress bar
         InitializeProgressBar();
         UpdateSprite();
+
+        Debug.Log("Crop initialized at level: " + plantLevel);
     }
 
     void InitializeProgressBar()
@@ -78,7 +80,7 @@ public class Crops : MonoBehaviour
         if (!isAlive) return;
 
         // Handle continuous watering if this crop is selected and W key is held
-        // Don't allow watering if at max level and fully watered
+        // Don't allow watering if at max level and fully watered OR if no water in tank
         if (isSelected && Keyboard.current.wKey.isPressed && !isWatering && !(isMaxLevel && waterLevel >= maxWater))
         {
             StartWatering();
@@ -107,19 +109,29 @@ public class Crops : MonoBehaviour
 
     void GenerateMoney()
     {
-        // Only generate money if at max level and fully watered
-        if (isMaxLevel && waterLevel >= maxWater)
+        // Generate money at EVERY level when fully watered
+        if (plantLevel >= 1) // Level 1 and above
         {
             moneyTimer += Time.deltaTime;
 
             if (moneyTimer >= moneyGenerationInterval)
             {
-                int moneyToAdd = moneyAmount;
+                // Calculate money based on plant level: R5 at level 1, R7 at level 2, R9 at level 3
+                int moneyToAdd = CalculateMoneyAmount();
 
                 if (MoneyManager != null)
                 {
-                    MoneyManager.Money += moneyToAdd;
+                    // ADD MONEY TO MANAGER
+                    MoneyManager.AddMoney(moneyToAdd);
+
+                    // SPAWN UI - FIXED POSITION
                     MoneyManager.SpawnUIAboveField(transform, $"+R{moneyToAdd}");
+
+                    Debug.Log($"Money generated: +R{moneyToAdd} at level {plantLevel}. Total money: {MoneyManager.Money}");
+                }
+                else
+                {
+                    Debug.LogError("MoneyManager is null!");
                 }
 
                 moneyTimer = 0f;
@@ -127,11 +139,40 @@ public class Crops : MonoBehaviour
         }
     }
 
+    // Calculate money amount based on plant level
+    private int CalculateMoneyAmount()
+    {
+        switch (plantLevel)
+        {
+            case 1: return 5; // R5 at level 1
+            case 2: return 7; // R7 at level 2
+            case 3: return 9; // R9 at level 3
+            default: return 0; // No money at level 0
+        }
+    }
+
     void HandleContinuousWatering()
     {
         if (isWatering && !(isMaxLevel && waterLevel >= maxWater))
         {
+            // Check if we have enough water in tank to continue watering
+            if (WaterTank.Instance == null || WaterTank.Instance.IsEmpty())
+            {
+                Debug.Log("Water tank is empty! Click refill button.");
+                StopWatering();
+                return;
+            }
+
             wateringTimer += Time.deltaTime;
+
+            // Consume water from tank over time
+            float waterUsed = waterCostPerSecond * Time.deltaTime;
+            if (!WaterTank.Instance.WithdrawWater(waterUsed))
+            {
+                Debug.Log("Ran out of water in tank!");
+                StopWatering();
+                return;
+            }
 
             if (wateringTimer >= wateringInterval)
             {
@@ -151,15 +192,7 @@ public class Crops : MonoBehaviour
 
         if (waterProgressText != null)
         {
-            // If at max level and fully watered, show a special message or just the full status
-            if (isMaxLevel && waterLevel >= maxWater)
-            {
-                waterProgressText.text = $"MAX";
-            }
-            else
-            {
-                waterProgressText.text = $"{waterLevel}/{maxWater}";
-            }
+            waterProgressText.text = $"{waterLevel}/{maxWater}";
         }
     }
 
@@ -189,6 +222,13 @@ public class Crops : MonoBehaviour
     {
         // Don't allow watering if at max level and already fully watered
         if (isMaxLevel && waterLevel >= maxWater) return;
+
+        // Check if we have at least some water in tank to start
+        if (WaterTank.Instance == null || WaterTank.Instance.IsEmpty())
+        {
+            Debug.Log("Cannot start watering - water tank is empty!");
+            return;
+        }
 
         isWatering = true;
         Debug.Log("Started watering crop");
@@ -220,7 +260,7 @@ public class Crops : MonoBehaviour
                 isMaxLevel = true;
                 // Don't reset water level for final level - keep it full
                 waterLevel = maxWater;
-                Debug.Log($"Crop reached MAX level {plantLevel}! Water level maintained at maximum.");
+                Debug.Log($"Crop reached MAX level {plantLevel}! Water level maintained at maximum. Will generate R{CalculateMoneyAmount()} every {moneyGenerationInterval} seconds.");
             }
             else
             {
@@ -237,7 +277,7 @@ public class Crops : MonoBehaviour
                 RestartFlashing();
             }
 
-            Debug.Log($"Crop leveled up to level {plantLevel}!");
+            Debug.Log($"Crop leveled up to level {plantLevel}! Money generation: R{CalculateMoneyAmount()}");
         }
     }
 
@@ -339,8 +379,9 @@ public class Crops : MonoBehaviour
             if (cropData != null)
             {
                 int harvestValue = cropData.harvestValue * (plantLevel + 1);
-                MoneyManager.Money += harvestValue;
-                Debug.Log($"Harvested level {plantLevel} crop for ${harvestValue}!");
+                MoneyManager.AddMoney(harvestValue);
+                MoneyManager.SpawnUIAboveField(transform, $"+R{harvestValue}");
+                Debug.Log($"Harvested level {plantLevel} crop for R{harvestValue}!");
             }
             isAlive = false;
             Destroy(this.gameObject);
