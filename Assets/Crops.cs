@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class Crops : MonoBehaviour
 {
@@ -18,29 +17,29 @@ public class Crops : MonoBehaviour
     public int plantLevel = 0;
     public int waterLevel = 0;
     public int maxWater = 100;
+    private bool isMaxLevel = false;
 
     [Header("Watering Settings")]
     private bool isWatering = false;
     private float wateringTimer = 0f;
     public float wateringInterval = 0.2f;
     public int holdWaterAmount = 8;
+    public float waterCostPerSecond = 5f; // Water consumed per second from tank
 
     [Header("Money Generation")]
     private float moneyTimer = 0f;
     public float moneyGenerationInterval = 4f;
-    public int moneyAmount = 5;
     private bool isAlive = true;
 
     [Header("Progress Bar")]
     public Image waterProgressBar;
     public TextMeshProUGUI waterProgressText;
 
-    [Header("Watering Settings")]
-    private bool mouseOverCrop = false;
-    private bool waterKeyHeld = false;
-
-    // Camera reference
-    private Camera mainCamera;
+    [Header("Selection Settings")]
+    private bool isSelected = false;
+    private Color originalColor;
+    public Color selectedColor = Color.blue;
+    private Coroutine flashCoroutine;
 
     void Start()
     {
@@ -51,11 +50,14 @@ public class Crops : MonoBehaviour
         if (MoneyManager == null)
             MoneyManager = GameManager.Instance;
 
-        mainCamera = Camera.main;
+        // Store original color
+        originalColor = spriteRenderer.color;
 
         // Initialize progress bar
         InitializeProgressBar();
         UpdateSprite();
+
+        Debug.Log("Crop initialized at level: " + plantLevel);
     }
 
     void InitializeProgressBar()
@@ -77,15 +79,13 @@ public class Crops : MonoBehaviour
     {
         if (!isAlive) return;
 
-        // Handle W key input using the same system as FarmGrid
-        HandleWaterInput();
-
-        // Handle continuous watering while water key is held AND mouse is over crop
-        if (waterKeyHeld && mouseOverCrop && !isWatering)
+        // Handle continuous watering if this crop is selected and W key is held
+        // Don't allow watering if at max level and fully watered OR if no water in tank
+        if (isSelected && Keyboard.current.wKey.isPressed && !isWatering && !(isMaxLevel && waterLevel >= maxWater))
         {
             StartWatering();
         }
-        else if ((!waterKeyHeld || !mouseOverCrop) && isWatering)
+        else if ((!isSelected || !Keyboard.current.wKey.isPressed) && isWatering)
         {
             StopWatering();
         }
@@ -98,8 +98,8 @@ public class Crops : MonoBehaviour
 
         UpdateProgressBar();
 
-        // Level up check
-        if (plantLevel < 3 && waterLevel >= maxWater)
+        // Level up check - only if not at max level
+        if (!isMaxLevel && plantLevel < 3 && waterLevel >= maxWater)
         {
             LevelUp();
         }
@@ -107,54 +107,72 @@ public class Crops : MonoBehaviour
         GenerateMoney();
     }
 
-    void HandleWaterInput()
+    void GenerateMoney()
     {
-        // Check for W key using the same input system as FarmGrid
-        if (Keyboard.current != null)
+        // Generate money at EVERY level when fully watered
+        if (plantLevel >= 1) // Level 1 and above
         {
-            // W key pressed
-            if (Keyboard.current.wKey.wasPressedThisFrame)
-            {
-                waterKeyHeld = true;
+            moneyTimer += Time.deltaTime;
 
-                // If W is pressed and mouse is over this crop, start watering
-                if (mouseOverCrop && !isWatering)
+            if (moneyTimer >= moneyGenerationInterval)
+            {
+                // Calculate money based on plant level: R5 at level 1, R7 at level 2, R9 at level 3
+                int moneyToAdd = CalculateMoneyAmount();
+
+                if (MoneyManager != null)
                 {
-                    StartWatering();
-                }
-            }
+                    // ADD MONEY TO MANAGER
+                    MoneyManager.AddMoney(moneyToAdd);
 
-            // W key released
-            if (Keyboard.current.wKey.wasReleasedThisFrame)
-            {
-                waterKeyHeld = false;
+                    // SPAWN UI - FIXED POSITION
+                    MoneyManager.SpawnUIAboveField(transform, $"+R{moneyToAdd}");
+
+                    Debug.Log($"Money generated: +R{moneyToAdd} at level {plantLevel}. Total money: {MoneyManager.Money}");
+                }
+                else
+                {
+                    Debug.LogError("MoneyManager is null!");
+                }
+
+                moneyTimer = 0f;
             }
         }
     }
 
-    void GenerateMoney()
+    // Calculate money amount based on plant level
+    private int CalculateMoneyAmount()
     {
-        moneyTimer += Time.deltaTime;
-
-        if (moneyTimer >= moneyGenerationInterval)
+        switch (plantLevel)
         {
-            int moneyToAdd = moneyAmount;
-
-            if (MoneyManager != null)
-            {
-                MoneyManager.Money += moneyToAdd;
-                MoneyManager.SpawnUIAboveField(transform, $"+R{moneyToAdd}");
-            }
-
-            moneyTimer = 0f;
+            case 1: return 5; // R5 at level 1
+            case 2: return 7; // R7 at level 2
+            case 3: return 9; // R9 at level 3
+            default: return 0; // No money at level 0
         }
     }
 
     void HandleContinuousWatering()
     {
-        if (isWatering && plantLevel < 3)
+        if (isWatering && !(isMaxLevel && waterLevel >= maxWater))
         {
+            // Check if we have enough water in tank to continue watering
+            if (WaterTank.Instance == null || WaterTank.Instance.IsEmpty())
+            {
+                Debug.Log("Water tank is empty! Click refill button.");
+                StopWatering();
+                return;
+            }
+
             wateringTimer += Time.deltaTime;
+
+            // Consume water from tank over time
+            float waterUsed = waterCostPerSecond * Time.deltaTime;
+            if (!WaterTank.Instance.WithdrawWater(waterUsed))
+            {
+                Debug.Log("Ran out of water in tank!");
+                StopWatering();
+                return;
+            }
 
             if (wateringTimer >= wateringInterval)
             {
@@ -176,11 +194,16 @@ public class Crops : MonoBehaviour
         {
             waterProgressText.text = $"{waterLevel}/{maxWater}";
         }
+        if (waterProgressText != null && isMaxLevel && waterLevel >= maxWater)
+        {
+            waterProgressText.text = $"MAX";
+        }
     }
 
     public void Watering(int amount)
     {
-        if (plantLevel >= 3) return;
+        // Don't allow watering if at max level and already fully watered
+        if (isMaxLevel && waterLevel >= maxWater) return;
 
         int oldWaterLevel = waterLevel;
         waterLevel = Mathf.Min(waterLevel + amount, maxWater);
@@ -191,20 +214,25 @@ public class Crops : MonoBehaviour
             Debug.Log($"Watering crop. Water level: {waterLevel}/{maxWater}");
         }
 
-        // Visual feedback for watering
-        ShowWateringEffect();
-    }
-
-    void ShowWateringEffect()
-    {
-        // Optional: Add particle effect or visual feedback here
-        // Example: 
-        // if (wateringParticles != null) wateringParticles.Play();
+        // If we reached max water at max level, ensure progress bar stays full
+        if (isMaxLevel && waterLevel >= maxWater)
+        {
+            waterLevel = maxWater; // Ensure it's exactly max
+            UpdateProgressBar();
+        }
     }
 
     public void StartWatering()
     {
-        if (plantLevel >= 3) return;
+        // Don't allow watering if at max level and already fully watered
+        if (isMaxLevel && waterLevel >= maxWater) return;
+
+        // Check if we have at least some water in tank to start
+        if (WaterTank.Instance == null || WaterTank.Instance.IsEmpty())
+        {
+            Debug.Log("Cannot start watering - water tank is empty!");
+            return;
+        }
 
         isWatering = true;
         Debug.Log("Started watering crop");
@@ -224,14 +252,36 @@ public class Crops : MonoBehaviour
     {
         if (plantLevel >= 0 && plantLevel < 3)
         {
+            // Store current selection state before leveling up
+            bool wasSelected = isSelected;
+
             plantLevel++;
             UpdateSprite();
-            waterLevel = 0;
 
-            // Reset progress bar for new level
-            InitializeProgressBar();
+            // Check if this is the final level
+            if (plantLevel >= 3)
+            {
+                isMaxLevel = true;
+                // Don't reset water level for final level - keep it full
+                waterLevel = maxWater;
+                Debug.Log($"Crop reached MAX level {plantLevel}! Water level maintained at maximum. Will generate R{CalculateMoneyAmount()} every {moneyGenerationInterval} seconds.");
+            }
+            else
+            {
+                // Reset water level for non-final levels
+                waterLevel = 0;
+            }
 
-            Debug.Log($"Crop leveled up to level {plantLevel}!");
+            // Reset progress bar for new level (will show full for max level)
+            UpdateProgressBar();
+
+            // Restore selection state after level up
+            if (wasSelected)
+            {
+                RestartFlashing();
+            }
+
+            Debug.Log($"Crop leveled up to level {plantLevel}! Money generation: R{CalculateMoneyAmount()}");
         }
     }
 
@@ -241,36 +291,89 @@ public class Crops : MonoBehaviour
             plantLevel >= 0 && plantLevel < levelSprites.Length)
         {
             spriteRenderer.sprite = levelSprites[plantLevel];
+
+            // Only update originalColor if we're NOT currently selected
+            if (!isSelected)
+            {
+                originalColor = spriteRenderer.color;
+            }
         }
     }
 
-    // Mouse enter/exit events to detect when mouse is over crop
-    void OnMouseEnter()
+    // Selection methods with FLASHING EFFECT
+    public void SelectCrop()
     {
-        // Check if we're not over UI and in farming mode
-        if (!EventSystem.current.IsPointerOverGameObject())
+        if (isSelected) return;
+
+        isSelected = true;
+
+        // Stop any existing flash coroutine
+        if (flashCoroutine != null)
+            StopCoroutine(flashCoroutine);
+
+        // Start flashing
+        flashCoroutine = StartCoroutine(FlashCrop());
+        Debug.Log("Crop selected for watering");
+    }
+
+    public void DeselectCrop()
+    {
+        isSelected = false;
+
+        // Stop flashing
+        if (flashCoroutine != null)
         {
-            mouseOverCrop = true;
-            Debug.Log("Mouse entered crop");
+            StopCoroutine(flashCoroutine);
+            flashCoroutine = null;
         }
+
+        // Return to original color
+        spriteRenderer.color = originalColor;
+        StopWatering();
+        Debug.Log("Crop deselected");
     }
 
-    void OnMouseExit()
+    // Method to restart flashing after level up
+    private void RestartFlashing()
     {
-        mouseOverCrop = false;
-        Debug.Log("Mouse exited crop");
-    }
-
-   
-
-    // Optional: Visual feedback when crop can be watered
-    void OnMouseOver()
-    {
-        // Optional: Highlight crop when mouse is over and water key can be used
-        if (plantLevel < 3)
+        if (isSelected)
         {
-            // You could change color or show a tooltip here
+            // Stop any existing flash coroutine
+            if (flashCoroutine != null)
+                StopCoroutine(flashCoroutine);
+
+            // Ensure we have the correct original color for the new sprite
+            spriteRenderer.color = GetBaseSpriteColor();
+            originalColor = spriteRenderer.color;
+
+            // Restart flashing
+            flashCoroutine = StartCoroutine(FlashCrop());
+            Debug.Log("Restarted flashing after level up");
         }
+    }
+
+    // Get the base color of the current sprite
+    private Color GetBaseSpriteColor()
+    {
+        return Color.white;
+    }
+
+    // Flashing coroutine
+    private IEnumerator FlashCrop()
+    {
+        while (isSelected)
+        {
+            // Flash to blue
+            spriteRenderer.color = selectedColor;
+            yield return new WaitForSeconds(0.3f);
+
+            // Return to normal color
+            spriteRenderer.color = originalColor;
+            yield return new WaitForSeconds(0.3f);
+        }
+
+        // Ensure we return to normal color when done
+        spriteRenderer.color = originalColor;
     }
 
     void HarvestCrop()
@@ -280,8 +383,9 @@ public class Crops : MonoBehaviour
             if (cropData != null)
             {
                 int harvestValue = cropData.harvestValue * (plantLevel + 1);
-                MoneyManager.Money += harvestValue;
-                Debug.Log($"Harvested level {plantLevel} crop for ${harvestValue}!");
+                MoneyManager.AddMoney(harvestValue);
+                MoneyManager.SpawnUIAboveField(transform, $"+R{harvestValue}");
+                Debug.Log($"Harvested level {plantLevel} crop for R{harvestValue}!");
             }
             isAlive = false;
             Destroy(this.gameObject);
@@ -290,7 +394,12 @@ public class Crops : MonoBehaviour
 
     void OnDestroy()
     {
-        // Clean up
         StopWatering();
+
+        // Stop flashing coroutine when destroyed
+        if (flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+        }
     }
 }

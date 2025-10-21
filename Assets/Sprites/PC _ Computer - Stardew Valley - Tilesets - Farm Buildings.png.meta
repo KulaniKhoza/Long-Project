@@ -1,0 +1,1937 @@
+fileFormatVersion: 2
+guid: fdfe3575dc2f77441aac222d666a2cba
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2524277835376675576
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_0
+  - first:
+      213: 1552099841489077662
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_1
+  - first:
+      213: -1768874456236526544
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_2
+  - first:
+      213: 5501909284616479387
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_3
+  - first:
+      213: -4110331684578341918
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_4
+  - first:
+      213: 3350519778116515228
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_5
+  - first:
+      213: -2753491941162506793
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_6
+  - first:
+      213: -5937940746716375395
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_7
+  - first:
+      213: 3888277425436789635
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_8
+  - first:
+      213: 2359094731280566678
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_9
+  - first:
+      213: -4344003920620832244
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_10
+  - first:
+      213: -3330181764480811404
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_11
+  - first:
+      213: 3276313685124047895
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_12
+  - first:
+      213: -2577302262151359433
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_13
+  - first:
+      213: 4427069045509120025
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_14
+  - first:
+      213: 3908921431775616823
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_15
+  - first:
+      213: 5603528691862911033
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_16
+  - first:
+      213: 8739886599925330367
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_17
+  - first:
+      213: -772230705578067842
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_18
+  - first:
+      213: 4381485913964239703
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_19
+  - first:
+      213: -8706402253913338002
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_20
+  - first:
+      213: -5266155349741693089
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_21
+  - first:
+      213: 699811114760213250
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_22
+  - first:
+      213: -6443552202186542947
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_23
+  - first:
+      213: 4274706777431681829
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_24
+  - first:
+      213: 8688253007544724433
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_25
+  - first:
+      213: 369148465900923849
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_26
+  - first:
+      213: 420830807651784010
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_27
+  - first:
+      213: -2751143915970766236
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_28
+  - first:
+      213: -2725482731244507133
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_29
+  - first:
+      213: 6254887301294537423
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_30
+  - first:
+      213: -9085420498824559447
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_31
+  - first:
+      213: -8971050212190292717
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_32
+  - first:
+      213: -5815593762621651932
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_33
+  - first:
+      213: -4903430969548924281
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_34
+  - first:
+      213: -2575925584181787592
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_35
+  - first:
+      213: 9191082884881821325
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_36
+  - first:
+      213: -6601548911947469808
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_37
+  - first:
+      213: -6753773474938887316
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_38
+  - first:
+      213: 7667440219373505951
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_39
+  - first:
+      213: -1672369021419732854
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_40
+  - first:
+      213: 5002497938781249586
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_41
+  - first:
+      213: -3323406677268658489
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_42
+  - first:
+      213: -4179553506210973500
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_43
+  - first:
+      213: 5653509041869626732
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_44
+  - first:
+      213: 475305422057805072
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_45
+  - first:
+      213: 7169396248873556338
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_46
+  - first:
+      213: -3149120012196306655
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_47
+  - first:
+      213: -2429730942034385894
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_48
+  - first:
+      213: 993184185042574377
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_49
+  - first:
+      213: -7098979611100408484
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_50
+  - first:
+      213: -349250937673352395
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_51
+  - first:
+      213: -2815885519339598043
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_52
+  - first:
+      213: -5526250835530911135
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_53
+  - first:
+      213: -5119739648657942091
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_54
+  - first:
+      213: -2420254825077615497
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_55
+  - first:
+      213: 2247040995471323091
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_56
+  - first:
+      213: 5951313008258138153
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_57
+  - first:
+      213: -7653229749891491061
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_58
+  - first:
+      213: 5495676509723554058
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_59
+  - first:
+      213: 6672901390447123503
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_60
+  - first:
+      213: -1731709034956265130
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_61
+  - first:
+      213: -2410299045700827408
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_62
+  - first:
+      213: -4630323815807808750
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_63
+  - first:
+      213: -503996780627637804
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_64
+  - first:
+      213: 4063673859432318394
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_65
+  - first:
+      213: -2669744197296971756
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_66
+  - first:
+      213: -7151922186283409369
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_67
+  - first:
+      213: 4431298422105745595
+    second: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_68
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 304
+        width: 113
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fac40c2159080320800000000000000
+      internalID: 2524277835376675576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_1
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 307
+        width: 114
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9585eb159a2a8510800000000000000
+      internalID: 1552099841489077662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_2
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 290
+        width: 34
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03472cfcd02b377e0800000000000000
+      internalID: -1768874456236526544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_3
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 290
+        width: 34
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b922dff0855ba5c40800000000000000
+      internalID: 5501909284616479387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_4
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 290
+        width: 34
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ebccaf3c1b25f6c0800000000000000
+      internalID: -4110331684578341918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_5
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 299
+        width: 114
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c953e838cff6f7e20800000000000000
+      internalID: 3350519778116515228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_6
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 283
+        width: 50
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d5ab1b0ba1a9c9d0800000000000000
+      internalID: -2753491941162506793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_7
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 303
+        width: 50
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9617a6f952389da0800000000000000
+      internalID: -5937940746716375395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_8
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 267
+        width: 178
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38b845ba7bfe5f530800000000000000
+      internalID: 3888277425436789635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_9
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 267
+        width: 50
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6994979b8203db020800000000000000
+      internalID: 2359094731280566678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_10
+      rect:
+        serializedVersion: 2
+        x: 864
+        y: 267
+        width: 50
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0abd70237ff6b3c0800000000000000
+      internalID: -4344003920620832244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_11
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 287
+        width: 34
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47e33aa4451d8c1d0800000000000000
+      internalID: -3330181764480811404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_12
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 287
+        width: 34
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 714e19e10fdc77d20800000000000000
+      internalID: 3276313685124047895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_13
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 287
+        width: 34
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73458a96f359b3cd0800000000000000
+      internalID: -2577302262151359433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_14
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 282
+        width: 34
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 910e2bd57db107d30800000000000000
+      internalID: 4427069045509120025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_15
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 282
+        width: 33
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73f95e3f4574f3630800000000000000
+      internalID: 3908921431775616823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_16
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 282
+        width: 35
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 938b23f08abb3cd40800000000000000
+      internalID: 5603528691862911033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_17
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 175
+        width: 114
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fb1feb58e805a4970800000000000000
+      internalID: 8739886599925330367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 158
+        width: 97
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e78be55c34c7845f0800000000000000
+      internalID: -772230705578067842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_19
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 157
+        width: 98
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75b5732893a2ecc30800000000000000
+      internalID: 4381485913964239703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_20
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 154
+        width: 98
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6fc5df4745ac2780800000000000000
+      internalID: -8706402253913338002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_21
+      rect:
+        serializedVersion: 2
+        x: 377
+        y: 175
+        width: 66
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f579f965c9bdae6b0800000000000000
+      internalID: -5266155349741693089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_22
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 172
+        width: 194
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2031729408a36b900800000000000000
+      internalID: 699811114760213250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_23
+      rect:
+        serializedVersion: 2
+        x: 802
+        y: 221
+        width: 20
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d903cf85967e396a0800000000000000
+      internalID: -6443552202186542947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_24
+      rect:
+        serializedVersion: 2
+        x: 841
+        y: 171
+        width: 50
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52b25cb6a2fc25b30800000000000000
+      internalID: 4274706777431681829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_25
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 10
+        width: 114
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1db2c69f310e29870800000000000000
+      internalID: 8688253007544724433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_26
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 172
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9cba76be29a7f1500800000000000000
+      internalID: 369148465900923849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 145
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4510a0d36717d500800000000000000
+      internalID: 420830807651784010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_28
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 0
+        width: 146
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46ad5924f29f1d9d0800000000000000
+      internalID: -2751143915970766236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_29
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 0
+        width: 147
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 300b5ba65e32d2ad0800000000000000
+      internalID: -2725482731244507133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_30
+      rect:
+        serializedVersion: 2
+        x: 602
+        y: 4
+        width: 66
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fca33c75cd2ddc650800000000000000
+      internalID: 6254887301294537423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_31
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 116
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a48284613a1ae180800000000000000
+      internalID: -9085420498824559447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_32
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 118
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3157438dc5d608380800000000000000
+      internalID: -8971050212190292717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_33
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 110
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42485f4094cda4fa0800000000000000
+      internalID: -5815593762621651932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_34
+      rect:
+        serializedVersion: 2
+        x: 699
+        y: 116
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78a136f338383fbb0800000000000000
+      internalID: -4903430969548924281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_35
+      rect:
+        serializedVersion: 2
+        x: 714
+        y: 118
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 834010b3459704cd0800000000000000
+      internalID: -2575925584181787592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_36
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 107
+        width: 15
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8ead86ff294d8f70800000000000000
+      internalID: 9191082884881821325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_37
+      rect:
+        serializedVersion: 2
+        x: 732
+        y: 117
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 01c2108bd369264a0800000000000000
+      internalID: -6601548911947469808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_38
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 117
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c63efccbec6c542a0800000000000000
+      internalID: -6753773474938887316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_39
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 117
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9d0d447148386a60800000000000000
+      internalID: 7667440219373505951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_40
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 117
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a80c8e05c3d8ac8e0800000000000000
+      internalID: -1672369021419732854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_41
+      rect:
+        serializedVersion: 2
+        x: 795
+        y: 105
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2302ea6fe517c6540800000000000000
+      internalID: 5002497938781249586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_42
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 118
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c68d353c33e0e1d0800000000000000
+      internalID: -3323406677268658489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_43
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 116
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c87e86fa3e3ff5c0800000000000000
+      internalID: -4179553506210973500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_44
+      rect:
+        serializedVersion: 2
+        x: 673
+        y: 86
+        width: 11
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6d191f158c457e40800000000000000
+      internalID: 5653509041869626732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_45
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 101
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 015929953cf989600800000000000000
+      internalID: 475305422057805072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_46
+      rect:
+        serializedVersion: 2
+        x: 734
+        y: 102
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 279502c37efce7360800000000000000
+      internalID: 7169396248873556338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_47
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 104
+        width: 15
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12127fd98041c44d0800000000000000
+      internalID: -3149120012196306655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_48
+      rect:
+        serializedVersion: 2
+        x: 764
+        y: 103
+        width: 15
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a14e34cd49cd74ed0800000000000000
+      internalID: -2429730942034385894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_49
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 102
+        width: 14
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92c9ff111cf78cd00800000000000000
+      internalID: 993184185042574377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_50
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 101
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c559e9cd7ab5b7d90800000000000000
+      internalID: -7098979611100408484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_51
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 75
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53bf1826f16372bf0800000000000000
+      internalID: -349250937673352395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_52
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 84
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52fc8931a07fbe8d0800000000000000
+      internalID: -2815885519339598043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_53
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 78
+        width: 16
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1627978f420de43b0800000000000000
+      internalID: -5526250835530911135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_54
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 86
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b992434ae703f8b0800000000000000
+      internalID: -5119739648657942091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_55
+      rect:
+        serializedVersion: 2
+        x: 716
+        y: 80
+        width: 30
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 774d2554f07896ed0800000000000000
+      internalID: -2420254825077615497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_56
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 86
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3dfeeca41e71f2f10800000000000000
+      internalID: 2247040995471323091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_57
+      rect:
+        serializedVersion: 2
+        x: 748
+        y: 81
+        width: 29
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 920436c46af479250800000000000000
+      internalID: 5951313008258138153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_58
+      rect:
+        serializedVersion: 2
+        x: 776
+        y: 86
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0b144d47144ac590800000000000000
+      internalID: -7653229749891491061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_59
+      rect:
+        serializedVersion: 2
+        x: 781
+        y: 80
+        width: 29
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a01f7821ba0944c40800000000000000
+      internalID: 5495676509723554058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_60
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 86
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2c9fc6c578ea9c50800000000000000
+      internalID: 6672901390447123503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_61
+      rect:
+        serializedVersion: 2
+        x: 812
+        y: 79
+        width: 16
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 659e815cecbb7f7e0800000000000000
+      internalID: -1731709034956265130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_62
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 68
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f60a8ac9c5ec8ed0800000000000000
+      internalID: -2410299045700827408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_63
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 68
+        width: 9
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21b8eb3a509cdbfb0800000000000000
+      internalID: -4630323815807808750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_64
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 68
+        width: 9
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d9cfba29917109f0800000000000000
+      internalID: -503996780627637804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_65
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 68
+        width: 8
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab5018a48d1156830800000000000000
+      internalID: 4063673859432318394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_66
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 68
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41024f62cc923fad0800000000000000
+      internalID: -2669744197296971756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_67
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 52
+        width: 149
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 720a7510aa44fbc90800000000000000
+      internalID: -7151922186283409369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_68
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 5
+        width: 20
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb8ac57df622f7d30800000000000000
+      internalID: 4431298422105745595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_0: 2524277835376675576
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_1: 1552099841489077662
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_10: -4344003920620832244
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_11: -3330181764480811404
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_12: 3276313685124047895
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_13: -2577302262151359433
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_14: 4427069045509120025
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_15: 3908921431775616823
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_16: 5603528691862911033
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_17: 8739886599925330367
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_18: -772230705578067842
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_19: 4381485913964239703
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_2: -1768874456236526544
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_20: -8706402253913338002
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_21: -5266155349741693089
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_22: 699811114760213250
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_23: -6443552202186542947
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_24: 4274706777431681829
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_25: 8688253007544724433
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_26: 369148465900923849
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_27: 420830807651784010
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_28: -2751143915970766236
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_29: -2725482731244507133
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_3: 5501909284616479387
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_30: 6254887301294537423
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_31: -9085420498824559447
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_32: -8971050212190292717
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_33: -5815593762621651932
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_34: -4903430969548924281
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_35: -2575925584181787592
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_36: 9191082884881821325
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_37: -6601548911947469808
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_38: -6753773474938887316
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_39: 7667440219373505951
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_4: -4110331684578341918
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_40: -1672369021419732854
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_41: 5002497938781249586
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_42: -3323406677268658489
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_43: -4179553506210973500
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_44: 5653509041869626732
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_45: 475305422057805072
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_46: 7169396248873556338
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_47: -3149120012196306655
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_48: -2429730942034385894
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_49: 993184185042574377
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_5: 3350519778116515228
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_50: -7098979611100408484
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_51: -349250937673352395
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_52: -2815885519339598043
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_53: -5526250835530911135
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_54: -5119739648657942091
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_55: -2420254825077615497
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_56: 2247040995471323091
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_57: 5951313008258138153
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_58: -7653229749891491061
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_59: 5495676509723554058
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_6: -2753491941162506793
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_60: 6672901390447123503
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_61: -1731709034956265130
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_62: -2410299045700827408
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_63: -4630323815807808750
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_64: -503996780627637804
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_65: 4063673859432318394
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_66: -2669744197296971756
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_67: -7151922186283409369
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_68: 4431298422105745595
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_7: -5937940746716375395
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_8: 3888277425436789635
+      PC _ Computer - Stardew Valley - Tilesets - Farm Buildings_9: 2359094731280566678
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

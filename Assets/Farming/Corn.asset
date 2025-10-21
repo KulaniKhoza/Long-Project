@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cropName: Corn
   harvestValue: 105
-  growthTime: 5
+  growthTime: 2
   cropPrefab: {fileID: 3732774372193335257, guid: 62cfbc82420d140489760816020de000, type: 3}
   spawnOffset: {x: 0, y: 0, z: 0}
