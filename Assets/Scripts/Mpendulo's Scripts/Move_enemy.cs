@@ -13,6 +13,9 @@ public class Move_enemy : MonoBehaviour
     int columns;
     int Rows;
 
+    public float lowerLimit = 4f;
+    public float UpperLimit = 7f;
+
     public GameObject Controller;
     public Enemy_Controller enemy;
     public bool destroyed = false;
@@ -134,7 +137,7 @@ public class Move_enemy : MonoBehaviour
     }
     private IEnumerator MovementDelay(string direction)
     {
-        yield return new WaitForSeconds(Random.Range(4f, 7f));
+        yield return new WaitForSeconds(Random.Range(lowerLimit, UpperLimit));
         Move(direction);
     }
 
