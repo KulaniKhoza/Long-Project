@@ -12,6 +12,7 @@ TagManager:
   - Chicken
   - Defender
   - Fence
+  - GameEnd
   layers:
   - Default
   - TransparentFX
