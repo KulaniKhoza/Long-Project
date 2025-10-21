@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -6,21 +7,27 @@ using System.Collections.Generic;
 public class Enemy_Controller : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public GameObject EnemytoClone;
+    public GameObject EnemytoClone_1;
+    public GameObject EnemytoClone_2;
     public GameObject GridObject;
     public GameObject gridOriginObject;
     //public Transform player;
     public float speed = 1f;   // Movement speed
     public List<GameObject> clones = new List<GameObject>();
+    public List<GameObject> TheOriginals = new List<GameObject>();
 
     public List<List<Vector2>> grid = new List<List<Vector2>>();
 
     bool shouldSpawn = true;
 
+    public TextMeshProUGUI WaveText;
+
     void Start()
     {
 
 
+        TheOriginals.Add(EnemytoClone_2);
+        TheOriginals.Add(EnemytoClone_1);
 
         int rows = GridObject.GetComponent<FarmGrid>().RowLength;
         int cols = GridObject.GetComponent<FarmGrid>().ColumnLength;
@@ -35,6 +42,7 @@ public class Enemy_Controller : MonoBehaviour
                 grid[i].Add(new Vector2(0, 0));
             }
         }
+        WaveText.gameObject.SetActive(false);
 
         // Example: Access a coordinate
 
@@ -69,14 +77,15 @@ public class Enemy_Controller : MonoBehaviour
     {
         if (shouldSpawn)
         {
-            StartCoroutine(SpawnWaves(50f));
+            StartCoroutine(SpawnWaves(55f, 5f));
             shouldSpawn = false;
         }
     }
 
     public void Spawn1()
     {
-        GameObject TheClone = Instantiate(EnemytoClone);
+        int cloneIndex = Random.Range(0, 2);
+        GameObject TheClone = Instantiate(TheOriginals[cloneIndex]);
         TheClone.SetActive(true);
 
         Vector2 ClonePos = Vector2.zero;
@@ -136,7 +145,7 @@ public class Enemy_Controller : MonoBehaviour
         // Schedule more spawns if under limit
         if (clones.Count < 4)
         {
-            float spawnDelay = Random.Range(1f, 3f);
+            float spawnDelay = Random.Range(1f, 2f);
             StartCoroutine(SpawnEnemies(spawnDelay));
         }
     }
@@ -159,9 +168,15 @@ public class Enemy_Controller : MonoBehaviour
         Spawn1();
     }
 
-    private IEnumerator SpawnWaves(float delay)
+    private IEnumerator SpawnWaves(float delay1, float delay2)
     {
-        yield return new WaitForSeconds(delay);
+
+        yield return new WaitForSeconds(delay1);
+
+        WaveText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(delay2);
+        WaveText.gameObject.SetActive(false);
+
         Spawn1();
         shouldSpawn = true;
     }
