@@ -194,6 +194,10 @@ public class Crops : MonoBehaviour
         {
             waterProgressText.text = $"{waterLevel}/{maxWater}";
         }
+        if (waterProgressText != null && isMaxLevel && waterLevel >= maxWater)
+        {
+            waterProgressText.text = $"MAX";
+        }
     }
 
     public void Watering(int amount)
