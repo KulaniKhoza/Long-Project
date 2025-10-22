@@ -13,13 +13,20 @@ public class Move_enemy : MonoBehaviour
     int columns;
     int Rows;
 
+    public float lowerLimit = 4f;
+    public float UpperLimit = 7f;
+
     public GameObject Controller;
     public Enemy_Controller enemy;
     public bool destroyed = false;
 
+    public GameObject gameOverScreen;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameOverScreen.SetActive(false);
+
         target = transform.position;
 
         pest = GetComponent<Rigidbody2D>();
@@ -104,6 +111,8 @@ public class Move_enemy : MonoBehaviour
             enemy.clones.RemoveAt(0);
             Destroy(gameObject, 1f);
             destroyed = true;
+            gameOverScreen.SetActive(true);
+            Time.timeScale = 0f;
         }
 
         if (target != null)
@@ -128,7 +137,7 @@ public class Move_enemy : MonoBehaviour
     }
     private IEnumerator MovementDelay(string direction)
     {
-        yield return new WaitForSeconds(Random.Range(4f, 7f));
+        yield return new WaitForSeconds(Random.Range(lowerLimit, UpperLimit));
         Move(direction);
     }
 
