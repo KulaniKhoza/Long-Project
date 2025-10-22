@@ -16,4 +16,4 @@ MonoBehaviour:
   harvestValue: 80
   growthTime: 1.5
   cropPrefab: {fileID: 4181786779876131601, guid: b670c7e76679e164096bd67c2df5ac92, type: 3}
-  spawnOffset: {x: -0.176, y: 0.1, z: 0}
+  spawnOffset: {x: 0, y: 0.12, z: 0}

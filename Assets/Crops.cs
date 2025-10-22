@@ -31,6 +31,13 @@ public class Crops : MonoBehaviour
     public float moneyGenerationInterval = 4f;
     private bool isAlive = true;
 
+    [Header("Health System")]
+    public int maxHealth = 4;    // Hits needed before death
+    public int currentHealth;
+    private bool isTakingDamage = false;
+    private Coroutine damageEffectCoroutine;
+    private bool wasDamagedThisFrame = false;
+
     [Header("Progress Bar")]
     public Image waterProgressBar;
     public TextMeshProUGUI waterProgressText;
@@ -52,6 +59,9 @@ public class Crops : MonoBehaviour
 
         // Store original color
         originalColor = spriteRenderer.color;
+
+        // Initialize health
+        currentHealth = maxHealth;
 
         // Initialize progress bar
         InitializeProgressBar();
@@ -105,6 +115,10 @@ public class Crops : MonoBehaviour
         }
 
         GenerateMoney();
+
+        // CONTINUOUS HEALTH MONITORING
+        // Reset damage flag for next frame
+        wasDamagedThisFrame = false;
     }
 
     void GenerateMoney()
@@ -300,6 +314,103 @@ public class Crops : MonoBehaviour
         }
     }
 
+    // =======================
+    // HEALTH SYSTEM FOR ENEMIES
+    // =======================
+
+    // Called by Enemy script when attacking this crop
+    public void TakeDamage(int damage = 1)
+    {
+        if (!isAlive) return;
+
+        // Set damage flag for this frame
+        wasDamagedThisFrame = true;
+
+        currentHealth -= damage;
+        Debug.Log($"Crop took {damage} damage! Health: {currentHealth}/{maxHealth}");
+
+        // Play damage effect immediately
+        PlayDamageEffect();
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    // Play damage effect (can be called continuously)
+    void PlayDamageEffect()
+    {
+        // Stop any existing damage effect
+        if (damageEffectCoroutine != null)
+            StopCoroutine(damageEffectCoroutine);
+
+        // Start new damage effect
+        damageEffectCoroutine = StartCoroutine(DamageEffect());
+    }
+
+    // Visual effect when crop takes damage
+    private IEnumerator DamageEffect()
+    {
+        isTakingDamage = true;
+
+        // Flash red a few times
+        for (int i = 0; i < 3; i++)
+        {
+            spriteRenderer.color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+
+            // Return to appropriate color based on selection state
+            if (isSelected)
+                spriteRenderer.color = selectedColor;
+            else
+                spriteRenderer.color = originalColor;
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        isTakingDamage = false;
+    }
+
+    // Public method to check if crop was damaged (for external systems)
+    public bool WasDamagedThisFrame()
+    {
+        return wasDamagedThisFrame;
+    }
+
+    // Public method to get current health status
+    public HealthStatus GetHealthStatus()
+    {
+        float healthPercent = (float)currentHealth / maxHealth;
+
+        if (healthPercent > 0.6f) return HealthStatus.Healthy;
+        if (healthPercent > 0.3f) return HealthStatus.Damaged;
+        return HealthStatus.Critical;
+    }
+
+    public enum HealthStatus
+    {
+        Healthy,
+        Damaged,
+        Critical
+    }
+
+    void Die()
+    {
+        isAlive = false;
+        Debug.Log("Crop has been destroyed!");
+
+        // Stop all coroutines
+        if (flashCoroutine != null)
+            StopCoroutine(flashCoroutine);
+        if (damageEffectCoroutine != null)
+            StopCoroutine(damageEffectCoroutine);
+
+        // Optional: Play destruction animation or effect here
+
+        Destroy(gameObject);
+    }
+
     // Selection methods with FLASHING EFFECT
     public void SelectCrop()
     {
@@ -396,10 +507,14 @@ public class Crops : MonoBehaviour
     {
         StopWatering();
 
-        // Stop flashing coroutine when destroyed
+        // Stop all coroutines when destroyed
         if (flashCoroutine != null)
         {
             StopCoroutine(flashCoroutine);
+        }
+        if (damageEffectCoroutine != null)
+        {
+            StopCoroutine(damageEffectCoroutine);
         }
     }
 }

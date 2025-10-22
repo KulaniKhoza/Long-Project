@@ -230,29 +230,32 @@ public class FarmGrid : MonoBehaviour
             }
 
             // =======================
-            // NEW: Select crops for watering (works in any farming mode)
-            // =======================
-            // =======================
-            // Select crops for watering (works in ANY farming mode except when actively placing things)
+            // FIXED: Crop selection - works in any farming mode
             // =======================
             if (currentMode == Mode.Farming && !CreateField && !PlaceDefenders)
             {
-                // Raycast specifically for crops - use a separate raycast to avoid conflicts
+                // Raycast specifically for crops
                 RaycastHit2D cropHit = Physics2D.Raycast(worldPos, Vector2.zero);
 
                 if (cropHit.collider != null && cropHit.collider.CompareTag("Crops"))
                 {
-                    Debug.Log("Found crop object!");
                     Crops crop = cropHit.collider.GetComponent<Crops>();
                     if (crop != null)
                     {
-                        // Deselect previous crop
+                        // If clicking the same crop that's already selected, do nothing
+                        if (selectedCrop == crop)
+                        {
+                            Debug.Log("Crop is already selected");
+                            return; // Exit early to prevent deselection
+                        }
+
+                        // Deselect previous crop if different
                         if (selectedCrop != null && selectedCrop != crop)
                         {
                             selectedCrop.DeselectCrop();
                         }
 
-                        // Select new crop
+                        // Select new crop (or reselect the same one)
                         selectedCrop = crop;
                         selectedCrop.SelectCrop();
                         Debug.Log("Selected crop for watering - Hold W to water");
@@ -263,9 +266,8 @@ public class FarmGrid : MonoBehaviour
                 }
                 else
                 {
-                    DebugRaycastInfo(worldPos); 
-                    // Clicked empty space - deselect crop
-                    if (selectedCrop != null)
+                    // Clicked empty space - deselect crop only if we're not in the middle of an action
+                    if (selectedCrop != null && !Sow && !CreateField && !PlaceDefenders)
                     {
                         selectedCrop.DeselectCrop();
                         selectedCrop = null;
@@ -274,7 +276,7 @@ public class FarmGrid : MonoBehaviour
             }
         }
 
-        // NEW: Handle W key for watering selected crop
+        // Handle W key for watering selected crop
         if (Keyboard.current.wKey.wasPressedThisFrame && selectedCrop != null)
         {
             Debug.Log("Hold W to water the selected crop");

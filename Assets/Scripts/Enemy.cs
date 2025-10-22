@@ -25,4 +25,21 @@ public class Enemy : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Crops"))
+        {
+            Crops crop = other.GetComponent<Crops>();
+            if (crop != null)
+            {
+                crop.TakeDamage(1); // This will automatically play the damage effect
+
+                // You can also check health status
+                if (crop.GetHealthStatus() == Crops.HealthStatus.Critical)
+                {
+                    // Enemy might prioritize critically damaged crops
+                }
+            }
+        }
+    }
 }

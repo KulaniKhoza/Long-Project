@@ -4627,7 +4627,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 6
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -7649,7 +7649,7 @@ MonoBehaviour:
   cornSeedPrefab: {fileID: 7001639929870259104, guid: 7984ce351882be94a8c27955503fdbce, type: 3}
   archerDefenderPrefab: {fileID: 4363783340270122690, guid: 1ee4e7acfbdd96640be422de2395b3cb, type: 3}
   mageDefenderPrefab: {fileID: 132398859164125560, guid: 49f7ad8e93f9ae3499218c527eba06b5, type: 3}
-  fenceDefenderPrefab: {fileID: 7065548104144293095, guid: 80769288275211c49923728ea1514c23, type: 3}
+  fenceDefenderPrefab: {fileID: 2438595926621790931, guid: ff056fd98c5aa424c878c43c2becc2ca, type: 3}
   gridOriginObject: {fileID: 1804519027}
   textPrefab: {fileID: 773249319}
   highlightColor: {r: 1, g: 0, b: 0, a: 1}

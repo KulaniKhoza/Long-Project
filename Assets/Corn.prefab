@@ -273,7 +273,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2669, y: -2394}
+  m_AnchoredPosition: {x: 2669, y: -2928}
   m_SizeDelta: {x: 294.78, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3018826438909828295
@@ -488,6 +488,8 @@ MonoBehaviour:
   holdWaterAmount: 5
   waterCostPerSecond: 5
   moneyGenerationInterval: 4
+  maxHealth: 2
+  currentHealth: 2
   waterProgressBar: {fileID: 8255019529407716221}
   waterProgressText: {fileID: 5676069283208166716}
   selectedColor: {r: 0, g: 0, b: 1, a: 1}
