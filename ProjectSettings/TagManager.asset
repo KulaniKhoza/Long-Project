@@ -13,6 +13,10 @@ TagManager:
   - Defender
   - Fence
   - GameEnd
+  - Enemy
+  - Attacker
+  - Plant
+  - EnemyW
   layers:
   - Default
   - TransparentFX
