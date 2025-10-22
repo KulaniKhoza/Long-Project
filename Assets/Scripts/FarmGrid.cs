@@ -307,6 +307,21 @@ public class FarmGrid : MonoBehaviour
         }
     }
 
+    Vector3 GetDefenderOffset(DefenderType defenderType)
+    {
+        switch (defenderType)
+        {
+            case DefenderType.Archer:
+                return new Vector3(-0.2f, - 0.1f, 0);
+            case DefenderType.Mage:
+                return new Vector3(-0.1f, - 0.5f, 0);
+            case DefenderType.Fence:
+                return new Vector3(0, 0, 0);
+            default:
+                return Vector3.zero;
+        }
+    }
+
     void PlaceDefender(Vector3 position)
     {
         GameObject defenderToPlace = null;
@@ -328,12 +343,16 @@ public class FarmGrid : MonoBehaviour
 
         if (defenderToPlace != null)
         {
+            // Get the appropriate offset for this defender type
+            Vector3 placementOffset = GetDefenderOffset(currentDefender);
+            Vector3 finalPosition = position + placementOffset;
+
             // Check if position is not occupied
-            if (!IsPositionOccupied(position))
+            if (!IsPositionOccupied(finalPosition))
             {
                 // NO MONEY DEDUCTION - just place the defender
-                Instantiate(defenderToPlace, position, Quaternion.identity);
-                Debug.Log($"Placed {currentDefender} at {position}");
+                Instantiate(defenderToPlace, finalPosition, Quaternion.identity);
+                Debug.Log($"Placed {currentDefender} at {finalPosition}");
             }
             else
             {
@@ -345,7 +364,8 @@ public class FarmGrid : MonoBehaviour
     bool IsPositionOccupied(Vector3 position)
     {
         // Check for existing defenders or crops at this position
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, 0.3f);
+        // Slightly increased radius to account for offsets
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, 0.4f);
         foreach (Collider2D collider in colliders)
         {
             if (collider.CompareTag("Defender") || collider.CompareTag("Crops") || collider.CompareTag("field"))

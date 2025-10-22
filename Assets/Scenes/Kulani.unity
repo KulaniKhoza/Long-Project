@@ -3129,7 +3129,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tomato
+  m_text: Fence
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3751,7 +3751,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tomato
+  m_text: Pestiside
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6122,15 +6122,15 @@ RectTransform:
   m_GameObject: {fileID: 1526022019}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.38478, y: 0.38478, z: 0.38478}
+  m_LocalScale: {x: 0.37914434, y: 0.3148252, z: 0.33852175}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2101303675}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 22.3, y: -41.4}
-  m_SizeDelta: {x: 69.6685, y: 59.057}
+  m_AnchoredPosition: {x: 9.4, y: -41.8}
+  m_SizeDelta: {x: 118.33, y: 60.9572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1526022021
 MonoBehaviour:
@@ -6152,7 +6152,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tomato
+  m_text: 'Chicken knight '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6217,7 +6217,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -78.53456, y: 0, z: 0, w: 0}
+  m_margin: {x: -78.53456, y: 0, z: -28.840187, w: 19.000742}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -7647,8 +7647,8 @@ MonoBehaviour:
   normalSeedPrefab: {fileID: 6026742902950436601, guid: 65ac7b81a98383a4e8f5e3d1aeb493df, type: 3}
   tomatoSeedPrefab: {fileID: 9124510512987317584, guid: 0177f4f781be921449292d6d5daad590, type: 3}
   cornSeedPrefab: {fileID: 7001639929870259104, guid: 7984ce351882be94a8c27955503fdbce, type: 3}
-  archerDefenderPrefab: {fileID: 4363783340270122690, guid: 1ee4e7acfbdd96640be422de2395b3cb, type: 3}
-  mageDefenderPrefab: {fileID: 132398859164125560, guid: 49f7ad8e93f9ae3499218c527eba06b5, type: 3}
+  archerDefenderPrefab: {fileID: 2563482290490959542, guid: 8a4a2871393998a418a6148ed0d601c9, type: 3}
+  mageDefenderPrefab: {fileID: 1177473395315208045, guid: 1475a49e3a718bd47b3ac0387cde60ca, type: 3}
   fenceDefenderPrefab: {fileID: 2438595926621790931, guid: ff056fd98c5aa424c878c43c2becc2ca, type: 3}
   gridOriginObject: {fileID: 1804519027}
   textPrefab: {fileID: 773249319}
@@ -7771,7 +7771,7 @@ RectTransform:
   m_GameObject: {fileID: 1886315110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.49088, y: 0.49088, z: 0.49088}
+  m_LocalScale: {x: 0.2959353, y: 0.600116, z: 0.41103837}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1076560356}
@@ -7801,7 +7801,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 648555520, guid: 426ccc10d1883944daf9442591ef191c, type: 3}
+  m_Sprite: {fileID: 8743157440384068444, guid: bf924395ea4469249979dc627638540b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
