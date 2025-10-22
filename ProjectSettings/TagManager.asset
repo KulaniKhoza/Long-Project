@@ -10,6 +10,9 @@ TagManager:
   - Crops
   - Chicken
   - Enemy
+  - Attacker
+  - Plant
+  - EnemyW
   layers:
   - Default
   - TransparentFX
