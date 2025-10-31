@@ -13,6 +13,11 @@ TagManager:
   - Defender
   - Fence
   - GameEnd
+  - Enemy
+  - Attacker
+  - Plant
+  - EnemyW
+  - pest1
   layers:
   - Default
   - TransparentFX
@@ -21,12 +26,12 @@ TagManager:
   - Water
   - UI
   - FieldLayer
-  - Plant
+  - CropsLayer
   - Fence
   - Enemy
-  - 
-  - 
-  - 
+  - DefenderLayer
+  - SeedLayer
+  - CanvasLayer
   - 
   - 
   - 
@@ -52,6 +57,21 @@ TagManager:
     locked: 0
   - name: FieldLayer
     uniqueID: 1716769663
+    locked: 0
+  - name: SeedLayer
+    uniqueID: 1714872519
+    locked: 0
+  - name: CanvasLayer
+    uniqueID: 1390972129
+    locked: 0
+  - name: CropsLayer
+    uniqueID: 822496019
+    locked: 0
+  - name: Fence
+    uniqueID: 3194965587
+    locked: 0
+  - name: DefenderLayer
+    uniqueID: 1648453689
     locked: 0
   m_RenderingLayers:
   - Default

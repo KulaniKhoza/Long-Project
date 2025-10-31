@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1073940572841625415}
   - component: {fileID: 6994872276330242177}
   - component: {fileID: 7677723983745647521}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 1479957219800241971}
   - component: {fileID: 3096660944207834303}
   - component: {fileID: 859281568375293961}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: WaterMeter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 3084123883219294745}
   - component: {fileID: 1398040265392010798}
   - component: {fileID: 1909333640106493136}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,10 +309,13 @@ MonoBehaviour:
   maxWater: 100
   wateringInterval: 0.1
   holdWaterAmount: 5
+  waterCostPerSecond: 5
   moneyGenerationInterval: 4
-  moneyAmount: 5
+  maxHealth: 4
+  currentHealth: 0
   waterProgressBar: {fileID: 0}
   waterProgressText: {fileID: 0}
+  selectedColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!1 &8176444180712715011
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +327,7 @@ GameObject:
   - component: {fileID: 2457431642995421906}
   - component: {fileID: 1820529790789718770}
   - component: {fileID: 940419347546072184}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

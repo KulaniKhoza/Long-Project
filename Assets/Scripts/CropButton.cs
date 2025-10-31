@@ -74,7 +74,7 @@ public class UniversalButton : MonoBehaviour
         if (priceText != null)
         {
             priceText.text = $"R{currentPrice}";
-            priceText.color = canAfford ? Color.white : Color.red;
+            priceText.color = canAfford ? Color.darkGreen : Color.red;
         }
 
         // Update name text
@@ -128,12 +128,12 @@ public class UniversalButton : MonoBehaviour
             // Enter placement mode
             if (isFarmingButton)
             {
-                farmGrid.PrepareSowing(seedType);
+               farmGrid.PrepareSowing(seedType);
                 Debug.Log($"Bought {seedType} for R{currentPrice}. Ready to plant!");
             }
             else
             {
-                farmGrid.PrepareDefender(defenderType);
+               farmGrid.PrepareDefender(defenderType);
                 Debug.Log($"Bought {defenderType} for R{currentPrice}. Ready to place!");
             }
 

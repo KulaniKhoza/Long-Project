@@ -85,6 +85,7 @@ public class Enemy_Controller : MonoBehaviour
     public void Spawn1()
     {
         int cloneIndex = Random.Range(0, 2);
+        //int cloneIndex = 0;
         GameObject TheClone = Instantiate(TheOriginals[cloneIndex]);
         TheClone.SetActive(true);
 

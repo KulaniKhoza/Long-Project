@@ -5,20 +5,21 @@ using System.Collections.Generic;
 
 public class Fence_Health : MonoBehaviour
 {
-
     public int Health = 100;
+    public Image HealthBarImage; // Changed from Slider to Image
 
-    public Slider HealthBar;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        
     }
 
-    // Update is called once per frame
     void Update()
     {
-        HealthBar.value = Health;
+        // Update the health bar image fill amount
+        if (HealthBarImage != null)
+        {
+            HealthBarImage.fillAmount = Health / 100f;
+        }
 
         if (Health <= 0)
         {
@@ -28,13 +29,10 @@ public class Fence_Health : MonoBehaviour
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-
         if (collision.transform.tag == "pest" && Health >= 0)
         {
             Health--;
             //Debug.Log(Health);
-
         }
-        //Health--;
     }
 }
