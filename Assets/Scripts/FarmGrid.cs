@@ -42,14 +42,27 @@ public class FarmGrid : MonoBehaviour
     public static FarmGrid instance;
     private Transform highlight;
     private Transform selection;
-    private Crops selectedCrop; // Track selected crop for watering
+    private Transform fieldHighlight; // Separate highlight for fields
+    private Crops selectedCrop;
     private int plowprice = 10;
     public TextMeshProUGUI textPrefab;
 
     // Colors for highlight and selection
     public Color highlightColor = Color.red;
     public Color selectionColor = Color.magenta;
+    public Color fieldHighlightColor = Color.blue; // Different color for field highlight
     private Color defaultColor = Color.white;
+
+    // Layer masks for raycasting
+    private int fieldLayerMask;
+    private int cropsLayerMask;
+    private int defenderLayerMask;
+    private int gridLayerMask;
+
+    // Context Menu Variables
+    public GameObject contextMenu; // Reference to the GridContextMenu panel
+    private Vector3 lastGridPosition; // Store position where context menu should appear
+    private bool contextMenuVisible = false;
 
     private void Awake()
     {
@@ -58,6 +71,12 @@ public class FarmGrid : MonoBehaviour
             instance = this;
         }
         Time.timeScale = 1.0f;
+
+        // Initialize layer masks
+        fieldLayerMask = LayerMask.GetMask("FieldLayer");
+        cropsLayerMask = LayerMask.GetMask("CropsLayer");
+        defenderLayerMask = LayerMask.GetMask("DefenderLayer");
+        gridLayerMask = LayerMask.GetMask("Default"); // Grid is usually on default layer
     }
 
     void Start()
@@ -73,6 +92,12 @@ public class FarmGrid : MonoBehaviour
                 Vector3 position = gridOrigin + new Vector3(col * X_space, row * Y_space, 0);
                 Instantiate(grass, position, Quaternion.identity);
             }
+        }
+
+        // Hide context menu at start
+        if (contextMenu != null)
+        {
+            contextMenu.SetActive(false);
         }
     }
 
@@ -94,33 +119,33 @@ public class FarmGrid : MonoBehaviour
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 0));
 
-        // Remove previous highlight if not selected
-        if (highlight != null && highlight != selection)
-        {
-            SpriteRenderer sr = highlight.GetComponent<SpriteRenderer>();
-            if (sr != null)
-                sr.color = defaultColor;
-            highlight = null;
-        }
+        // Remove previous highlights if not selected
+        RemoveHighlights();
 
-        // Raycast for highlight
+        // Raycast for highlights
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
-
-            if (hit.collider != null && hit.collider.CompareTag("grid") && hit.collider.transform != selection)
-            {
-                highlight = hit.collider.transform;
-                SpriteRenderer sr = highlight.GetComponent<SpriteRenderer>();
-                if (sr != null) sr.color = highlightColor;
-            }
+            HandleGridHighlight(worldPos);
+            HandleFieldHighlight(worldPos);
         }
 
         // Handle left click
         if (Mouse.current.leftButton.wasPressedThisFrame && !EventSystem.current.IsPointerOverGameObject())
         {
-            if (highlight != null)
+            // Close context menu if clicking elsewhere
+            if (contextMenuVisible && highlight == null && fieldHighlight == null)
             {
+                CloseContextMenu();
+            }
+
+            if (highlight != null || fieldHighlight != null)
+            {
+                // Store the position for context menu
+                lastGridPosition = highlight != null ? highlight.position : fieldHighlight.position;
+
+                // Show context menu on grid or field click
+                ShowContextMenu();
+
                 // Reset old selection
                 if (selection != null)
                 {
@@ -128,42 +153,18 @@ public class FarmGrid : MonoBehaviour
                     if (prevSR != null) prevSR.color = defaultColor;
                 }
 
-                // New selection
-                selection = highlight;
-                SpriteRenderer selSR = selection.GetComponent<SpriteRenderer>();
-                if (selSR != null) selSR.color = selectionColor;
-
-                // =======================
-                // Create field
-                // =======================
-                if (CreateField)
+                // New selection - prefer grid over field for selection
+                if (highlight != null)
                 {
-                    GameObject newField = Instantiate(field, selection.position, Quaternion.identity);
-                    GameManager.Instance.Money -= plowprice;
-                    GameManager.Instance.SpawnUIAboveField(newField.transform, "-10");
-
-                    Cursor.SetCursor(basicCursor, hotspot, cursorMode);
-                    Sow = false;
-                    CreateField = false;
-                }
-
-                // =======================
-                // Place defenders
-                // =======================
-                if (PlaceDefenders)
-                {
-                    PlaceDefender(selection.position);
+                    selection = highlight;
+                    SpriteRenderer selSR = selection.GetComponent<SpriteRenderer>();
+                    if (selSR != null) selSR.color = selectionColor;
                 }
             }
             else
             {
                 // Clicked empty space - deselect grid
-                if (selection != null)
-                {
-                    SpriteRenderer selSR = selection.GetComponent<SpriteRenderer>();
-                    if (selSR != null) selSR.color = defaultColor;
-                    selection = null;
-                }
+                DeselectGrid();
             }
 
             // =======================
@@ -171,8 +172,7 @@ public class FarmGrid : MonoBehaviour
             // =======================
             if (Sow && !CreateField && !PlaceDefenders)
             {
-                // Raycast specifically for fields
-                int fieldLayerMask = LayerMask.GetMask("FieldLayer");
+                // Raycast specifically for fields using layer mask
                 RaycastHit2D fieldHit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, fieldLayerMask);
 
                 if (fieldHit.collider != null && fieldHit.collider.CompareTag("field"))
@@ -214,7 +214,11 @@ public class FarmGrid : MonoBehaviour
                     {
                         // Offset slightly upward
                         Vector3 spawnPos = fieldHit.collider.transform.position + new Vector3(0, 0.1f, 0);
-                        Instantiate(seedToPlant, spawnPos, Quaternion.identity);
+                        GameObject newCrop = Instantiate(seedToPlant, spawnPos, Quaternion.identity);
+
+                        // Set the crop to the CropsLayer
+                        newCrop.layer = LayerMask.NameToLayer("CropsLayer");
+
                         Debug.Log("Planted seed at: " + spawnPos);
                         Normal();
                     }
@@ -234,8 +238,8 @@ public class FarmGrid : MonoBehaviour
             // =======================
             if (currentMode == Mode.Farming && !CreateField && !PlaceDefenders)
             {
-                // Raycast specifically for crops
-                RaycastHit2D cropHit = Physics2D.Raycast(worldPos, Vector2.zero);
+                // Raycast specifically for crops using layer mask
+                RaycastHit2D cropHit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, cropsLayerMask);
 
                 if (cropHit.collider != null && cropHit.collider.CompareTag("Crops"))
                 {
@@ -276,6 +280,12 @@ public class FarmGrid : MonoBehaviour
             }
         }
 
+        // Handle right click for deselect
+        if (Mouse.current.rightButton.wasPressedThisFrame && !EventSystem.current.IsPointerOverGameObject())
+        {
+            OnRightClick();
+        }
+
         // Handle W key for watering selected crop
         if (Keyboard.current.wKey.wasPressedThisFrame && selectedCrop != null)
         {
@@ -283,27 +293,253 @@ public class FarmGrid : MonoBehaviour
         }
     }
 
+    void RemoveHighlights()
+    {
+        // Remove grid highlight if not selected
+        if (highlight != null && highlight != selection)
+        {
+            SpriteRenderer sr = highlight.GetComponent<SpriteRenderer>();
+            if (sr != null)
+                sr.color = defaultColor;
+            highlight = null;
+        }
+
+        // Remove field highlight
+        if (fieldHighlight != null)
+        {
+            SpriteRenderer sr = fieldHighlight.GetComponent<SpriteRenderer>();
+            if (sr != null)
+                sr.color = defaultColor;
+            fieldHighlight = null;
+        }
+    }
+
+    void HandleGridHighlight(Vector3 worldPos)
+    {
+        // Raycast for grid highlight
+        RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
+
+        if (hit.collider != null && hit.collider.CompareTag("grid") && hit.collider.transform != selection)
+        {
+            highlight = hit.collider.transform;
+            SpriteRenderer sr = highlight.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.color = highlightColor;
+        }
+    }
+
+    void HandleFieldHighlight(Vector3 worldPos)
+    {
+        // Raycast specifically for fields
+        RaycastHit2D fieldHit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, fieldLayerMask);
+
+        if (fieldHit.collider != null && fieldHit.collider.CompareTag("field"))
+        {
+            fieldHighlight = fieldHit.collider.transform;
+            SpriteRenderer sr = fieldHighlight.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.color = fieldHighlightColor;
+        }
+    }
+
+    void OnRightClick()
+    {
+        // Right click always deselects everything and closes context menu
+        DeselectAll();
+    }
+
+    void DeselectAll()
+    {
+        // Deselect grid
+        DeselectGrid();
+
+        // Deselect crop
+        if (selectedCrop != null)
+        {
+            selectedCrop.DeselectCrop();
+            selectedCrop = null;
+        }
+
+        // Close context menu
+        CloseContextMenu();
+
+        // Return to normal mode
+        Normal();
+
+        Debug.Log("Deselected all - Right click");
+    }
+
+    void DeselectGrid()
+    {
+        if (selection != null)
+        {
+            SpriteRenderer selSR = selection.GetComponent<SpriteRenderer>();
+            if (selSR != null) selSR.color = defaultColor;
+            selection = null;
+        }
+    }
+
+    // Context Menu Methods
+    void ShowContextMenu()
+    {
+        if (contextMenu != null)
+        {
+            // Position the context menu above the grid tile or field
+            Vector3 menuPosition = lastGridPosition + new Vector3(0, 0f, 0);
+            contextMenu.transform.position = menuPosition;
+            contextMenu.SetActive(true);
+            contextMenuVisible = true;
+
+            // Update button interactivity based on current state
+            UpdateContextMenuButtons();
+        }
+    }
+
+    void CloseContextMenu()
+    {
+        if (contextMenu != null)
+        {
+            contextMenu.SetActive(false);
+            contextMenuVisible = false;
+        }
+    }
+
+    void UpdateContextMenuButtons()
+    {
+        if (contextMenu == null) return;
+
+        // Get button components
+        Button sowButton = contextMenu.transform.Find("SowButton")?.GetComponent<Button>();
+        Button defendButton = contextMenu.transform.Find("DefendButton")?.GetComponent<Button>();
+
+        // Check if the position is a field
+        bool isField = IsGridPositionField(lastGridPosition);
+
+        // Update sow button - only interactable in farming mode
+        if (sowButton != null)
+        {
+            sowButton.interactable = (currentMode == Mode.Farming);
+
+            TextMeshProUGUI sowText = sowButton.GetComponentInChildren<TextMeshProUGUI>();
+            if (sowText != null)
+            {
+                sowText.text = isField ? "Sow Seeds" : "Plow Field";
+            }
+        }
+
+        // Update defend button - only interactable in defending mode and if position is not occupied
+        if (defendButton != null)
+        {
+            bool positionOccupied = IsPositionOccupied(lastGridPosition);
+            defendButton.interactable = (currentMode == Mode.Defending && !positionOccupied);
+
+            TextMeshProUGUI defendText = defendButton.GetComponentInChildren<TextMeshProUGUI>();
+            if (defendText != null)
+            {
+                defendText.text = positionOccupied ? "Position Occupied" : "Place Defender";
+            }
+        }
+    }
+
+    bool IsGridPositionField(Vector3 position)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, 0.3f);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("field"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Public methods for UI buttons to call
+    public void OnSowButtonClicked()
+    {
+        if (currentMode != Mode.Farming) return;
+
+        bool isField = IsGridPositionField(lastGridPosition);
+
+        if (isField)
+        {
+            // Grid is already a field - switch to sowing mode
+            Sowing();
+            CloseContextMenu();
+        }
+        else
+        {
+            // Grid is not a field - create field first
+            CreateFieldAtSelection();
+            CloseContextMenu();
+        }
+    }
+
+    public void OnDefendButtonClicked()
+    {
+        if (currentMode != Mode.Defending) return;
+
+        if (!IsPositionOccupied(lastGridPosition))
+        {
+            // Switch to defender placement mode with current position
+            PrepareDefenderWithPosition(DefenderType.Archer); // Default to archer, or you can make this configurable
+            CloseContextMenu();
+        }
+    }
+
+    void CreateFieldAtSelection()
+    {
+        // Use the stored lastGridPosition to create field
+        GameObject newField = Instantiate(field, lastGridPosition, Quaternion.identity);
+        newField.layer = LayerMask.NameToLayer("FieldLayer");
+        GameManager.Instance.Money -= plowprice;
+        GameManager.Instance.SpawnUIAboveField(newField.transform, "-10");
+        Debug.Log("Created field at: " + lastGridPosition);
+    }
+
+    void PrepareDefenderWithPosition(DefenderType defenderType)
+    {
+        currentDefender = defenderType;
+        Cursor.SetCursor(DefenderCursor, hotspot, cursorMode);
+        PlaceDefenders = true;
+        CreateField = false;
+        Sow = false;
+        currentSeed = SeedType.None;
+
+        // Auto-place at the selected position
+        PlaceDefender(lastGridPosition);
+        Normal(); // Return to normal mode after placement
+    }
+
     void HandleKeyboardInput()
     {
         if (Keyboard.current.aKey.wasPressedThisFrame)
         {
             Normal();
+            CloseContextMenu();
         }
 
         if (Keyboard.current.sKey.wasPressedThisFrame)
         {
             plowing();
+            CloseContextMenu();
         }
 
         if (Keyboard.current.dKey.wasPressedThisFrame)
         {
             Sowing();
+            CloseContextMenu();
         }
 
         // Toggle between farming and defending modes
         if (Keyboard.current.tabKey.wasPressedThisFrame)
         {
             ToggleMode();
+            CloseContextMenu();
+        }
+
+        // Close context menu with Escape
+        if (Keyboard.current.escapeKey.wasPressedThisFrame && contextMenuVisible)
+        {
+            DeselectAll();
         }
     }
 
@@ -312,9 +548,9 @@ public class FarmGrid : MonoBehaviour
         switch (defenderType)
         {
             case DefenderType.Archer:
-                return new Vector3(-0.2f, - 0.1f, 0);
+                return new Vector3(-0.2f, -0.1f, 0);
             case DefenderType.Mage:
-                return new Vector3(-0.1f, - 0.5f, 0);
+                return new Vector3(-0.1f, -0.5f, 0);
             case DefenderType.Fence:
                 return new Vector3(0, 0, 0);
             default:
@@ -343,15 +579,13 @@ public class FarmGrid : MonoBehaviour
 
         if (defenderToPlace != null)
         {
-            // Get the appropriate offset for this defender type
             Vector3 placementOffset = GetDefenderOffset(currentDefender);
             Vector3 finalPosition = position + placementOffset;
 
-            // Check if position is not occupied
             if (!IsPositionOccupied(finalPosition))
             {
-                // NO MONEY DEDUCTION - just place the defender
-                Instantiate(defenderToPlace, finalPosition, Quaternion.identity);
+                GameObject newDefender = Instantiate(defenderToPlace, finalPosition, Quaternion.identity);
+                newDefender.layer = LayerMask.NameToLayer("DefenderLayer");
                 Debug.Log($"Placed {currentDefender} at {finalPosition}");
             }
             else
@@ -363,8 +597,6 @@ public class FarmGrid : MonoBehaviour
 
     bool IsPositionOccupied(Vector3 position)
     {
-        // Check for existing defenders or crops at this position
-        // Slightly increased radius to account for offsets
         Collider2D[] colliders = Physics2D.OverlapCircleAll(position, 0.4f);
         foreach (Collider2D collider in colliders)
         {
@@ -381,13 +613,13 @@ public class FarmGrid : MonoBehaviour
         if (currentMode == Mode.Farming)
         {
             currentMode = Mode.Defending;
-            Normal(); // Reset to basic mode when switching
+            Normal();
             Debug.Log("Switched to DEFENDING mode");
         }
         else
         {
             currentMode = Mode.Farming;
-            Normal(); // Reset to basic mode when switching
+            Normal();
             Debug.Log("Switched to FARMING mode");
         }
     }
@@ -401,13 +633,13 @@ public class FarmGrid : MonoBehaviour
         currentSeed = SeedType.None;
         currentDefender = DefenderType.None;
 
-        // Deselect any selected crop
         if (selectedCrop != null)
         {
             selectedCrop.DeselectCrop();
             selectedCrop = null;
         }
 
+        CloseContextMenu();
         Debug.Log("Switched to Normal mode");
     }
 
@@ -463,21 +695,7 @@ public class FarmGrid : MonoBehaviour
         Debug.Log($"Selected {defenderType} for placement");
     }
 
-    void DebugRaycastInfo(Vector3 worldPos)
-    {
-        RaycastHit2D[] allHits = Physics2D.RaycastAll(worldPos, Vector2.zero);
-        Debug.Log($"Raycast at {worldPos} found {allHits.Length} objects:");
-
-        foreach (RaycastHit2D hit in allHits)
-        {
-            if (hit.collider != null)
-            {
-                Debug.Log($"- {hit.collider.gameObject.name} (Tag: {hit.collider.tag}, Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)})");
-            }
-        }
-    }
-
-    // Check methods for button interactivity - NO MONEY CHECKS
+    // Check methods for button interactivity
     public bool HasSeeds() { return GameManager.Instance.seeds > 0; }
     public bool HasCornSeeds() { return GameManager.Instance.cornSeeds > 0; }
     public bool HasTomatoSeeds() { return GameManager.Instance.tomatoSeeds > 0; }
