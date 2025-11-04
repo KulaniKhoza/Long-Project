@@ -480,7 +480,7 @@ public class FarmGrid : MonoBehaviour
         if (!IsPositionOccupied(lastGridPosition))
         {
             // Switch to defender placement mode with current position
-            PrepareDefenderWithPosition(DefenderType.Archer); // Default to archer, or you can make this configurable
+            PrepareDefenderWithPosition(DefenderType.Fence); // Default to archer, or you can make this configurable
             CloseContextMenu();
         }
     }

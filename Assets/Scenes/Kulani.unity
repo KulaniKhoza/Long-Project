@@ -4121,12 +4121,15 @@ MonoBehaviour:
   speed: 2
   posX: -1
   posY: -1
+  Health: 0
+  maxHealth: 6
   lowerLimit: 5
   UpperLimit: 6
   Controller: {fileID: 1840988750}
   enemy: {fileID: 0}
   destroyed: 0
   gameOverScreen: {fileID: 1503437004}
+  HealthBar: {fileID: 1928496674}
 --- !u!212 &667948749
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10757,19 +10760,20 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840988750}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c084013ae6c2a54b8b00321976f914c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemytoClone_1: {fileID: 574192489}
-  EnemytoClone_2: {fileID: 1009185988}
+  EnemytoClone_1: {fileID: 1901912268}
+  EnemytoClone_2: {fileID: 667948744}
   GridObject: {fileID: 1882656532}
   gridOriginObject: {fileID: 1804519027}
   speed: 1
   clones: []
   TheOriginals: []
   WaveText: {fileID: 835470861}
+  waveCounter: 0
 --- !u!1 &1863190230
 GameObject:
   m_ObjectHideFlags: 0
@@ -11447,12 +11451,15 @@ MonoBehaviour:
   speed: 2
   posX: -1
   posY: -1
+  Health: 0
+  maxHealth: 6
   lowerLimit: 5
   UpperLimit: 7
   Controller: {fileID: 1840988750}
   enemy: {fileID: 0}
   destroyed: 0
   gameOverScreen: {fileID: 745994864}
+  HealthBar: {fileID: 635339740}
 --- !u!212 &1901912273
 SpriteRenderer:
   m_ObjectHideFlags: 0

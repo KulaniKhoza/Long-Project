@@ -22,10 +22,14 @@ public class Enemy_Controller : MonoBehaviour
 
     public TextMeshProUGUI WaveText;
 
+    public int waveCounter;
+    int spawnRate;
+
     void Start()
     {
 
-
+        waveCounter = 1;
+        spawnRate = 1;
         TheOriginals.Add(EnemytoClone_2);
         TheOriginals.Add(EnemytoClone_1);
 
@@ -77,13 +81,14 @@ public class Enemy_Controller : MonoBehaviour
     {
         if (shouldSpawn)
         {
-            StartCoroutine(SpawnWaves(55f, 5f));
+            StartCoroutine(SpawnWaves(50f, 5f));
             shouldSpawn = false;
         }
     }
 
     public void Spawn1()
     {
+
         int cloneIndex = Random.Range(0, 2);
         //int cloneIndex = 0;
         GameObject TheClone = Instantiate(TheOriginals[cloneIndex]);
@@ -125,9 +130,9 @@ public class Enemy_Controller : MonoBehaviour
                 }
             }
 
+
             if (!occupied) foundSpot = true;
         }
-
         // If no free spot found, cancel spawn
         if (!foundSpot)
         {
@@ -144,7 +149,11 @@ public class Enemy_Controller : MonoBehaviour
         //TheClone.GetComponent<Move_enemy>().target = player;
 
         // Schedule more spawns if under limit
-        if (clones.Count < 4)
+        if (waveCounter % 2 == 0)
+        {
+            spawnRate = waveCounter / 2;
+        }
+        if (clones.Count <= spawnRate)
         {
             float spawnDelay = Random.Range(1f, 2f);
             StartCoroutine(SpawnEnemies(spawnDelay));
@@ -179,6 +188,7 @@ public class Enemy_Controller : MonoBehaviour
         WaveText.gameObject.SetActive(false);
 
         Spawn1();
+        waveCounter++;
         shouldSpawn = true;
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class Move_enemy : MonoBehaviour
@@ -14,6 +15,8 @@ public class Move_enemy : MonoBehaviour
     public int posY = -1;
     int columns;
     int Rows;
+    public int Health;
+    public int maxHealth = 4;
 
     public float lowerLimit = 4f;
     public float UpperLimit = 7f;
@@ -21,15 +24,24 @@ public class Move_enemy : MonoBehaviour
     public GameObject Controller;
     public Enemy_Controller enemy;
     public bool destroyed = false;
+    bool shouldMove = false;
 
     public GameObject gameOverScreen;
+
+
+
+    public Slider HealthBar;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         gameOverScreen.SetActive(false);
 
+        Health = maxHealth;
+        HealthBar.value = Health;
+
         target = transform.position;
+        speed = 0.5f;
 
         pest = GetComponent<Rigidbody2D>();
         enemy = Controller.GetComponent<Enemy_Controller>();
@@ -110,11 +122,33 @@ public class Move_enemy : MonoBehaviour
     {
         if (posX != -1 && posX == 0 && !destroyed)
         {
-            enemy.clones.RemoveAt(0);
+            //enemy.clones.RemoveAt(0);
+            for (int i = 0; i < enemy.clones.Count; i++)
+            {
+                if (enemy.clones[i].transform.position == transform.position)
+                {
+                    enemy.clones.RemoveAt(i);
+                    break;
+                }
+            }
             Destroy(gameObject, 1f);
             destroyed = true;
-            gameOverScreen.SetActive(true);
-            Time.timeScale = 0f;
+            //gameOverScreen.SetActive(true);
+            //Time.timeScale = 0f;
+        }
+
+        if (Health <= 0)
+        {
+            for (int i = 0; i < enemy.clones.Count; i++)
+            {
+                if (enemy.clones[i].transform.position == transform.position)
+                {
+                    enemy.clones.RemoveAt(i);
+                    break;
+                }
+            }
+            Destroy(gameObject, 1f);
+            destroyed = true;
         }
 
         if (target != null)
@@ -122,6 +156,11 @@ public class Move_enemy : MonoBehaviour
             // Move enemy toward target
             Vector2 direction = (target - transform.position).normalized;
             transform.position += (Vector3)direction * speed * Time.deltaTime;
+
+            if (direction == Vector2.zero && shouldMove)
+            {
+                Move("Right");
+            }
 
         }
 
@@ -132,15 +171,23 @@ public class Move_enemy : MonoBehaviour
     {
         if (collision.transform.tag == "Fence")
         {
-            Move("Left");
+            //Move("Left");
+            target = enemy.grid[posY][posX + 1];
+            posX++;
+
+            Health--;
+            HealthBar.value = Health;
+
 
         }
 
     }
     private IEnumerator MovementDelay(string direction)
     {
-        yield return new WaitForSeconds(Random.Range(lowerLimit, UpperLimit));
+        //yield return new WaitForSeconds(Random.Range(lowerLimit, UpperLimit));
+        yield return new WaitForSeconds(10f);
         Move(direction);
+        shouldMove = true;
     }
 
     public void Move(string direction)
@@ -149,7 +196,7 @@ public class Move_enemy : MonoBehaviour
         {
             target = enemy.grid[posY][posX + 1];
             posX++;
-            StartCoroutine(MovementDelay(direction));
+            //StartCoroutine(MovementDelay(direction));
 
         }
         else if (direction == "Right" && posX > 0)
@@ -157,25 +204,30 @@ public class Move_enemy : MonoBehaviour
 
             target = enemy.grid[posY][posX - 1];
             posX--;
-            StartCoroutine(MovementDelay(direction));
+            //StartCoroutine(MovementDelay(direction));
 
         }
         else if (direction == "Up" && posY > 0)
         {
             target = enemy.grid[posY - 1][posX];
             posY--;
-            StartCoroutine(MovementDelay(direction));
+            //StartCoroutine(MovementDelay(direction));
 
         }
         else if (direction == "Down" && posY < Rows)
         {
             target = enemy.grid[posY + 1][posX];
             posY++;
-            StartCoroutine(MovementDelay(direction));
+            //StartCoroutine(MovementDelay(direction));
 
         }
 
 
+
+    }
+
+    public void move2()
+    {
 
     }
 
