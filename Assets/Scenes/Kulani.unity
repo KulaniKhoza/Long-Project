@@ -1495,6 +1495,7 @@ MonoBehaviour:
   nameText: {fileID: 0}
   affordableColor: {r: 1, g: 1, b: 1, a: 1}
   cannotAffordColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   cooldownTime: 4
   cooldownOverlay: {fileID: 1352462641}
 --- !u!1 &179300464
@@ -6276,6 +6277,7 @@ MonoBehaviour:
   nameText: {fileID: 871107646}
   affordableColor: {r: 1, g: 1, b: 1, a: 1}
   cannotAffordColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   cooldownTime: 2
   cooldownOverlay: {fileID: 951126146}
 --- !u!114 &1076560358
@@ -6955,6 +6957,7 @@ MonoBehaviour:
   nameText: {fileID: 0}
   affordableColor: {r: 1, g: 1, b: 1, a: 1}
   cannotAffordColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   cooldownTime: 2
   cooldownOverlay: {fileID: 297969022}
 --- !u!114 &1173023471
@@ -7374,6 +7377,7 @@ MonoBehaviour:
   nameText: {fileID: 0}
   affordableColor: {r: 1, g: 0.9415095, b: 0.9415095, a: 1}
   cannotAffordColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   cooldownTime: 4
   cooldownOverlay: {fileID: 126117634}
 --- !u!114 &1275060197
@@ -8745,6 +8749,7 @@ MonoBehaviour:
   nameText: {fileID: 791735837}
   affordableColor: {r: 1, g: 1, b: 1, a: 1}
   cannotAffordColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   cooldownTime: 2
   cooldownOverlay: {fileID: 239433851}
 --- !u!114 &1440892729
@@ -10593,7 +10598,6 @@ MonoBehaviour:
   DefenderCursor: {fileID: 2800000, guid: 2bba2b8b9644ed140b626110b2804373, type: 3}
   cursorMode: 0
   hotspot: {x: 0, y: 0}
-  currentMode: 0
   currentSeed: 0
   currentDefender: 0
   normalSeedPrefab: {fileID: 6026742902950436601, guid: 65ac7b81a98383a4e8f5e3d1aeb493df, type: 3}
@@ -10608,6 +10612,22 @@ MonoBehaviour:
   selectionColor: {r: 1, g: 0, b: 1, a: 1}
   fieldHighlightColor: {r: 0, g: 0, b: 1, a: 1}
   contextMenu: {fileID: 485659620}
+  plantMenu: {fileID: 1902618836}
+  seedButtons:
+  - button: {fileID: 170440399}
+    seedType: 1
+    seedPrefab: {fileID: 6026742902950436601, guid: 65ac7b81a98383a4e8f5e3d1aeb493df, type: 3}
+  - button: {fileID: 1275060197}
+    seedType: 3
+    seedPrefab: {fileID: 7001639929870259104, guid: 7984ce351882be94a8c27955503fdbce, type: 3}
+  - button: {fileID: 1173023471}
+    seedType: 2
+    seedPrefab: {fileID: 9124510512987317584, guid: 0177f4f781be921449292d6d5daad590, type: 3}
+  farmingButtons:
+  - {fileID: 170440402}
+  - {fileID: 1275060196}
+  - {fileID: 1173023470}
+  defendingButtons: []
 --- !u!4 &1882656534
 Transform:
   m_ObjectHideFlags: 0
@@ -12398,6 +12418,7 @@ MonoBehaviour:
   nameText: {fileID: 1526022021}
   affordableColor: {r: 1, g: 1, b: 1, a: 1}
   cannotAffordColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   cooldownTime: 2
   cooldownOverlay: {fileID: 326461496}
 --- !u!114 &2101303677

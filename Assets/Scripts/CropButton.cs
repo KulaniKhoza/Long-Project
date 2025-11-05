@@ -23,6 +23,7 @@ public class UniversalButton : MonoBehaviour
     [Header("Button Settings")]
     public Color affordableColor = Color.green;
     public Color cannotAffordColor = Color.gray;
+    public Color disabledColor = Color.gray;
 
     [Header("Cooldown")]
     public float cooldownTime = 2f;
@@ -31,6 +32,7 @@ public class UniversalButton : MonoBehaviour
     private Button button;
     private Image buttonImage;
     private FarmGrid farmGrid;
+    private bool isEnabled = false;
 
     void Start()
     {
@@ -45,12 +47,17 @@ public class UniversalButton : MonoBehaviour
             cooldownOverlay.gameObject.SetActive(false);
         }
 
+        // Start disabled
+        DisableButton();
         UpdateButtonDisplay();
     }
 
     void Update()
     {
-        UpdateButtonState();
+        if (isEnabled)
+        {
+            UpdateButtonState();
+        }
     }
 
     void UpdateButtonState()
@@ -59,25 +66,20 @@ public class UniversalButton : MonoBehaviour
 
         int currentPrice = isFarmingButton ? farmingPrice : defendingPrice;
         bool canAfford = GameManager.Instance.Money >= currentPrice;
-        bool isCorrectMode = (isFarmingButton && farmGrid.currentMode == FarmGrid.Mode.Farming) ||
-                           (!isFarmingButton && farmGrid.currentMode == FarmGrid.Mode.Defending);
 
-        button.interactable = canAfford && isCorrectMode;
+        button.interactable = canAfford;
 
-        // Update button color based on affordability
         if (buttonImage != null)
         {
             buttonImage.color = canAfford ? affordableColor : cannotAffordColor;
         }
 
-        // Update price text
         if (priceText != null)
         {
             priceText.text = $"R{currentPrice}";
             priceText.color = canAfford ? Color.darkGreen : Color.red;
         }
 
-        // Update name text
         if (nameText != null)
         {
             if (isFarmingButton)
@@ -93,7 +95,6 @@ public class UniversalButton : MonoBehaviour
 
     void UpdateButtonDisplay()
     {
-        // Initial display setup
         int currentPrice = isFarmingButton ? farmingPrice : defendingPrice;
 
         if (priceText != null)
@@ -122,22 +123,19 @@ public class UniversalButton : MonoBehaviour
 
         if (GameManager.Instance.Money >= currentPrice && button.interactable)
         {
-            // Deduct money
             GameManager.Instance.Money -= currentPrice;
 
-            // Enter placement mode
             if (isFarmingButton)
             {
-               farmGrid.PrepareSowing(seedType);
+                farmGrid.PrepareSowing(seedType);
                 Debug.Log($"Bought {seedType} for R{currentPrice}. Ready to plant!");
             }
             else
             {
-               farmGrid.PrepareDefender(defenderType);
+                farmGrid.PrepareDefender(defenderType);
                 Debug.Log($"Bought {defenderType} for R{currentPrice}. Ready to place!");
             }
 
-            // Cooldown
             StartCoroutine(StartCooldown());
         }
     }
@@ -165,7 +163,36 @@ public class UniversalButton : MonoBehaviour
             yield return new WaitForSeconds(cooldownTime);
         }
 
-        button.interactable = true;
-        UpdateButtonState();
+        if (isEnabled)
+        {
+            button.interactable = GameManager.Instance.Money >= (isFarmingButton ? farmingPrice : defendingPrice);
+            UpdateButtonState();
+        }
+    }
+
+    // Public methods to control button state
+    public void EnableIfAffordable()
+    {
+        isEnabled = true;
+        int currentPrice = isFarmingButton ? farmingPrice : defendingPrice;
+        bool canAfford = GameManager.Instance.Money >= currentPrice;
+
+        button.interactable = canAfford;
+
+        if (buttonImage != null)
+        {
+            buttonImage.color = canAfford ? affordableColor : cannotAffordColor;
+        }
+    }
+
+    public void DisableButton()
+    {
+        isEnabled = false;
+        button.interactable = false;
+
+        if (buttonImage != null)
+        {
+            buttonImage.color = disabledColor;
+        }
     }
 }

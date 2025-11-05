@@ -34,7 +34,7 @@ public class Crops : MonoBehaviour
     [Header("Health System")]
     public int maxHealth = 4;    // Hits needed before death
     public int currentHealth;
-    private bool isTakingDamage = false;
+   // private bool isTakingDamage = false;
     private Coroutine damageEffectCoroutine;
     private bool wasDamagedThisFrame = false;
 
@@ -352,7 +352,7 @@ public class Crops : MonoBehaviour
     // Visual effect when crop takes damage
     private IEnumerator DamageEffect()
     {
-        isTakingDamage = true;
+       // isTakingDamage = true;
 
         // Flash red a few times
         for (int i = 0; i < 3; i++)
@@ -369,7 +369,7 @@ public class Crops : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
-        isTakingDamage = false;
+       // isTakingDamage = false;
     }
 
     // Public method to check if crop was damaged (for external systems)
