@@ -1,0 +1,493 @@
+fileFormatVersion: 2
+guid: 11dad857dcef00f48a64d5e1dbf8dc3b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1847856664066940201
+    second: Graceful Earthworm Against Subtle Gray Fade_0
+  - first:
+      213: 2796445769766227679
+    second: Graceful Earthworm Against Subtle Gray Fade_1
+  - first:
+      213: 1129543728892937075
+    second: Graceful Earthworm Against Subtle Gray Fade_2
+  - first:
+      213: 3857311629232097902
+    second: Graceful Earthworm Against Subtle Gray Fade_3
+  - first:
+      213: -992888525514450213
+    second: Graceful Earthworm Against Subtle Gray Fade_4
+  - first:
+      213: 884861191261420245
+    second: Graceful Earthworm Against Subtle Gray Fade_5
+  - first:
+      213: 1027647977838415974
+    second: Graceful Earthworm Against Subtle Gray Fade_6
+  - first:
+      213: 7343650383870597818
+    second: Graceful Earthworm Against Subtle Gray Fade_7
+  - first:
+      213: 1011707827273996930
+    second: Graceful Earthworm Against Subtle Gray Fade_8
+  - first:
+      213: -8485297490059424788
+    second: Graceful Earthworm Against Subtle Gray Fade_9
+  - first:
+      213: 3790740222862330469
+    second: Graceful Earthworm Against Subtle Gray Fade_10
+  - first:
+      213: 7475285871794205478
+    second: Graceful Earthworm Against Subtle Gray Fade_11
+  - first:
+      213: -6573407736131230709
+    second: Graceful Earthworm Against Subtle Gray Fade_12
+  - first:
+      213: 1679684602953502818
+    second: Graceful Earthworm Against Subtle Gray Fade_13
+  - first:
+      213: 5906292475857332585
+    second: Graceful Earthworm Against Subtle Gray Fade_14
+  - first:
+      213: -7350031759809085587
+    second: Graceful Earthworm Against Subtle Gray Fade_15
+  - first:
+      213: -535309608490711003
+    second: Graceful Earthworm Against Subtle Gray Fade_16
+  - first:
+      213: 5046666083733247182
+    second: Graceful Earthworm Against Subtle Gray Fade_17
+  - first:
+      213: 1385188828497010727
+    second: Graceful Earthworm Against Subtle Gray Fade_18
+  - first:
+      213: 6140861854790932986
+    second: Graceful Earthworm Against Subtle Gray Fade_19
+  - first:
+      213: -3321630405846734776
+    second: Graceful Earthworm Against Subtle Gray Fade_20
+  - first:
+      213: 5275566375675247267
+    second: Graceful Earthworm Against Subtle Gray Fade_21
+  - first:
+      213: 2930294122667575114
+    second: Graceful Earthworm Against Subtle Gray Fade_22
+  - first:
+      213: 2618038121183701438
+    second: Graceful Earthworm Against Subtle Gray Fade_23
+  - first:
+      213: 8057738817048453076
+    second: Graceful Earthworm Against Subtle Gray Fade_24
+  - first:
+      213: -3699419239317287699
+    second: Graceful Earthworm Against Subtle Gray Fade_25
+  - first:
+      213: -546865507733137765
+    second: Graceful Earthworm Against Subtle Gray Fade_26
+  - first:
+      213: -7256943290784256004
+    second: Graceful Earthworm Against Subtle Gray Fade_27
+  - first:
+      213: -4458691373337914979
+    second: Graceful Earthworm Against Subtle Gray Fade_28
+  - first:
+      213: -1425142761599076941
+    second: Graceful Earthworm Against Subtle Gray Fade_29
+  - first:
+      213: -2087353112939208581
+    second: Graceful Earthworm Against Subtle Gray Fade_30
+  - first:
+      213: -4567507926330199881
+    second: Graceful Earthworm Against Subtle Gray Fade_31
+  - first:
+      213: 2015783010092005793
+    second: Graceful Earthworm Against Subtle Gray Fade_32
+  - first:
+      213: -5707665990804394331
+    second: Graceful Earthworm Against Subtle Gray Fade_33
+  - first:
+      213: 5242034001419958058
+    second: Graceful Earthworm Against Subtle Gray Fade_34
+  - first:
+      213: -4689715659290569826
+    second: Graceful Earthworm Against Subtle Gray Fade_35
+  - first:
+      213: 1544083920715259260
+    second: Graceful Earthworm Against Subtle Gray Fade_36
+  - first:
+      213: 7001462073891233867
+    second: Graceful Earthworm Against Subtle Gray Fade_37
+  - first:
+      213: 8704131754448285707
+    second: Graceful Earthworm Against Subtle Gray Fade_38
+  - first:
+      213: -3314098052691880343
+    second: Graceful Earthworm Against Subtle Gray Fade_39
+  - first:
+      213: 9139579226487314921
+    second: Graceful Earthworm Against Subtle Gray Fade_40
+  - first:
+      213: -3049363665248262437
+    second: Graceful Earthworm Against Subtle Gray Fade_41
+  - first:
+      213: -2814855687930771064
+    second: Graceful Earthworm Against Subtle Gray Fade_42
+  - first:
+      213: -492207261378582557
+    second: Graceful Earthworm Against Subtle Gray Fade_43
+  - first:
+      213: -3952522542177145178
+    second: Graceful Earthworm Against Subtle Gray Fade_44
+  - first:
+      213: -6055836166243310970
+    second: Graceful Earthworm Against Subtle Gray Fade_45
+  - first:
+      213: -6533294526685546558
+    second: Graceful Earthworm Against Subtle Gray Fade_46
+  - first:
+      213: -8459098277301264647
+    second: Graceful Earthworm Against Subtle Gray Fade_47
+  - first:
+      213: -1154023261706645075
+    second: Graceful Earthworm Against Subtle Gray Fade_48
+  - first:
+      213: -6533131669115785513
+    second: Graceful Earthworm Against Subtle Gray Fade_49
+  - first:
+      213: 800857370124781018
+    second: Graceful Earthworm Against Subtle Gray Fade_50
+  - first:
+      213: -5672229448039142344
+    second: Graceful Earthworm Against Subtle Gray Fade_51
+  - first:
+      213: -5374086135437616407
+    second: Graceful Earthworm Against Subtle Gray Fade_52
+  - first:
+      213: 5007587758384843677
+    second: Graceful Earthworm Against Subtle Gray Fade_53
+  - first:
+      213: -900693884469382186
+    second: Graceful Earthworm Against Subtle Gray Fade_54
+  - first:
+      213: 6704636575185360609
+    second: Graceful Earthworm Against Subtle Gray Fade_55
+  - first:
+      213: -4267894102151178610
+    second: Graceful Earthworm Against Subtle Gray Fade_56
+  - first:
+      213: 8909861081361476437
+    second: Graceful Earthworm Against Subtle Gray Fade_57
+  - first:
+      213: 7367335595844703810
+    second: Graceful Earthworm Against Subtle Gray Fade_58
+  - first:
+      213: -3698949730478226169
+    second: Graceful Earthworm Against Subtle Gray Fade_59
+  - first:
+      213: 6803134795812409298
+    second: Graceful Earthworm Against Subtle Gray Fade_60
+  - first:
+      213: -2838595258825666098
+    second: Graceful Earthworm Against Subtle Gray Fade_61
+  - first:
+      213: -4131920964341022473
+    second: Graceful Earthworm Against Subtle Gray Fade_62
+  - first:
+      213: -2836313723861854286
+    second: Graceful Earthworm Against Subtle Gray Fade_63
+  - first:
+      213: -7050889715437170519
+    second: Graceful Earthworm Against Subtle Gray Fade_64
+  - first:
+      213: 1186102916393806387
+    second: Graceful Earthworm Against Subtle Gray Fade_65
+  - first:
+      213: -4086127936443361475
+    second: Graceful Earthworm Against Subtle Gray Fade_66
+  - first:
+      213: 716757895629426949
+    second: Graceful Earthworm Against Subtle Gray Fade_67
+  - first:
+      213: -4017968858599104825
+    second: Graceful Earthworm Against Subtle Gray Fade_68
+  - first:
+      213: 7073647316263971019
+    second: Graceful Earthworm Against Subtle Gray Fade_69
+  - first:
+      213: 1740854234387672456
+    second: Graceful Earthworm Against Subtle Gray Fade_70
+  - first:
+      213: -129873568709753305
+    second: Graceful Earthworm Against Subtle Gray Fade_71
+  - first:
+      213: -2431235716461897615
+    second: Graceful Earthworm Against Subtle Gray Fade_72
+  - first:
+      213: -4234422326352737135
+    second: Graceful Earthworm Against Subtle Gray Fade_73
+  - first:
+      213: 1075201750037400679
+    second: Graceful Earthworm Against Subtle Gray Fade_74
+  - first:
+      213: -2094537226608814241
+    second: Graceful Earthworm Against Subtle Gray Fade_75
+  - first:
+      213: -4886804396758152870
+    second: Graceful Earthworm Against Subtle Gray Fade_76
+  - first:
+      213: -3343113605836296676
+    second: Graceful Earthworm Against Subtle Gray Fade_77
+  - first:
+      213: -5939897446603769243
+    second: Graceful Earthworm Against Subtle Gray Fade_78
+  - first:
+      213: -8563568607319317478
+    second: Graceful Earthworm Against Subtle Gray Fade_79
+  - first:
+      213: 2969287330262459700
+    second: Graceful Earthworm Against Subtle Gray Fade_80
+  - first:
+      213: 5155775410151610447
+    second: Graceful Earthworm Against Subtle Gray Fade_81
+  - first:
+      213: 5917864857623611347
+    second: Graceful Earthworm Against Subtle Gray Fade_82
+  - first:
+      213: 2506944596580103730
+    second: Graceful Earthworm Against Subtle Gray Fade_83
+  - first:
+      213: -2753271634506880580
+    second: Graceful Earthworm Against Subtle Gray Fade_84
+  - first:
+      213: -2659878335267698192
+    second: Graceful Earthworm Against Subtle Gray Fade_85
+  - first:
+      213: -9169452086052735850
+    second: Graceful Earthworm Against Subtle Gray Fade_86
+  - first:
+      213: -2493586358676212592
+    second: Graceful Earthworm Against Subtle Gray Fade_87
+  - first:
+      213: -7589713191482240797
+    second: Graceful Earthworm Against Subtle Gray Fade_88
+  - first:
+      213: 3816667011874060023
+    second: Graceful Earthworm Against Subtle Gray Fade_89
+  - first:
+      213: 1858614568269488350
+    second: Graceful Earthworm Against Subtle Gray Fade_90
+  - first:
+      213: -6890659401847691899
+    second: Graceful Earthworm Against Subtle Gray Fade_91
+  - first:
+      213: 3202742480096187686
+    second: Graceful Earthworm Against Subtle Gray Fade_92
+  - first:
+      213: -7673982946426985029
+    second: Graceful Earthworm Against Subtle Gray Fade_93
+  - first:
+      213: 2192176320670095407
+    second: Graceful Earthworm Against Subtle Gray Fade_94
+  - first:
+      213: 2457197431068862605
+    second: Graceful Earthworm Against Subtle Gray Fade_95
+  - first:
+      213: -6400028921679902156
+    second: Graceful Earthworm Against Subtle Gray Fade_96
+  - first:
+      213: 3290796499173247497
+    second: Graceful Earthworm Against Subtle Gray Fade_97
+  - first:
+      213: 6163630324911056803
+    second: Graceful Earthworm Against Subtle Gray Fade_98
+  - first:
+      213: 7181730281787097414
+    second: Graceful Earthworm Against Subtle Gray Fade_99
+  - first:
+      213: -5824957538393388505
+    second: Graceful Earthworm Against Subtle Gray Fade_100
+  - first:
+      213: -2597025564168385767
+    second: Graceful Earthworm Against Subtle Gray Fade_101
+  - first:
+      213: 7086911506942182122
+    second: Graceful Earthworm Against Subtle Gray Fade_102
+  - first:
+      213: -7916248023978447038
+    second: Graceful Earthworm Against Subtle Gray Fade_103
+  - first:
+      213: 2933346345048613919
+    second: Graceful Earthworm Against Subtle Gray Fade_104
+  - first:
+      213: 6752291426738862684
+    second: Graceful Earthworm Against Subtle Gray Fade_105
+  - first:
+      213: 7014355105756714540
+    second: Graceful Earthworm Against Subtle Gray Fade_106
+  - first:
+      213: 4385904709051491589
+    second: Graceful Earthworm Against Subtle Gray Fade_107
+  - first:
+      213: -4481096729990004071
+    second: Graceful Earthworm Against Subtle Gray Fade_108
+  - first:
+      213: 8616698055122905196
+    second: Graceful Earthworm Against Subtle Gray Fade_109
+  - first:
+      213: 4473709924294424463
+    second: Graceful Earthworm Against Subtle Gray Fade_110
+  - first:
+      213: -3212975450034340936
+    second: Graceful Earthworm Against Subtle Gray Fade_111
+  - first:
+      213: 745091791373305913
+    second: Graceful Earthworm Against Subtle Gray Fade_112
+  - first:
+      213: -3517132414805581227
+    second: Graceful Earthworm Against Subtle Gray Fade_113
+  - first:
+      213: -8913200892764094458
+    second: Graceful Earthworm Against Subtle Gray Fade_114
+  - first:
+      213: 4774952733087062165
+    second: Graceful Earthworm Against Subtle Gray Fade_115
+  - first:
+      213: -313453936432479561
+    second: Graceful Earthworm Against Subtle Gray Fade_116
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Graceful Earthworm Against Subtle Gray Fade_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1536
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92d5c8978d7e4a910800000000000000
+      internalID: 1847856664066940201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 2bed996934d78954b8e244198e87d8e6
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":1536.0,"y":1024.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Graceful Earthworm Against Subtle Gray Fade_0: 1847856664066940201
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

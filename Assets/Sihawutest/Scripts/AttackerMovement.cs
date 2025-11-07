@@ -64,7 +64,7 @@ public class AttackerMovement : MonoBehaviour
             if (animator != null)
             {
                 animator.SetBool("isWalking", false);
-                animator.SetTrigger("Attack");
+                animator.SetTrigger("Peck");
             }
 
             Destroy(gameObject, 0.2f); // adjust delay for attack animation

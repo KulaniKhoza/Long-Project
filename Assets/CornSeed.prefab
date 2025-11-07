@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8486009051596663916}
   - component: {fileID: 2854233080978350995}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Square (1)
   m_TagString: field
   m_Icon: {fileID: 0}
@@ -49,6 +49,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -70,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1714872519
+  m_SortingLayer: 2
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 8e8089b85972bd14b9dd7ae34534deb0, type: 3}
   m_Color: {r: 0.7735849, g: 0.4234454, b: 0.010217119, a: 1}
@@ -95,7 +98,7 @@ GameObject:
   - component: {fileID: 328903343179998303}
   - component: {fileID: 2351043159095219308}
   - component: {fileID: 8832212722620599804}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CornSeed
   m_TagString: field
   m_Icon: {fileID: 0}
@@ -135,6 +138,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -156,8 +162,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1714872519
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_Sprite: {fileID: 0}
   m_Color: {r: 0.9641509, g: 1, b: 0.965362, a: 1}
@@ -183,4 +189,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cropData: {fileID: 11400000, guid: cbc4e5f216977e74ea002dad3574d9c4, type: 2}
-  cropPrefab: {fileID: 3732774372193335257, guid: 62cfbc82420d140489760816020de000, type: 3}
+  spriteRenderer: {fileID: 0}

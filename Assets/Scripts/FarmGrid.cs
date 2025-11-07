@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.EventSystems;
 
 public class FarmGrid : MonoBehaviour
 {
@@ -16,41 +17,82 @@ public class FarmGrid : MonoBehaviour
     public GameObject field;
     public bool Sow;
     public bool CreateField;
-    public Texture2D basicCursor, SeedCursor;
+    public bool PlaceDefenders;
+    public Texture2D basicCursor, SeedCursor, FieldCursor, DefenderCursor;
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotspot = Vector2.zero;
+
     public enum SeedType { None, Normal, Tomato, Corn }
     public SeedType currentSeed = SeedType.None;
+    public enum DefenderType { None, Archer, Mage, Fence }
+    public DefenderType currentDefender = DefenderType.None;
+
     public GameObject normalSeedPrefab;
     public GameObject tomatoSeedPrefab;
     public GameObject cornSeedPrefab;
+    public GameObject archerDefenderPrefab;
+    public GameObject mageDefenderPrefab;
+    public GameObject fenceDefenderPrefab;
+
     public GameObject gridOriginObject;
     public static FarmGrid instance;
     private Transform highlight;
     private Transform selection;
+    private Transform fieldHighlight;
+    private Crops selectedCrop;
     private int plowprice = 10;
     public TextMeshProUGUI textPrefab;
-    // Colors for highlight and selection
+
     public Color highlightColor = Color.red;
     public Color selectionColor = Color.magenta;
+    public Color fieldHighlightColor = Color.blue;
     private Color defaultColor = Color.white;
+
+    private int fieldLayerMask;
+    private int cropsLayerMask;
+    private int defenderLayerMask;
+    private int gridLayerMask;
+
+    public GameObject contextMenu;
+    public GameObject plantMenu;
+    private Vector3 lastGridPosition;
+    private Vector3 lastFieldPosition;
+    private bool contextMenuVisible = false;
+    private bool plantMenuVisible = false;
+
+    [System.Serializable]
+    public class SeedButtonData
+    {
+        public Button button;
+        public SeedType seedType;
+        public GameObject seedPrefab;
+    }
+
+    public List<SeedButtonData> seedButtons = new List<SeedButtonData>();
+    private bool plantMenuWasOpened = false;
+
+    [Header("Buttons")]
+    public List<UniversalButton> farmingButtons = new List<UniversalButton>();
+    public List<UniversalButton> defendingButtons = new List<UniversalButton>();
 
 
     private void Awake()
     {
         if (instance == null)
-        {
             instance = this;
-        }
+
         Time.timeScale = 1.0f;
+        fieldLayerMask = LayerMask.GetMask("FieldLayer");
+        cropsLayerMask = LayerMask.GetMask("CropsLayer");
+        defenderLayerMask = LayerMask.GetMask("DefenderLayer");
+        gridLayerMask = LayerMask.GetMask("Default");
 
-
+        InitializeSeedButtons();
     }
 
     void Start()
     {
         Cursor.SetCursor(basicCursor, hotspot, cursorMode);
-
         Vector3 gridOrigin = gridOriginObject != null ? gridOriginObject.transform.position : Vector3.zero;
 
         for (int row = 0; row < RowLength; row++)
@@ -61,6 +103,12 @@ public class FarmGrid : MonoBehaviour
                 Instantiate(grass, position, Quaternion.identity);
             }
         }
+
+        if (contextMenu != null) contextMenu.SetActive(false);
+        if (plantMenu != null) plantMenu.SetActive(false);
+
+        // Start with all buttons disabled
+        DisableAllButtons();
     }
 
     void LateUpdate()
@@ -74,87 +122,75 @@ public class FarmGrid : MonoBehaviour
 
     void Update()
     {
-        // Read mouse position and convert to world
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 0));
 
-        // Remove previous highlight if not selected
-        if (highlight != null && highlight != selection)
-        {
-            SpriteRenderer sr = highlight.GetComponent<SpriteRenderer>();
-            if (sr != null)
-                sr.color = defaultColor;
-            highlight = null;
-        }
+        RemoveHighlights();
 
-        // Raycast for highlight
         if (!EventSystem.current.IsPointerOverGameObject())
         {
-            RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
-
-            if (hit.collider != null && hit.collider.CompareTag("grid") && hit.collider.transform != selection)
-            {
-                highlight = hit.collider.transform;
-                SpriteRenderer sr = highlight.GetComponent<SpriteRenderer>();
-                if (sr != null) sr.color = highlightColor;
-            }
+            HandleGridHighlight(worldPos);
+            HandleFieldHighlight(worldPos);
         }
 
-        // Handle left click
         if (Mouse.current.leftButton.wasPressedThisFrame && !EventSystem.current.IsPointerOverGameObject())
         {
-            if (highlight != null)
+            bool clickedCrop = false;
+
+            RaycastHit2D cropHit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, cropsLayerMask);
+            if (cropHit.collider != null && cropHit.collider.CompareTag("Crops"))
             {
-                // Reset old selection
-                if (selection != null)
+                Crops crop = cropHit.collider.GetComponent<Crops>();
+                if (crop != null)
                 {
-                    SpriteRenderer prevSR = selection.GetComponent<SpriteRenderer>();
-                    if (prevSR != null) prevSR.color = defaultColor;
-                }
+                    clickedCrop = true;
+                    if (selectedCrop != null && selectedCrop != crop)
+                        selectedCrop.DeselectCrop();
 
-                // New selection
-                selection = highlight;
-                SpriteRenderer selSR = selection.GetComponent<SpriteRenderer>();
-                if (selSR != null) selSR.color = selectionColor;
+                    selectedCrop = crop;
+                    selectedCrop.SelectCrop();
 
-                // =======================
-                // Create field
-                // =======================
-                if (CreateField)
-                {
-                    GameObject newField = Instantiate(field, selection.position, Quaternion.identity);
-                    GameManager.Instance.Money -= plowprice;
-                    GameManager.Instance.SpawnUIAboveField(newField.transform, "-15");
-
-                    Cursor.SetCursor(basicCursor, hotspot, cursorMode);
-                    Sow = false;
-                }
-            }
-            else
-            {
-                // Clicked empty space - deselect
-                if (selection != null)
-                {
-                    SpriteRenderer selSR = selection.GetComponent<SpriteRenderer>();
-                    if (selSR != null) selSR.color = defaultColor;
-                    selection = null;
+                    CloseContextMenu();
+                    ClosePlantMenu();
+                    return;
                 }
             }
 
-            // =======================
-            // Sow seeds (SEPARATE from grid selection)
-            // =======================
-            if (Sow && !CreateField)
+            if (!clickedCrop)
             {
-                // Raycast specifically for fields
-                int fieldLayerMask = LayerMask.GetMask("FieldLayer");
+                if ((contextMenuVisible || plantMenuVisible) && highlight == null && fieldHighlight == null)
+                {
+                    CloseContextMenu();
+                    ClosePlantMenu();
+                }
+
+                if (fieldHighlight != null)
+                {
+                    lastFieldPosition = fieldHighlight.position;
+                    ShowPlantMenu();
+                    CloseContextMenu();
+                }
+                else if (highlight != null)
+                {
+                    lastGridPosition = highlight.position;
+                    ShowContextMenu();
+                    ClosePlantMenu();
+                }
+                else
+                {
+                    DeselectGrid();
+                    CloseContextMenu();
+                    ClosePlantMenu();
+                }
+            }
+
+            if (Sow && !CreateField && !PlaceDefenders && !clickedCrop)
+            {
                 RaycastHit2D fieldHit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, fieldLayerMask);
-
                 if (fieldHit.collider != null && fieldHit.collider.CompareTag("field"))
                 {
                     GameObject seedToPlant = null;
                     bool hasSeed = false;
-                    Debug.Log("Hit field: " + fieldHit.collider.name);
 
                     switch (currentSeed)
                     {
@@ -166,7 +202,6 @@ public class FarmGrid : MonoBehaviour
                                 hasSeed = true;
                             }
                             break;
-
                         case SeedType.Tomato:
                             if (GameManager.Instance.tomatoSeeds > 0)
                             {
@@ -175,7 +210,6 @@ public class FarmGrid : MonoBehaviour
                                 hasSeed = true;
                             }
                             break;
-
                         case SeedType.Corn:
                             if (GameManager.Instance.cornSeeds > 0)
                             {
@@ -188,35 +222,392 @@ public class FarmGrid : MonoBehaviour
 
                     if (hasSeed && seedToPlant != null)
                     {
-                        // Offset slightly upward
                         Vector3 spawnPos = fieldHit.collider.transform.position + new Vector3(0, 0.1f, 0);
-                        Instantiate(seedToPlant, spawnPos, Quaternion.identity);
+                        GameObject newCrop = Instantiate(seedToPlant, spawnPos, Quaternion.identity);
+                        newCrop.layer = LayerMask.NameToLayer("CropsLayer");
                         Debug.Log("Planted seed at: " + spawnPos);
+                        Normal();
                     }
-                    else if (!hasSeed)
+                    else
                     {
                         Debug.Log("Not enough seeds!");
                     }
                 }
-                else
-                {
-                    Debug.Log("No field found at mouse position");
-                }
+            }
+        }
+
+        if (Mouse.current.rightButton.wasPressedThisFrame && !EventSystem.current.IsPointerOverGameObject())
+            DeselectAll();
+
+        if (Keyboard.current.escapeKey.wasPressedThisFrame && plantMenuWasOpened)
+        {
+            DisableAllSeedButtons();
+            ClosePlantMenu();
+        }
+    }
+
+    void RemoveHighlights()
+    {
+        if (highlight != null && highlight != selection)
+        {
+            SpriteRenderer sr = highlight.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.color = defaultColor;
+            highlight = null;
+        }
+
+        if (fieldHighlight != null)
+        {
+            SpriteRenderer sr = fieldHighlight.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.color = defaultColor;
+            fieldHighlight = null;
+        }
+    }
+
+    void HandleGridHighlight(Vector3 worldPos)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
+        if (hit.collider != null && hit.collider.CompareTag("grid") && hit.collider.transform != selection)
+        {
+            highlight = hit.collider.transform;
+            SpriteRenderer sr = highlight.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.color = highlightColor;
+        }
+    }
+
+    void HandleFieldHighlight(Vector3 worldPos)
+    {
+        RaycastHit2D fieldHit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, fieldLayerMask);
+        if (fieldHit.collider != null && fieldHit.collider.CompareTag("field"))
+        {
+            fieldHighlight = fieldHit.collider.transform;
+            SpriteRenderer sr = fieldHighlight.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.color = fieldHighlightColor;
+        }
+    }
+
+    void DeselectAll()
+    {
+        DeselectGrid();
+
+        if (selectedCrop != null)
+        {
+            selectedCrop.DeselectCrop();
+            selectedCrop = null;
+        }
+
+        CloseContextMenu();
+        ClosePlantMenu();
+        Normal();
+    }
+
+    void DeselectGrid()
+    {
+        if (selection != null)
+        {
+            SpriteRenderer selSR = selection.GetComponent<SpriteRenderer>();
+            if (selSR != null) selSR.color = defaultColor;
+            selection = null;
+        }
+    }
+
+    void ShowContextMenu()
+    {
+        if (contextMenu != null)
+        {
+            contextMenu.transform.position = lastGridPosition;
+            contextMenu.SetActive(true);
+            contextMenuVisible = true;
+            UpdateContextMenuButtons();
+            ClosePlantMenu();
+        }
+    }
+
+    void CloseContextMenu()
+    {
+        if (contextMenu != null)
+        {
+            contextMenu.SetActive(false);
+            contextMenuVisible = false;
+        }
+    }
+
+    void ShowPlantMenu()
+    {
+        if (plantMenu != null)
+        {
+            lastFieldPosition = fieldHighlight.position;
+            plantMenu.transform.position = lastFieldPosition;
+            plantMenu.SetActive(true);
+            plantMenuVisible = true;
+            EnableAllSeedButtons();
+            CloseContextMenu();
+        }
+    }
+
+    void ClosePlantMenu()
+    {
+        if (plantMenu != null)
+        {
+            plantMenu.SetActive(false);
+            plantMenuVisible = false;
+            DisableAllSeedButtons();
+        }
+    }
+
+    void UpdateContextMenuButtons()
+    {
+        if (contextMenu == null) return;
+
+        Button sowButton = contextMenu.transform.Find("SowButton")?.GetComponent<Button>();
+        Button defendButton = contextMenu.transform.Find("DefendButton")?.GetComponent<Button>();
+
+        bool isField = IsGridPositionField(lastGridPosition);
+
+        if (sowButton != null)
+        {
+            sowButton.interactable = true;
+            TextMeshProUGUI sowText = sowButton.GetComponentInChildren<TextMeshProUGUI>();
+            if (sowText != null) sowText.text = isField ? "Sow Seeds" : "Plow Field";
+        }
+
+        if (defendButton != null)
+        {
+            bool positionOccupied = IsPositionOccupied(lastGridPosition);
+            defendButton.interactable = !positionOccupied;
+            TextMeshProUGUI defendText = defendButton.GetComponentInChildren<TextMeshProUGUI>();
+            if (defendText != null) defendText.text = positionOccupied ? "Position Occupied" : "Place Defender";
+        }
+    }
+
+    void InitializeSeedButtons()
+    {
+        foreach (SeedButtonData seedButton in seedButtons)
+        {
+            if (seedButton.button != null)
+            {
+                seedButton.button.interactable = false;
+                seedButton.button.onClick.RemoveAllListeners();
+                seedButton.button.onClick.AddListener(() => OnInventorySeedButtonClicked(seedButton));
             }
         }
     }
 
-    public void PlantCorn()
+    void EnableAllSeedButtons()
     {
-        PrepareSowing(SeedType.Corn);
+        foreach (SeedButtonData seedButton in seedButtons)
+        {
+            if (seedButton.button != null)
+                seedButton.button.interactable = HasSeedsForType(seedButton.seedType);
+        }
+        plantMenuWasOpened = true;
     }
 
-    public void PrepareSowing(SeedType seedType)
+    void DisableAllSeedButtons()
     {
-        currentSeed = seedType;
-        Cursor.SetCursor(SeedCursor, hotspot, cursorMode);
-        Sow = true;
+        foreach (SeedButtonData seedButton in seedButtons)
+        {
+            if (seedButton.button != null)
+                seedButton.button.interactable = false;
+        }
+        plantMenuWasOpened = false;
+    }
+
+    public void OnInventorySeedButtonClicked(SeedButtonData seedButtonData)
+    {
+        if (!plantMenuWasOpened) return;
+
+        if (!HasSeedsForType(seedButtonData.seedType))
+        {
+            Debug.Log("No seeds available!");
+            DisableAllSeedButtons();
+            return;
+        }
+
+        PlantSeedAtPosition(seedButtonData.seedType, seedButtonData.seedPrefab, lastFieldPosition);
+        DisableAllSeedButtons();
+    }
+
+    bool HasSeedsForType(SeedType seedType)
+    {
+        switch (seedType)
+        {
+            case SeedType.Normal: return GameManager.Instance.seeds > 0;
+            case SeedType.Tomato: return GameManager.Instance.tomatoSeeds > 0;
+            case SeedType.Corn: return GameManager.Instance.cornSeeds > 0;
+            default: return false;
+        }
+    }
+
+    void PlantSeedAtPosition(SeedType seedType, GameObject seedPrefab, Vector3 position)
+    {
+        if (seedPrefab == null) return;
+        if (!IsPositionValidForPlanting(position)) return;
+
+        switch (seedType)
+        {
+            case SeedType.Normal: GameManager.Instance.seeds--; break;
+            case SeedType.Tomato: GameManager.Instance.tomatoSeeds--; break;
+            case SeedType.Corn: GameManager.Instance.cornSeeds--; break;
+        }
+
+        Vector3 spawnPos = position + new Vector3(0, 0.1f, 0);
+        GameObject newCrop = Instantiate(seedPrefab, spawnPos, Quaternion.identity);
+        newCrop.layer = LayerMask.NameToLayer("CropsLayer");
+        Debug.Log($"Planted {seedType} at: {spawnPos}");
+        Normal();
+    }
+
+    bool IsPositionValidForPlanting(Vector3 position)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, 0.3f);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("field"))
+            {
+                Collider2D[] cropColliders = Physics2D.OverlapCircleAll(position, 0.2f);
+                foreach (Collider2D cropCollider in cropColliders)
+                    if (cropCollider.CompareTag("Crops")) return false;
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool IsGridPositionField(Vector3 position)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, 0.3f);
+        foreach (Collider2D collider in colliders)
+            if (collider.CompareTag("field")) return true;
+        return false;
+    }
+
+    public void OnSowButtonClicked()
+    {
+        bool isField = IsGridPositionField(lastGridPosition);
+
+        if (isField)
+        {
+            Sowing();
+            EnableFarmingButtons(); // Enable farming buttons when sow is clicked
+            CloseContextMenu();
+        }
+        else
+        {
+            CreateFieldAtSelection();
+            CloseContextMenu();
+        }
+    }
+
+    public void OnDefendButtonClicked()
+    {
+        if (!IsPositionOccupied(lastGridPosition))
+        {
+            PrepareDefenderWithPosition(DefenderType.Archer);
+            EnableDefenderButtons(); // Enable defender buttons when defend is clicked
+            CloseContextMenu();
+        }
+    }
+
+    void CreateFieldAtSelection()
+    {
+        GameObject newField = Instantiate(field, lastGridPosition, Quaternion.identity);
+        newField.layer = LayerMask.NameToLayer("FieldLayer");
+        GameManager.Instance.Money -= plowprice;
+        GameManager.Instance.SpawnUIAboveField(newField.transform, "-10");
+        Debug.Log("Created field at: " + lastGridPosition);
+    }
+
+    void PrepareDefenderWithPosition(DefenderType defenderType)
+    {
+        currentDefender = defenderType;
+        Cursor.SetCursor(DefenderCursor, hotspot, cursorMode);
+        PlaceDefenders = true;
         CreateField = false;
+        Sow = false;
+        currentSeed = SeedType.None;
+
+        PlaceDefender(lastGridPosition);
+        Normal();
+    }
+
+    Vector3 GetDefenderOffset(DefenderType defenderType)
+    {
+        switch (defenderType)
+        {
+            case DefenderType.Archer: return new Vector3(-0.2f, -0.1f, 0);
+            case DefenderType.Mage: return new Vector3(-0.1f, -0.5f, 0);
+            case DefenderType.Fence: return Vector3.zero;
+            default: return Vector3.zero;
+        }
+    }
+
+    void PlaceDefender(Vector3 position)
+    {
+        GameObject defenderToPlace = null;
+        switch (currentDefender)
+        {
+            case DefenderType.Archer: defenderToPlace = archerDefenderPrefab; break;
+            case DefenderType.Mage: defenderToPlace = mageDefenderPrefab; break;
+            case DefenderType.Fence: defenderToPlace = fenceDefenderPrefab; break;
+        }
+
+        if (defenderToPlace != null)
+        {
+            Vector3 offset = GetDefenderOffset(currentDefender);
+            Vector3 finalPosition = position + offset;
+
+            if (!IsPositionOccupied(finalPosition))
+            {
+                GameObject newDefender = Instantiate(defenderToPlace, finalPosition, Quaternion.identity);
+                newDefender.layer = LayerMask.NameToLayer("DefenderLayer");
+                Debug.Log($"Placed {currentDefender} at {finalPosition}");
+            }
+            else
+            {
+                Debug.Log("Position already occupied!");
+            }
+        }
+    }
+
+    bool IsPositionOccupied(Vector3 position)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, 0.4f);
+        foreach (Collider2D collider in colliders)
+            if (collider.CompareTag("Defender") || collider.CompareTag("Crops"))
+                return true;
+        return false;
+    }
+
+    public void Normal()
+    {
+        Cursor.SetCursor(basicCursor, hotspot, cursorMode);
+        CreateField = false;
+        Sow = false;
+        PlaceDefenders = false;
+        currentSeed = SeedType.None;
+        currentDefender = DefenderType.None;
+
+        if (selectedCrop != null)
+        {
+            selectedCrop.DeselectCrop();
+            selectedCrop = null;
+        }
+
+        CloseContextMenu();
+        ClosePlantMenu();
+        DisableAllSeedButtons();
+        DisableAllButtons(); // Disable all buttons when returning to normal
+    }
+
+    public void plowing()
+    {
+        Cursor.SetCursor(FieldCursor, hotspot, cursorMode);
+        CreateField = true;
+        Sow = false;
+        PlaceDefenders = false;
+        currentSeed = SeedType.None;
+        currentDefender = DefenderType.None;
     }
 
     public void Sowing()
@@ -224,5 +615,66 @@ public class FarmGrid : MonoBehaviour
         Cursor.SetCursor(SeedCursor, hotspot, cursorMode);
         CreateField = false;
         Sow = true;
+        PlaceDefenders = false;
+        currentDefender = DefenderType.None;
+    }
+
+    // Button Management Methods
+    public void EnableFarmingButtons()
+    {
+        foreach (var button in farmingButtons)
+        {
+            if (button != null)
+                button.EnableIfAffordable();
+        }
+    }
+
+    public void EnableDefenderButtons()
+    {
+        foreach (var button in defendingButtons)
+        {
+            if (button != null)
+                button.EnableIfAffordable();
+        }
+    }
+
+    public void DisableAllButtons()
+    {
+        foreach (var button in farmingButtons)
+        {
+            if (button != null)
+                button.DisableButton();
+        }
+
+        foreach (var button in defendingButtons)
+        {
+            if (button != null)
+                button.DisableButton();
+        }
+    }
+
+    // Methods for UniversalButton system
+    public void PrepareSowing(SeedType seedType)
+    {
+        currentSeed = seedType;
+        Cursor.SetCursor(SeedCursor, hotspot, cursorMode);
+        Sow = true;
+        CreateField = false;
+        PlaceDefenders = false;
+        currentDefender = DefenderType.None;
+        EnableFarmingButtons(); // Enable farming buttons when preparing to sow
+        Debug.Log($"Selected {seedType} seed for planting");
+    }
+
+    public void PrepareDefender(DefenderType defenderType)
+    {
+        currentDefender = defenderType;
+        Cursor.SetCursor(DefenderCursor, hotspot, cursorMode);
+        PlaceDefenders = true;
+        CreateField = false;
+        Sow = false;
+        currentSeed = SeedType.None;
+        EnableDefenderButtons(); // Enable defender buttons when preparing to defend
+        Debug.Log($"Selected {defenderType} for placement");
     }
 }

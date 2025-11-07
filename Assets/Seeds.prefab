@@ -51,6 +51,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -72,8 +75,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1714872519
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 8e8089b85972bd14b9dd7ae34534deb0, type: 3}
   m_Color: {r: 0.85660374, g: 0.6226253, b: 0.35395512, a: 1}
@@ -99,7 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cropData: {fileID: 11400000, guid: 8cda438a6ce87e7458b1efa74cf48cc5, type: 2}
-  cropPrefab: {fileID: 4181786779876131601, guid: b670c7e76679e164096bd67c2df5ac92, type: 3}
+  spriteRenderer: {fileID: 0}
 --- !u!1 &6950324529675575768
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +152,9 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
