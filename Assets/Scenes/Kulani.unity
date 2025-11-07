@@ -6731,7 +6731,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6162382462298605172, guid: b083040096e12b54fbacb2cf8ef4dd35, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6162382462298605172, guid: b083040096e12b54fbacb2cf8ef4dd35, type: 3}
       propertyPath: m_SortingLayerID
@@ -10765,7 +10765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c084013ae6c2a54b8b00321976f914c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemytoClone_1: {fileID: 1901912268}
+  EnemytoClone_1: {fileID: 0}
   EnemytoClone_2: {fileID: 667948744}
   GridObject: {fileID: 1882656532}
   gridOriginObject: {fileID: 1804519027}
@@ -12306,7 +12306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6162382462298605172, guid: b083040096e12b54fbacb2cf8ef4dd35, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6162382462298605172, guid: b083040096e12b54fbacb2cf8ef4dd35, type: 3}
       propertyPath: m_SortingLayerID

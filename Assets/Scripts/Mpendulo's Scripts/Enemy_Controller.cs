@@ -81,7 +81,7 @@ public class Enemy_Controller : MonoBehaviour
     {
         if (shouldSpawn)
         {
-            StartCoroutine(SpawnWaves(50f, 5f));
+            StartCoroutine(SpawnWaves(80f, 5f));
             shouldSpawn = false;
         }
     }

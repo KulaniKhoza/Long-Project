@@ -41,7 +41,7 @@ public class Move_enemy : MonoBehaviour
         HealthBar.value = Health;
 
         target = transform.position;
-        speed = 0.5f;
+        speed = 0.2f;
 
         pest = GetComponent<Rigidbody2D>();
         enemy = Controller.GetComponent<Enemy_Controller>();
@@ -120,6 +120,8 @@ public class Move_enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HealthBar.value = Health;
+
         if (posX != -1 && posX == 0 && !destroyed)
         {
             //enemy.clones.RemoveAt(0);
@@ -131,10 +133,10 @@ public class Move_enemy : MonoBehaviour
                     break;
                 }
             }
-            Destroy(gameObject, 1f);
+            Destroy(gameObject, 7f);
             destroyed = true;
-            //gameOverScreen.SetActive(true);
-            //Time.timeScale = 0f;
+            gameOverScreen.SetActive(true);
+            Time.timeScale = 0f;
         }
 
         if (Health <= 0)
@@ -151,20 +153,26 @@ public class Move_enemy : MonoBehaviour
             destroyed = true;
         }
 
+
+
+
+    }
+
+    public void FixedUpdate()
+    {
         if (target != null)
         {
             // Move enemy toward target
             Vector2 direction = (target - transform.position).normalized;
-            transform.position += (Vector3)direction * speed * Time.deltaTime;
-
-            if (direction == Vector2.zero && shouldMove)
+            Vector2 direction2 = (target - transform.position);
+            transform.position += (Vector3)direction * speed * Time.fixedDeltaTime;
+            //Debug.Log(direction2.x);
+            if (direction2.x >= -0.3 && direction2.x <= 0.2 && shouldMove)
             {
                 Move("Right");
             }
 
         }
-
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -175,8 +183,8 @@ public class Move_enemy : MonoBehaviour
             target = enemy.grid[posY][posX + 1];
             posX++;
 
-            Health--;
-            HealthBar.value = Health;
+            //Health--;
+
 
 
         }
