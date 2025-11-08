@@ -604,7 +604,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 822496019
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 5
   m_Sprite: {fileID: 497602503, guid: 8cc29e66b1b5a054c960e48d77ded7dc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -640,8 +640,8 @@ MonoBehaviour:
   holdWaterAmount: 5
   waterCostPerSecond: 5
   moneyGenerationInterval: 4
-  maxHealth: 3
-  currentHealth: 3
+  maxHealth: 8
+  currentHealth: 8
   waterProgressBar: {fileID: 394336012616553305}
   waterProgressText: {fileID: 3299916663104776739}
   selectedColor: {r: 0, g: 0, b: 1, a: 1}
@@ -675,7 +675,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

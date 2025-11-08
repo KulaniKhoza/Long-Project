@@ -133,10 +133,10 @@ public class Move_enemy : MonoBehaviour
                     break;
                 }
             }
+            StartCoroutine(destroyDelay());
             Destroy(gameObject, 7f);
             destroyed = true;
-            gameOverScreen.SetActive(true);
-            Time.timeScale = 0f;
+
         }
 
         if (Health <= 0)
@@ -167,7 +167,7 @@ public class Move_enemy : MonoBehaviour
             Vector2 direction2 = (target - transform.position);
             transform.position += (Vector3)direction * speed * Time.fixedDeltaTime;
             //Debug.Log(direction2.x);
-            if (direction2.x >= -0.3 && direction2.x <= 0.2 && shouldMove)
+            if (direction2.x >= -0.5 && direction2.x <= 0.2 && shouldMove)
             {
                 Move("Right");
             }
@@ -183,10 +183,21 @@ public class Move_enemy : MonoBehaviour
             target = enemy.grid[posY][posX + 1];
             posX++;
 
-            //Health--;
 
+        }
 
+        if (collision.transform.tag == "Crops")
+        {
+            Crops cropHealth = collision.gameObject.GetComponent<Crops>();
 
+            if (cropHealth != null)
+            {
+
+                target = enemy.grid[posY][posX + 1];
+                posX++;
+                cropHealth.TakeDamage(1);
+
+            }
         }
 
     }
@@ -233,11 +244,15 @@ public class Move_enemy : MonoBehaviour
 
 
     }
-
-    public void move2()
+    private IEnumerator destroyDelay()
     {
+        yield return new WaitForSeconds(6.9f);
+        gameOverScreen.SetActive(true);
+        Time.timeScale = 0f;
+
 
     }
+
 
 
 }

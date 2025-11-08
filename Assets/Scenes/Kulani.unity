@@ -4128,7 +4128,7 @@ MonoBehaviour:
   Controller: {fileID: 1840988750}
   enemy: {fileID: 0}
   destroyed: 0
-  gameOverScreen: {fileID: 1503437004}
+  gameOverScreen: {fileID: 745994864}
   HealthBar: {fileID: 1928496674}
 --- !u!212 &667948749
 SpriteRenderer:
@@ -4171,8 +4171,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 141630561
+  m_SortingLayer: 7
   m_SortingOrder: 2
   m_Sprite: {fileID: 9064893237733398578, guid: 729bb6150d2f69f4c99c7fed023b82a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -10765,7 +10765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c084013ae6c2a54b8b00321976f914c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemytoClone_1: {fileID: 0}
+  EnemytoClone_1: {fileID: 1901912268}
   EnemytoClone_2: {fileID: 667948744}
   GridObject: {fileID: 1882656532}
   gridOriginObject: {fileID: 1804519027}
@@ -11501,9 +11501,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingLayerID: 141630561
+  m_SortingLayer: 7
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1847856664066940201, guid: 11dad857dcef00f48a64d5e1dbf8dc3b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
