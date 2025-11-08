@@ -7,7 +7,7 @@ public class AttackerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float moveSpeed = 3f;
-    public string targetTag = "EnemyW"; // Only targets Worms
+    public string targetTag = "Enemy"; // Only targets Worms
 
     [Header("Animation")]
     public Animator animator;
@@ -57,9 +57,10 @@ public class AttackerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("EnemyW")) // Only kills Worms
+        if (collision.collider.CompareTag("Enemy")) // Only kills Worms
         {
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
+            isAttacking = true;
 
             if (animator != null)
             {
@@ -67,7 +68,7 @@ public class AttackerMovement : MonoBehaviour
                 animator.SetTrigger("Peck");
             }
 
-            Destroy(gameObject, 0.2f); // adjust delay for attack animation
+            Destroy(gameObject, 5f); // adjust delay for attack animation
         }
     }
 }

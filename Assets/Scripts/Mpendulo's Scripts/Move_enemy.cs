@@ -1,7 +1,7 @@
 using UnityEngine;
-using System.Collections;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 
 public class Move_enemy : MonoBehaviour
@@ -25,6 +25,9 @@ public class Move_enemy : MonoBehaviour
     public Enemy_Controller enemy;
     public bool destroyed = false;
     bool shouldMove = false;
+    bool DontMove = false;
+    private Color originalColor;
+    public SpriteRenderer spriteRenderer;
 
     public GameObject gameOverScreen;
 
@@ -42,6 +45,12 @@ public class Move_enemy : MonoBehaviour
 
         target = transform.position;
         speed = 0.2f;
+
+        // Initialize components
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponent<SpriteRenderer>();
+
+        originalColor = spriteRenderer.color;
 
         pest = GetComponent<Rigidbody2D>();
         enemy = Controller.GetComponent<Enemy_Controller>();
@@ -160,12 +169,13 @@ public class Move_enemy : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (target != null)
+        if (target != null && !DontMove)
         {
             // Move enemy toward target
             Vector2 direction = (target - transform.position).normalized;
             Vector2 direction2 = (target - transform.position);
             transform.position += (Vector3)direction * speed * Time.fixedDeltaTime;
+
             //Debug.Log(direction2.x);
             if (direction2.x >= -0.5 && direction2.x <= 0.2 && shouldMove)
             {
@@ -177,6 +187,13 @@ public class Move_enemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.transform.tag == "Attacker")
+        {
+            StartCoroutine(DamageEffect());
+            //target = enemy.grid[posY][posX + 1];
+            //posX++;
+        }
+
         if (collision.transform.tag == "Fence")
         {
             //Move("Left");
@@ -250,6 +267,24 @@ public class Move_enemy : MonoBehaviour
         gameOverScreen.SetActive(true);
         Time.timeScale = 0f;
 
+
+    }
+
+    private IEnumerator DamageEffect()
+    {
+        DontMove = true;
+        // Flash red a few times
+        for (int i = 0; i < 6; i++)
+        {
+            spriteRenderer.color = Color.red;
+            Health--;
+            yield return new WaitForSeconds(0.335f);
+
+            spriteRenderer.color = originalColor;
+
+            yield return new WaitForSeconds(0.335f);
+
+        }
 
     }
 
