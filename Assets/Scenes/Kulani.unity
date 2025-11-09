@@ -3110,7 +3110,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1882656533}
         m_TargetAssemblyTypeName: FarmGrid, Assembly-CSharp
-        m_MethodName: OnDefendButtonClicked
+        m_MethodName: OnDefendButtonClicked2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4938,7 +4938,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1882656533}
         m_TargetAssemblyTypeName: FarmGrid, Assembly-CSharp
-        m_MethodName: OnDefendButtonClicked
+        m_MethodName: OnDefendButtonClicked2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6227,7 +6227,7 @@ GameObject:
   - component: {fileID: 1076560358}
   - component: {fileID: 1076560357}
   m_Layer: 5
-  m_Name: Fence (2)
+  m_Name: Pesticide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10329,7 +10329,7 @@ Transform:
   m_GameObject: {fileID: 1840988750}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960, y: -540, z: 0}
+  m_LocalPosition: {x: -959.92, y: -540, z: 0}
   m_LocalScale: {x: 1.1455976, y: 1.1455976, z: 1.1455976}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10613,6 +10613,8 @@ MonoBehaviour:
   fieldHighlightColor: {r: 0, g: 0, b: 1, a: 1}
   contextMenu: {fileID: 485659620}
   plantMenu: {fileID: 1902618836}
+  activeFieldColor: {r: 1, g: 0, b: 0, a: 1}
+  inactiveGridColor: {r: 0, g: 0, b: 1, a: 1}
   seedButtons:
   - button: {fileID: 170440399}
     seedType: 1
@@ -10623,11 +10625,24 @@ MonoBehaviour:
   - button: {fileID: 1173023471}
     seedType: 2
     seedPrefab: {fileID: 9124510512987317584, guid: 0177f4f781be921449292d6d5daad590, type: 3}
+  defenderButtons:
+  - button: {fileID: 1440892729}
+    defenderType: 3
+    defenderPrefab: {fileID: 2438595926621790931, guid: ff056fd98c5aa424c878c43c2becc2ca, type: 3}
+  - button: {fileID: 2101303677}
+    defenderType: 1
+    defenderPrefab: {fileID: 7416007734922913231, guid: f29b1aa9acef51741b928546d2aa9c4a, type: 3}
+  - button: {fileID: 1076560358}
+    defenderType: 2
+    defenderPrefab: {fileID: 5409831688905143846, guid: 5252102dd3774804e81705555bfbb7a8, type: 3}
   farmingButtons:
   - {fileID: 170440402}
   - {fileID: 1275060196}
   - {fileID: 1173023470}
-  defendingButtons: []
+  defendingButtons:
+  - {fileID: 1440892728}
+  - {fileID: 2101303676}
+  - {fileID: 1076560357}
 --- !u!4 &1882656534
 Transform:
   m_ObjectHideFlags: 0
@@ -11187,7 +11202,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1882656533}
         m_TargetAssemblyTypeName: FarmGrid, Assembly-CSharp
-        m_MethodName: OnPlantButtonClicked
+        m_MethodName: PlantButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12368,7 +12383,7 @@ GameObject:
   - component: {fileID: 2101303677}
   - component: {fileID: 2101303676}
   m_Layer: 5
-  m_Name: Fence (1)
+  m_Name: ChickenKnight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

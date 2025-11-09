@@ -60,6 +60,10 @@ public class FarmGrid : MonoBehaviour
     private bool contextMenuVisible = false;
     private bool plantMenuVisible = false;
 
+    public Color activeFieldColor = Color.red;
+    public Color inactiveGridColor = Color.blue;
+
+
     [System.Serializable]
     public class SeedButtonData
     {
@@ -70,6 +74,16 @@ public class FarmGrid : MonoBehaviour
 
     public List<SeedButtonData> seedButtons = new List<SeedButtonData>();
     private bool plantMenuWasOpened = false;
+
+    [System.Serializable]
+    public class DefenderButtonData
+    {
+        public Button button;
+        public DefenderType defenderType;
+        public GameObject defenderPrefab;
+    }
+
+    public List<DefenderButtonData> defenderButtons = new List<DefenderButtonData>();
 
     [Header("Buttons")]
     public List<UniversalButton> farmingButtons = new List<UniversalButton>();
@@ -88,6 +102,7 @@ public class FarmGrid : MonoBehaviour
         gridLayerMask = LayerMask.GetMask("Default");
 
         InitializeSeedButtons();
+        InitializeDefenderButtons(); // ADD THIS LINE
     }
 
     void Start()
@@ -164,7 +179,7 @@ public class FarmGrid : MonoBehaviour
                     ClosePlantMenu();
                 }
 
-                if (fieldHighlight != null)
+                if (fieldHighlight != null && !plantMenuVisible)
                 {
                     lastFieldPosition = fieldHighlight.position;
                     ShowPlantMenu();
@@ -173,9 +188,14 @@ public class FarmGrid : MonoBehaviour
                 else if (highlight != null)
                 {
                     lastGridPosition = highlight.position;
+
+                    // Highlight the clicked tile + blue the rest
+                    HighlightClickedGridTile(lastGridPosition);
+
                     ShowContextMenu();
                     ClosePlantMenu();
                 }
+
                 else
                 {
                     DeselectGrid();
@@ -241,7 +261,7 @@ public class FarmGrid : MonoBehaviour
 
         if (Keyboard.current.escapeKey.wasPressedThisFrame && plantMenuWasOpened)
         {
-            DisableAllSeedButtons();
+            //  DisableAllSeedButtons();
             ClosePlantMenu();
         }
     }
@@ -284,6 +304,23 @@ public class FarmGrid : MonoBehaviour
             if (sr != null) sr.color = fieldHighlightColor;
         }
     }
+    public void HighlightClickedGridTile(Vector3 clickedPosition)
+    {
+        foreach (GameObject gridTile in GameGrid)
+        {
+            if (gridTile == null) continue;
+
+            SpriteRenderer sr = gridTile.GetComponent<SpriteRenderer>();
+            if (sr == null) continue;
+
+            // Clicked tile = white, others = blue
+            if (Vector3.Distance(gridTile.transform.position, clickedPosition) < 0.1f)
+                sr.color = Color.white;
+            else
+                sr.color = Color.blue;
+        }
+    }
+
 
     void DeselectAll()
     {
@@ -333,14 +370,83 @@ public class FarmGrid : MonoBehaviour
 
     void ShowPlantMenu()
     {
-        if (plantMenu != null)
+        if (plantMenu != null && !plantMenuVisible)
         {
             lastFieldPosition = fieldHighlight.position;
             plantMenu.transform.position = lastFieldPosition;
             plantMenu.SetActive(true);
             plantMenuVisible = true;
-            EnableAllSeedButtons();
+            //EnableAllSeedButtons();
             CloseContextMenu();
+        }
+    }
+
+    public void PlantButton()
+    {
+        // Do NOT open plant menu anymore. Only turn on farming buttons.
+        EnableFarmingButtons();
+        plantMenu.SetActive(false);
+        plantMenuVisible = true;
+        // Maintain tile highlighting
+        HighlightClickedGridTile(lastGridPosition);
+
+        Debug.Log("Plant mode activated. Farming buttons enabled.");
+    }
+    public void OnDefendButtonClicked2()
+    {
+        // Only allow if the position is not already occupied
+        if (!IsPositionOccupied(lastGridPosition))
+        {
+            // Prepare for defender placement mode
+            PlaceDefenders = true;
+            Sow = false;
+            CreateField = false;
+            currentSeed = SeedType.None;
+
+            // Set defender cursor
+            Cursor.SetCursor(DefenderCursor, hotspot, cursorMode);
+
+            // Enable all defender buttons (like seed buttons)
+            EnableDefenderButtons();
+
+            // Keep the clicked grid tile highlighted
+            HighlightClickedGridTile(lastGridPosition);
+
+            // Close any menus
+            CloseContextMenu();
+            ClosePlantMenu();
+
+            Debug.Log("Defender mode activated via context menu. Defender buttons enabled.");
+        }
+        else
+        {
+            Debug.Log("Cannot place defender: position occupied!");
+        }
+    }
+
+    public void HighlightFieldAndBlueGrid(Vector3 fieldPos)
+    {
+        // Highlight selected field (red)
+        Collider2D[] fieldHits = Physics2D.OverlapCircleAll(fieldPos, 0.3f);
+        foreach (Collider2D col in fieldHits)
+        {
+            SpriteRenderer sr = col.GetComponent<SpriteRenderer>();
+            if (sr != null)
+                sr.color = activeFieldColor;
+        }
+
+        // Set all grid tiles BLUE except the active field
+        foreach (GameObject gridTile in GameGrid)
+        {
+            if (gridTile == null) continue;
+
+            // Skip the selected tile
+            if (Vector3.Distance(gridTile.transform.position, fieldPos) < 0.1f)
+                continue;
+
+            SpriteRenderer sr = gridTile.GetComponent<SpriteRenderer>();
+            if (sr != null)
+                sr.color = inactiveGridColor;
         }
     }
 
@@ -350,7 +456,8 @@ public class FarmGrid : MonoBehaviour
         {
             plantMenu.SetActive(false);
             plantMenuVisible = false;
-            DisableAllSeedButtons();
+            // DisableAllSeedButtons(); 
+            DisableFarmButtons();
         }
     }
 
@@ -394,37 +501,71 @@ public class FarmGrid : MonoBehaviour
 
     void EnableAllSeedButtons()
     {
-        foreach (SeedButtonData seedButton in seedButtons)
-        {
-            if (seedButton.button != null)
-                seedButton.button.interactable = HasSeedsForType(seedButton.seedType);
-        }
+        UpdateSeedButtonVisuals();
         plantMenuWasOpened = true;
     }
 
-    void DisableAllSeedButtons()
+    /*  void DisableAllSeedButtons()
+      {
+          foreach (SeedButtonData seedButton in seedButtons)
+          {
+              if (seedButton.button != null)
+                  seedButton.button.interactable = false;
+          }
+          plantMenuWasOpened = false;
+      }*/
+
+    void UpdateSeedButtonVisuals()
     {
         foreach (SeedButtonData seedButton in seedButtons)
         {
             if (seedButton.button != null)
-                seedButton.button.interactable = false;
+            {
+                bool hasSeeds = HasSeedsForType(seedButton.seedType);
+                seedButton.button.interactable = hasSeeds;
+
+                // Update text to show seed count
+                TextMeshProUGUI buttonText = seedButton.button.GetComponentInChildren<TextMeshProUGUI>();
+                if (buttonText != null)
+                {
+                    int seedCount = GetSeedCountForType(seedButton.seedType);
+                    buttonText.text = $"{seedButton.seedType}\n({seedCount})";
+                }
+
+                // Visual feedback for unavailable seeds
+                Image buttonImage = seedButton.button.GetComponent<Image>();
+                if (buttonImage != null)
+                {
+                    buttonImage.color = hasSeeds ? Color.white : Color.gray;
+                }
+            }
         }
-        plantMenuWasOpened = false;
+    }
+
+    int GetSeedCountForType(SeedType seedType)
+    {
+        switch (seedType)
+        {
+            case SeedType.Normal: return GameManager.Instance.seeds;
+            case SeedType.Tomato: return GameManager.Instance.tomatoSeeds;
+            case SeedType.Corn: return GameManager.Instance.cornSeeds;
+            default: return 0;
+        }
     }
 
     public void OnInventorySeedButtonClicked(SeedButtonData seedButtonData)
     {
-        if (!plantMenuWasOpened) return;
+        if (!plantMenuVisible) return;
 
         if (!HasSeedsForType(seedButtonData.seedType))
         {
             Debug.Log("No seeds available!");
-            DisableAllSeedButtons();
+            EnableAllSeedButtons(); // Refresh button states
             return;
         }
 
         PlantSeedAtPosition(seedButtonData.seedType, seedButtonData.seedPrefab, lastFieldPosition);
-        DisableAllSeedButtons();
+        ClosePlantMenu(); // Close menu after planting
     }
 
     bool HasSeedsForType(SeedType seedType)
@@ -499,15 +640,17 @@ public class FarmGrid : MonoBehaviour
         }
     }
 
-    public void OnDefendButtonClicked()
-    {
-        if (!IsPositionOccupied(lastGridPosition))
-        {
-            PrepareDefenderWithPosition(DefenderType.Archer);
-            EnableDefenderButtons(); // Enable defender buttons when defend is clicked
-            CloseContextMenu();
-        }
-    }
+
+
+    /*  public void OnDefendButtonClicked()
+      {
+          if (!IsPositionOccupied(lastGridPosition))
+          {
+              PrepareDefenderWithPosition(DefenderType.Archer);
+              EnableDefenderButtons(); // Enable defender buttons when defend is clicked
+              CloseContextMenu();
+          }
+      } */
 
     void CreateFieldAtSelection()
     {
@@ -578,7 +721,105 @@ public class FarmGrid : MonoBehaviour
                 return true;
         return false;
     }
+    // -----------------------------------------------------------------------------------------// 
+    //DefenderPlacement  
+    // Rename this method to avoid conflict with the context menu button
+    public void OnDefenderTypeButtonClicked(DefenderButtonData defenderButtonData)
+    {
+        if (!PlaceDefenders) return; // Only allow if in defender placement mode
 
+        currentDefender = defenderButtonData.defenderType;
+
+        // Place the selected defender at last clicked grid position
+        PlaceDefenderAtPosition(lastGridPosition, defenderButtonData.defenderPrefab);
+
+        // Exit defender placement mode
+        PlaceDefenders = false;
+        currentDefender = DefenderType.None;
+
+        // Reset cursor
+        Cursor.SetCursor(basicCursor, hotspot, cursorMode);
+
+        // Disable defender buttons
+        DisableDefenderButtons();
+
+        // Reset grid colors
+        Normal();
+    }
+
+    // Update the InitializeDefenderButtons to use the new method name
+    void InitializeDefenderButtons()
+    {
+        foreach (DefenderButtonData defenderButton in defenderButtons)
+        {
+            if (defenderButton.button != null)
+            {
+                defenderButton.button.interactable = false;
+                defenderButton.button.onClick.RemoveAllListeners();
+                defenderButton.button.onClick.AddListener(() => OnDefenderTypeButtonClicked(defenderButton));
+            }
+        }
+    }
+    
+
+    /*  void EnableDefenderButtons()
+      {
+          foreach (DefenderButtonData defenderButton in defenderButtons)
+          {
+              if (defenderButton.button != null)
+                  defenderButton.button.interactable = true;
+          }
+      }*/
+
+    /* void DisableDefenderButtons2()
+     {
+         foreach (DefenderButtonData defenderButton in defenderButtons)
+         {
+             if (defenderButton.button != null)
+                 defenderButton.button.interactable = false;
+         }
+     }*/
+
+    // Called when a defender button is clicked
+    public void OnDefenderButtonClicked(DefenderButtonData defenderButtonData)
+    {
+        if (!PlaceDefenders) return; // Only allow if in defender placement mode
+
+        currentDefender = defenderButtonData.defenderType;
+
+        // Place the selected defender at last clicked grid position
+        PlaceDefenderAtPosition(lastGridPosition, defenderButtonData.defenderPrefab);
+
+        // Exit defender placement mode
+        PlaceDefenders = false;
+        currentDefender = DefenderType.None;
+
+        // Reset cursor
+        Cursor.SetCursor(basicCursor, hotspot, cursorMode);
+
+        // Disable defender buttons
+        DisableDefenderButtons();
+    }
+
+    // Similar to PlantSeedAtPosition but for defenders
+    void PlaceDefenderAtPosition(Vector3 position, GameObject defenderPrefab)
+    {
+        if (defenderPrefab == null) return;
+
+        Vector3 offset = GetDefenderOffset(currentDefender);
+        Vector3 finalPosition = position + offset;
+
+        if (!IsPositionOccupied(finalPosition))
+        {
+            GameObject newDefender = Instantiate(defenderPrefab, finalPosition, Quaternion.identity);
+            newDefender.layer = LayerMask.NameToLayer("DefenderLayer");
+            Debug.Log($"Placed {currentDefender} at {finalPosition}");
+        }
+        else
+        {
+            Debug.Log("Cannot place defender: position already occupied!");
+        }
+    }
     public void Normal()
     {
         Cursor.SetCursor(basicCursor, hotspot, cursorMode);
@@ -593,10 +834,19 @@ public class FarmGrid : MonoBehaviour
             selectedCrop.DeselectCrop();
             selectedCrop = null;
         }
+        foreach (GameObject tile in GameGrid)
+        {
+            if (tile == null) continue;
+
+            SpriteRenderer sr = tile.GetComponent<SpriteRenderer>();
+            if (sr != null)
+                sr.color = Color.white;  // or your default grid color
+        }
+
 
         CloseContextMenu();
         ClosePlantMenu();
-        DisableAllSeedButtons();
+        // DisableAllSeedButtons();
         DisableAllButtons(); // Disable all buttons when returning to normal
     }
 
@@ -645,6 +895,25 @@ public class FarmGrid : MonoBehaviour
             if (button != null)
                 button.DisableButton();
         }
+
+        foreach (var button in defendingButtons)
+        {
+            if (button != null)
+                button.DisableButton();
+        }
+    }
+    public void DisableFarmButtons()
+    {
+        foreach (var button in farmingButtons)
+        {
+            if (button != null)
+                button.DisableButton();
+        }
+
+
+    }
+    public void DisableDefenderButtons()
+    {
 
         foreach (var button in defendingButtons)
         {

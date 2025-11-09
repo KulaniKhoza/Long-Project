@@ -144,5 +144,5 @@ public class GameManager : MonoBehaviour
 
         return progressBar.GetComponent<SimpleProgressBar>();
     }
-
+ 
 }
