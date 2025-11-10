@@ -270,7 +270,7 @@ public class Move_enemy : MonoBehaviour
 
     }
 
-    private IEnumerator DamageEffect()
+    public IEnumerator DamageEffect()
     {
         DontMove = true;
         // Flash red a few times

@@ -2305,18 +2305,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80bc0b58c7a290f458203601a32ec094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.1
-  targetTag: Plant
-  animator: {fileID: 296980285}
-  hitsToDie: 4
-  hitCooldown: 0.5
-  knockbackForce: 5
-  knockbackDuration: 0.2
---- !u!95 &296980285 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5416976333626806941, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
-  m_PrefabInstance: {fileID: 971801088}
-  m_PrefabAsset: {fileID: 0}
 --- !u!50 &296980286
 Rigidbody2D:
   serializedVersion: 5
@@ -6229,18 +6217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80bc0b58c7a290f458203601a32ec094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.1
-  targetTag: Plant
-  animator: {fileID: 1009185990}
-  hitsToDie: 4
-  hitCooldown: 0.5
-  knockbackForce: 5
-  knockbackDuration: 0.2
---- !u!95 &1009185990 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5416976333626806941, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
-  m_PrefabInstance: {fileID: 1428523413}
-  m_PrefabAsset: {fileID: 0}
 --- !u!50 &1009185991
 Rigidbody2D:
   serializedVersion: 5

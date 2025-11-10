@@ -23,6 +23,7 @@ public class ChickenMovement : MonoBehaviour
     private Vector2 moveDirection;
     private bool isAttacking = false;
     private bool canAttack = true;
+    private bool destroyCalled = false;
     private int currentKills = 0;
 
     // Track hit counts for each worm
@@ -61,7 +62,7 @@ public class ChickenMovement : MonoBehaviour
         // Check if we're close enough to attack
         if (distance <= attackRange && canAttack)
         {
-            StartAttack();
+            //StartAttack();
             return;
         }
 
@@ -93,7 +94,7 @@ public class ChickenMovement : MonoBehaviour
     {
         if (collision.collider.CompareTag(targetTag) && !isAttacking && canAttack)
         {
-            StartAttack();
+            StartAttack(collision.gameObject);
         }
     }
 
@@ -102,11 +103,11 @@ public class ChickenMovement : MonoBehaviour
         // Also check for continuous collision
         if (collision.collider.CompareTag(targetTag) && !isAttacking && canAttack)
         {
-            StartAttack();
+            StartAttack(collision.gameObject);
         }
     }
 
-    private void StartAttack()
+    private void StartAttack(GameObject enemy)
     {
         if (!canAttack || target == null) return;
 
@@ -123,7 +124,35 @@ public class ChickenMovement : MonoBehaviour
 
         // Damage the target worm
         GameObject wormObject = target.gameObject;
+        Move_enemy enemyScript = enemy.GetComponent<Move_enemy>();
 
+        if (!destroyCalled)
+        {
+            StartCoroutine(enemyScript.DamageEffect());
+        }
+
+        destroyCalled = true;
+
+        int currentHits = enemyScript.Health;
+
+        Debug.Log($"Chicken pecked worm! Hit {currentHits}/{hitsToKill}");
+
+        // Check if worm should die
+        if (enemyScript.Health <= 1)
+        {
+            // Remove from dictionary before destroying
+            //wormHitCounts.Remove(wormObject);
+            //Destroy(wormObject);
+            currentKills++;
+            destroyCalled = false;
+
+            Debug.Log($"Worm killed! Total kills: {currentKills}/{maxKills}");
+
+            // Check if chicken should be destroyed
+            CheckChickenDestruction();
+        }
+
+        /*
         // Track hits for this worm
         if (!wormHitCounts.ContainsKey(wormObject))
         {
@@ -148,6 +177,7 @@ public class ChickenMovement : MonoBehaviour
             // Check if chicken should be destroyed
             CheckChickenDestruction();
         }
+        */
 
         // Resume movement after attack
         StartCoroutine(ResumeMovementAfterAttack());
