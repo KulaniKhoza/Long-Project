@@ -1239,8 +1239,8 @@ MonoBehaviour:
   wateringInterval: 0.1
   holdWaterAmount: 5
   moneyGenerationInterval: 4
-  maxHealth: 3
-  currentHealth: 3
+  maxHealth: 8
+  currentHealth: 8
   waterProgressBar: {fileID: 394336012616553305}
   waterProgressText: {fileID: 3299916663104776739}
   smoothFillDuration: 3.5
@@ -1276,7 +1276,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

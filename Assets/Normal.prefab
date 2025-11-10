@@ -198,7 +198,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 8cda438a6ce87e7458b1efa74cf48cc5, type: 2}
     - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: maxHealth
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: plantLevel
@@ -206,7 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: currentHealth
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: spriteRenderer
@@ -401,11 +401,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.1010164, y: 0.27700102}
+  m_Offset: {x: 0.005101204, y: -0.09744316}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -415,7 +415,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.6151817, y: 1.4338195}
+  m_Size: {x: 1.0290332, y: 1.174589}
   m_EdgeRadius: 0
 --- !u!114 &6465715933417017867 stripped
 MonoBehaviour:
