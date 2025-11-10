@@ -9449,7 +9449,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1709570877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9468,6 +9468,7 @@ MonoBehaviour:
   waterText: {fileID: 0}
   refillCost: 50
   refillAmount: 100
+  refillDuration: 2
 --- !u!4 &1709570878
 Transform:
   m_ObjectHideFlags: 0
@@ -9574,7 +9575,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1710066769}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1709570877}
+        m_TargetAssemblyTypeName: WaterTank, Assembly-CSharp
+        m_MethodName: RefillTankSmooth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1710066769
 MonoBehaviour:
   m_ObjectHideFlags: 0
