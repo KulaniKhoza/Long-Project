@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 public class Crops : MonoBehaviour
 {
@@ -25,13 +26,23 @@ public class Crops : MonoBehaviour
     public float wateringInterval = 0.2f;
     public int holdWaterAmount = 8;
 
+    // ? WATER DECAY SYSTEM
+    [Header("Water Decay Settings")]
+    public float decayDelay = 7f;
+    public float decayRate = 10f;
+    private bool isDecaying = false;
+    private float decayTimer = 0f;
+
+    // ? NEW — detect level-up interruption
+    private bool levelUpJustHappened = false;
+
     [Header("Money Generation")]
     private float moneyTimer = 0f;
     public float moneyGenerationInterval = 4f;
     private bool isAlive = true;
 
     [Header("Health System")]
-    public int maxHealth = 4;    // Hits needed before death
+    public int maxHealth = 4;
     public int currentHealth;
     private Coroutine damageEffectCoroutine;
     private bool wasDamagedThisFrame = false;
@@ -39,35 +50,36 @@ public class Crops : MonoBehaviour
     [Header("Progress Bar")]
     public Image waterProgressBar;
     public TextMeshProUGUI waterProgressText;
-    public float smoothFillDuration = 2f; // Duration for smooth fill animation
+    public float smoothFillDuration = 5f;
+    public float smoothDecreaseDuration = 14f; // ? NEW - Duration for smooth decrease
+    public float decreaseStartDelay = 2f; // ? NEW - Delay before decrease starts
     private Coroutine smoothFillCoroutine;
+    private Coroutine smoothDecreaseCoroutine; // ? NEW - Coroutine for smooth decrease
     private bool isAnimating = false;
     public GameObject WaterPanel;
+
     [Header("Selection Settings")]
     private bool isSelected = false;
     private Color originalColor;
     public Color selectedColor = Color.blue;
     private Coroutine flashCoroutine;
-    
-    // Static reference for button access
+
+    // ? NEW - Clickable state (collider remains enabled)
+    private bool isClickable = true;
+
     public static Crops CurrentlySelectedCrop { get; private set; }
 
     void Start()
     {
-        // Initialize components
         if (spriteRenderer == null)
             spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (MoneyManager == null)
             MoneyManager = GameManager.Instance;
 
-        // Store original color
         originalColor = spriteRenderer.color;
-
-        // Initialize health
         currentHealth = maxHealth;
 
-        // Initialize progress bar
         InitializeProgressBar();
         UpdateSprite();
 
@@ -93,8 +105,7 @@ public class Crops : MonoBehaviour
     {
         if (!isAlive) return;
 
-        // Handle continuous watering if this crop is selected and W key is held
-        // Don't allow watering if at max level and fully watered OR if animation is playing
+        // Watering logic
         if (isSelected && Keyboard.current.wKey.isPressed && !isWatering && !(isMaxLevel && waterLevel >= maxWater) && !isAnimating)
         {
             StartWatering();
@@ -104,46 +115,86 @@ public class Crops : MonoBehaviour
             StopWatering();
         }
 
-        // Handle the actual watering process
         if (isWatering)
         {
             HandleContinuousWatering();
         }
 
-        // Level up check - only if not at max level
-        if (!isMaxLevel && plantLevel < 3 && waterLevel >= maxWater)
-        {
-            LevelUp();
-        }
-
         GenerateMoney();
 
-        // CONTINUOUS HEALTH MONITORING
-        // Reset damage flag for next frame
+        // ? DECAY LOGIC ALWAYS CHECKS LAST
+        HandleWaterDecay();
+
         wasDamagedThisFrame = false;
+    }
+
+    // ? IMPROVED DECAY SYSTEM
+    void HandleWaterDecay()
+    {
+        if (isWatering || isAnimating) return;
+
+        // ? Reset decay if leveling up happened
+        if (levelUpJustHappened)
+        {
+            levelUpJustHappened = false;
+            isDecaying = false;
+            decayTimer = 0f;
+            return;
+        }
+
+        // ? Don't decay if we're at max level and full water
+        if (isMaxLevel && waterLevel >= maxWater)
+        {
+            isDecaying = false;
+            decayTimer = 0f;
+            return;
+        }
+
+        // ? Start decay countdown when full (only for non-max levels)
+        if (!isDecaying && waterLevel >= maxWater && !isMaxLevel && smoothDecreaseCoroutine == null)
+        {
+            decayTimer += Time.deltaTime;
+
+            if (decayTimer >= decayDelay)
+            {
+                // ? Start smooth decrease instead of instant decay
+                StartSmoothDecreaseToMinimum();
+                decayTimer = 0f;
+            }
+        }
+
+        // ? Active decay (only when not doing smooth decrease)
+        if (isDecaying && !isMaxLevel && smoothDecreaseCoroutine == null)
+        {
+            waterLevel -= Mathf.RoundToInt(decayRate * Time.deltaTime);
+
+            if (waterLevel <= 0)
+            {
+                waterLevel = 0;
+                isDecaying = false;
+                Debug.Log("Water fully decayed");
+            }
+
+            UpdateProgressBar();
+        }
     }
 
     void GenerateMoney()
     {
-        // Generate money at EVERY level when fully watered
-        if (plantLevel >= 1) // Level 1 and above
+        if (plantLevel >= 1)
         {
             moneyTimer += Time.deltaTime;
 
             if (moneyTimer >= moneyGenerationInterval)
             {
-                // Calculate money based on plant level: R5 at level 1, R7 at level 2, R9 at level 3
                 int moneyToAdd = CalculateMoneyAmount();
 
                 if (MoneyManager != null)
                 {
-                    // ADD MONEY TO MANAGER
                     MoneyManager.AddMoney(moneyToAdd);
-
-                    // SPAWN UI - FIXED POSITION
                     MoneyManager.SpawnUIAboveField(transform, $"+R{moneyToAdd}");
 
-                    Debug.Log($"Money generated: +R{moneyToAdd} at level {plantLevel}. Total money: {MoneyManager.Money}");
+                    Debug.Log($"Money generated: +R{moneyToAdd} at level {plantLevel}. Total: {MoneyManager.Money}");
                 }
                 else
                 {
@@ -155,15 +206,14 @@ public class Crops : MonoBehaviour
         }
     }
 
-    // Calculate money amount based on plant level
     private int CalculateMoneyAmount()
     {
         switch (plantLevel)
         {
-            case 1: return 5; // R5 at level 1
-            case 2: return 7; // R7 at level 2
-            case 3: return 9; // R9 at level 3
-            default: return 0; // No money at level 0
+            case 1: return 5;
+            case 2: return 7;
+            case 3: return 9;
+            default: return 0;
         }
     }
 
@@ -183,7 +233,6 @@ public class Crops : MonoBehaviour
 
     void UpdateProgressBar()
     {
-        // Don't update progress bar if smooth animation is running
         if (isAnimating) return;
 
         if (waterProgressBar != null)
@@ -194,44 +243,41 @@ public class Crops : MonoBehaviour
 
         if (waterProgressText != null)
         {
-            waterProgressText.text = $"{waterLevel}/{maxWater}";
-        }
-        if (waterProgressText != null && isMaxLevel && waterLevel >= maxWater)
-        {
-            waterProgressText.text = $"MAX";
+            if (isMaxLevel && waterLevel >= maxWater)
+                waterProgressText.text = $"MAX";
+            else
+                waterProgressText.text = $"{waterLevel}/{maxWater}";
         }
     }
 
     public void Watering(int amount)
     {
-        // Don't allow watering if at max level and already fully watered or if animating
         if (isMaxLevel && waterLevel >= maxWater || isAnimating) return;
 
         int oldWaterLevel = waterLevel;
         waterLevel = Mathf.Min(waterLevel + amount, maxWater);
 
-        // Update progress bar instantly (no smooth animation for manual watering)
         UpdateProgressBar();
 
-        // Visual feedback when water level changes significantly
         if (waterLevel / 20 != oldWaterLevel / 20)
         {
             Debug.Log($"Watering crop. Water level: {waterLevel}/{maxWater}");
         }
 
-        // If we reached max water at max level, ensure progress bar stays full
+        // ? Start smooth decrease when reaching max water (if not already decreasing)
+        if (waterLevel >= maxWater && !isMaxLevel && smoothDecreaseCoroutine == null)
+        {
+            decayTimer = 0f; // Reset decay timer
+            isDecaying = false;
+        }
+
         if (isMaxLevel && waterLevel >= maxWater)
         {
-            waterLevel = maxWater; // Ensure it's exactly max
+            waterLevel = maxWater;
             UpdateProgressBar();
         }
     }
 
-    // =======================
-    // BUTTON-TRIGGERED SMOOTH FILL ANIMATION
-    // =======================
-
-    // Call this method when your button is pressed
     public void StartSmoothWaterFill()
     {
         if (isAnimating)
@@ -246,12 +292,75 @@ public class Crops : MonoBehaviour
             return;
         }
 
-        // Start the smooth fill animation (no water tank check needed)
+        // ? NEW - Stop flashing and deselect when watering starts
+        StopFlashingAndDeselect();
+
         StartCoroutine(SmoothFillToMax());
         Debug.Log($"Started smooth water fill animation!");
     }
 
-    // IEnumerator for smooth fill animation when button is pressed
+    // ? NEW - Stop flashing and deselect crop
+    private void StopFlashingAndDeselect()
+    {
+        // Stop flashing
+        if (flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+            flashCoroutine = null;
+        }
+
+        // Reset color
+        spriteRenderer.color = originalColor;
+
+        // Deselect crop
+        if (isSelected)
+        {
+            isSelected = false;
+            if (CurrentlySelectedCrop == this)
+            {
+                CurrentlySelectedCrop = null;
+            }
+            WaterPanel.SetActive(false);
+        }
+
+        // Make unclickable (but keep collider enabled)
+        SetClickable(false);
+
+        Debug.Log("Crop deselected and made unclickable for watering");
+    }
+
+    // ? NEW - Make crop clickable or unclickable (without removing collider)
+    private void SetClickable(bool clickable)
+    {
+        isClickable = clickable;
+        // Collider remains enabled - we handle clickability through state checking
+    }
+
+    // ? NEW - Public method to check if crop can be interacted with
+    public bool CanBeClicked()
+    {
+        return isClickable && isAlive && waterLevel == 0 && !isAnimating;
+    }
+
+    // ? NEW - Smooth decrease to minimum
+    public void StartSmoothDecreaseToMinimum()
+    {
+        if (isAnimating || smoothDecreaseCoroutine != null)
+        {
+            Debug.Log("Water decrease animation already in progress!");
+            return;
+        }
+
+        if (isMaxLevel)
+        {
+            Debug.Log("Max level crop doesn't need to decrease water!");
+            return;
+        }
+
+        smoothDecreaseCoroutine = StartCoroutine(SmoothDecreaseToZero());
+        Debug.Log($"Started smooth water decrease animation!");
+    }
+
     private IEnumerator SmoothFillToMax()
     {
         isAnimating = true;
@@ -266,19 +375,15 @@ public class Crops : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float progress = elapsedTime / smoothFillDuration;
 
-            // Smooth interpolation
             float currentFill = Mathf.Lerp(startFill, targetFill, progress);
 
-            // Update progress bar
             if (waterProgressBar != null)
             {
                 waterProgressBar.fillAmount = currentFill;
             }
 
-            // Calculate current water level for text display
             int currentWaterValue = Mathf.RoundToInt(Mathf.Lerp(startWaterLevel, maxWater, progress));
 
-            // Update text
             if (waterProgressText != null)
             {
                 waterProgressText.text = $"{currentWaterValue}/{maxWater}";
@@ -287,7 +392,6 @@ public class Crops : MonoBehaviour
             yield return null;
         }
 
-        // Ensure we end exactly at max
         waterLevel = maxWater;
 
         if (waterProgressBar != null)
@@ -297,55 +401,154 @@ public class Crops : MonoBehaviour
 
         if (waterProgressText != null)
         {
-            if (isMaxLevel)
-            {
-                waterProgressText.text = "MAX";
-            }
-            else
-            {
-                waterProgressText.text = $"{maxWater}/{maxWater}";
-            }
+            waterProgressText.text = $"{maxWater}/{maxWater}";
         }
 
         isAnimating = false;
 
-        // Check for level up after animation completes
+        // ? After filling to max, wait a bit then start the smooth decrease
         if (!isMaxLevel && plantLevel < 3)
         {
-            LevelUp();
+            StartCoroutine(DelayedSmoothDecrease());
+        }
+        else
+        {
+            // ? NEW - Make clickable again if at max level
+            SetClickable(true);
         }
 
         Debug.Log("Smooth water fill animation completed!");
     }
 
-    // Public method for button to check if this crop can be watered
-    public bool CanBeWatered()
+    // ? NEW - Wait before starting decrease
+    private IEnumerator DelayedSmoothDecrease()
     {
-        return !isMaxLevel &&
-               waterLevel < maxWater &&
-               !isAnimating;
+        Debug.Log($"Waiting {decreaseStartDelay} seconds before starting smooth decrease...");
+
+        yield return new WaitForSeconds(decreaseStartDelay);
+
+        StartSmoothDecreaseToMinimum();
     }
 
-    // Public method to check if crop is at max level
+    // ? NEW - Smooth decrease coroutine
+    private IEnumerator SmoothDecreaseToZero()
+    {
+        isAnimating = true;
+
+        float startFill = (float)waterLevel / maxWater;
+        float targetFill = 0f;
+        float elapsedTime = 0f;
+        int startWaterLevel = waterLevel;
+
+        while (elapsedTime < smoothDecreaseDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / smoothDecreaseDuration;
+
+            float currentFill = Mathf.Lerp(startFill, targetFill, progress);
+
+            if (waterProgressBar != null)
+            {
+                waterProgressBar.fillAmount = currentFill;
+            }
+
+            int currentWaterValue = Mathf.RoundToInt(Mathf.Lerp(startWaterLevel, 0, progress));
+
+            if (waterProgressText != null)
+            {
+                waterProgressText.text = $"{currentWaterValue}/{maxWater}";
+            }
+
+            yield return null;
+        }
+
+        waterLevel = 0;
+
+        if (waterProgressBar != null)
+        {
+            waterProgressBar.fillAmount = 0f;
+        }
+
+        if (waterProgressText != null)
+        {
+            waterProgressText.text = $"0/{maxWater}";
+        }
+
+        isAnimating = false;
+        smoothDecreaseCoroutine = null;
+
+        // ? Level up when water reaches zero
+        if (!isMaxLevel && plantLevel < 3)
+        {
+            LevelUp();
+        }
+        else
+        {
+            // ? NEW - If not leveling up (like during normal decay), flash to indicate ready
+            FlashReadyForWatering();
+        }
+
+        Debug.Log("Smooth water decrease animation completed! Plant leveled up.");
+    }
+
+    // ? NEW - Flash once to indicate crop is ready for watering
+    private void FlashReadyForWatering()
+    {
+        // Make crop clickable again
+        SetClickable(true);
+
+        // Start one-time flash
+        if (flashCoroutine != null)
+            StopCoroutine(flashCoroutine);
+
+        flashCoroutine = StartCoroutine(FlashOnce());
+        Debug.Log("Crop ready for watering - flashing indicator");
+    }
+
+    // ? NEW - Single flash coroutine (not continuous)
+    private IEnumerator FlashOnce()
+    {
+        // Flash on
+        spriteRenderer.color = selectedColor;
+        yield return new WaitForSeconds(0.3f);
+
+        // Flash off
+        spriteRenderer.color = originalColor;
+        yield return new WaitForSeconds(0.3f);
+
+        // Flash on again
+        spriteRenderer.color = selectedColor;
+        yield return new WaitForSeconds(0.3f);
+
+        // Return to normal
+        spriteRenderer.color = originalColor;
+
+        flashCoroutine = null;
+        Debug.Log("Ready flash completed");
+    }
+
+    public bool CanBeWatered()
+    {
+        return waterLevel == 0 && !isAnimating && isClickable;
+    }
+
     public bool IsMaxLevel()
     {
         return isMaxLevel && waterLevel >= maxWater;
     }
 
-    // Static method for button to water the currently selected crop
     public static void WaterSelectedCrop()
     {
-        if (CurrentlySelectedCrop != null)
+        if (CurrentlySelectedCrop != null && CurrentlySelectedCrop.CanBeWatered())
         {
             CurrentlySelectedCrop.StartSmoothWaterFill();
         }
         else
         {
-            Debug.Log("No crop selected to water!");
+            Debug.Log("No crop selected to water or crop cannot be watered!");
         }
     }
 
-    // Static method for button to check if any crop can be watered
     public static bool CanWaterAnyCrop()
     {
         return CurrentlySelectedCrop != null && CurrentlySelectedCrop.CanBeWatered();
@@ -353,7 +556,6 @@ public class Crops : MonoBehaviour
 
     public void StartWatering()
     {
-        // Don't allow watering if at max level and already fully watered or if animating
         if (isMaxLevel && waterLevel >= maxWater || isAnimating) return;
 
         isWatering = true;
@@ -374,35 +576,43 @@ public class Crops : MonoBehaviour
     {
         if (plantLevel >= 0 && plantLevel < 3)
         {
-            // Store current selection state before leveling up
+            // ? NEW — tell decay system to restart
+            levelUpJustHappened = true;
+
             bool wasSelected = isSelected;
 
             plantLevel++;
             UpdateSprite();
 
-            // Check if this is the final level
             if (plantLevel >= 3)
             {
                 isMaxLevel = true;
-                // Don't reset water level for final level - keep it full
                 waterLevel = maxWater;
                 UpdateProgressBar();
-                Debug.Log($"Crop reached MAX level {plantLevel}! Water level maintained at maximum. Will generate R{CalculateMoneyAmount()} every {moneyGenerationInterval} seconds.");
+                Debug.Log($"Crop reached MAX level {plantLevel}! Water stays full.");
             }
             else
             {
-                // Reset water level for non-final levels
+                // ? Reset water level to 0 since we just decreased it
                 waterLevel = 0;
                 UpdateProgressBar();
+
+                // ? Reset decay timer so decay doesn't start immediately
+                isDecaying = false;
+                decayTimer = 0f;
             }
 
-            // Restore selection state after level up
+            // ? NEW - Make crop clickable again after leveling up and flash to indicate ready
+            SetClickable(true);
+            FlashReadyForWatering();
+
             if (wasSelected)
             {
-                RestartFlashing();
+                // Don't restart flashing automatically - wait for user to click again
+                // RestartFlashing();
             }
 
-            Debug.Log($"Crop leveled up to level {plantLevel}! Money generation: R{CalculateMoneyAmount()}");
+            Debug.Log($"Crop leveled up to level {plantLevel}! Water level reset to {waterLevel}/{maxWater}");
         }
     }
 
@@ -413,7 +623,6 @@ public class Crops : MonoBehaviour
         {
             spriteRenderer.sprite = levelSprites[plantLevel];
 
-            // Only update originalColor if we're NOT currently selected
             if (!isSelected)
             {
                 originalColor = spriteRenderer.color;
@@ -421,15 +630,11 @@ public class Crops : MonoBehaviour
         }
     }
 
-    // =======================
-    // SELECTION METHODS (UPDATED FOR STATIC REFERENCE)
-    // =======================
-
     public void SelectCrop()
     {
-        if (isSelected) return;
+        // ? NEW - Check if crop is clickable before selecting
+        if (!CanBeClicked() || isSelected) return;
 
-        // Deselect previous crop
         if (CurrentlySelectedCrop != null && CurrentlySelectedCrop != this)
         {
             CurrentlySelectedCrop.DeselectCrop();
@@ -438,12 +643,10 @@ public class Crops : MonoBehaviour
         isSelected = true;
         CurrentlySelectedCrop = this;
 
-        // Stop any existing flash coroutine
         if (flashCoroutine != null)
             StopCoroutine(flashCoroutine);
 
-        // Start flashing
-        flashCoroutine = StartCoroutine(FlashCrop()); 
+        flashCoroutine = StartCoroutine(FlashCrop());
         WaterPanel.SetActive(true);
         Debug.Log("Crop selected for watering");
     }
@@ -457,78 +660,61 @@ public class Crops : MonoBehaviour
             CurrentlySelectedCrop = null;
         }
 
-        // Stop flashing
         if (flashCoroutine != null)
         {
             StopCoroutine(flashCoroutine);
             flashCoroutine = null;
         }
         WaterPanel.SetActive(false);
-        // Return to original color
+
         spriteRenderer.color = originalColor;
         StopWatering();
         Debug.Log("Crop deselected");
     }
 
-    // Method to restart flashing after level up
     private void RestartFlashing()
     {
-        if (isSelected)
+        if (isSelected && isClickable)
         {
-            // Stop any existing flash coroutine
             if (flashCoroutine != null)
                 StopCoroutine(flashCoroutine);
 
-            // Ensure we have the correct original color for the new sprite
             spriteRenderer.color = GetBaseSpriteColor();
             originalColor = spriteRenderer.color;
 
-            // Restart flashing
             flashCoroutine = StartCoroutine(FlashCrop());
             Debug.Log("Restarted flashing after level up");
         }
     }
 
-    // Get the base color of the current sprite
     private Color GetBaseSpriteColor()
     {
         return Color.white;
     }
 
-    // Flashing coroutine
     private IEnumerator FlashCrop()
     {
-        while (isSelected)
+        while (isSelected && isClickable)
         {
-            // Flash to blue
             spriteRenderer.color = selectedColor;
             yield return new WaitForSeconds(0.3f);
 
-            // Return to normal color
             spriteRenderer.color = originalColor;
             yield return new WaitForSeconds(0.3f);
         }
 
-        // Ensure we return to normal color when done
         spriteRenderer.color = originalColor;
     }
 
-    // =======================
-    // HEALTH SYSTEM FOR ENEMIES
-    // =======================
-
-    // Called by Enemy script when attacking this crop
     public void TakeDamage(int damage = 1)
     {
         if (!isAlive) return;
 
-        // Set damage flag for this frame
         wasDamagedThisFrame = true;
 
         currentHealth -= damage;
         Debug.Log($"Crop took {damage} damage! Health: {currentHealth}/{maxHealth}");
 
-        // Play damage effect immediately
         PlayDamageEffect();
 
         if (currentHealth <= 0)
@@ -537,43 +723,31 @@ public class Crops : MonoBehaviour
         }
     }
 
-    // Play damage effect (can be called continuously)
     void PlayDamageEffect()
     {
-        // Stop any existing damage effect
         if (damageEffectCoroutine != null)
             StopCoroutine(damageEffectCoroutine);
 
-        // Start new damage effect
         damageEffectCoroutine = StartCoroutine(DamageEffect());
     }
 
-    // Visual effect when crop takes damage
     private IEnumerator DamageEffect()
     {
-        // Flash red a few times
         for (int i = 0; i < 3; i++)
         {
             spriteRenderer.color = Color.red;
             yield return new WaitForSeconds(0.1f);
 
-            // Return to appropriate color based on selection state
-            if (isSelected)
-                spriteRenderer.color = selectedColor;
-            else
-                spriteRenderer.color = originalColor;
-
+            spriteRenderer.color = isSelected ? selectedColor : originalColor;
             yield return new WaitForSeconds(0.1f);
         }
     }
 
-    // Public method to check if crop was damaged (for external systems)
     public bool WasDamagedThisFrame()
     {
         return wasDamagedThisFrame;
     }
 
-    // Public method to get current health status
     public HealthStatus GetHealthStatus()
     {
         float healthPercent = (float)currentHealth / maxHealth;
@@ -595,15 +769,15 @@ public class Crops : MonoBehaviour
         isAlive = false;
         Debug.Log("Crop has been destroyed!");
 
-        // Stop all coroutines
         if (flashCoroutine != null)
             StopCoroutine(flashCoroutine);
         if (damageEffectCoroutine != null)
             StopCoroutine(damageEffectCoroutine);
         if (smoothFillCoroutine != null)
             StopCoroutine(smoothFillCoroutine);
+        if (smoothDecreaseCoroutine != null) // ? NEW - Stop decrease coroutine
+            StopCoroutine(smoothDecreaseCoroutine);
 
-        // If this was the selected crop, clear the selection
         if (CurrentlySelectedCrop == this)
         {
             CurrentlySelectedCrop = null;
@@ -632,7 +806,6 @@ public class Crops : MonoBehaviour
     {
         StopWatering();
 
-        // Stop all coroutines when destroyed
         if (flashCoroutine != null)
         {
             StopCoroutine(flashCoroutine);
@@ -645,5 +818,23 @@ public class Crops : MonoBehaviour
         {
             StopCoroutine(smoothFillCoroutine);
         }
+        if (smoothDecreaseCoroutine != null) // ? NEW - Stop decrease coroutine
+        {
+            StopCoroutine(smoothDecreaseCoroutine);
+        }
+    }
+
+    // ? NEW - Optional: Visual indicator when crop is unclickable
+    void OnMouseEnter()
+    {
+        if (!CanBeClicked() && !isSelected)
+        {
+            // Optional: Change cursor or show tooltip to indicate crop is busy
+        }
+    }
+
+    void OnMouseExit()
+    {
+        // Optional: Reset cursor
     }
 }

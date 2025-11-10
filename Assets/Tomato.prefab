@@ -708,7 +708,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2589, y: -2791}
+  m_AnchoredPosition: {x: 2532, y: -3030}
   m_SizeDelta: {x: 294.78, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4415486606946042858
@@ -1083,7 +1083,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1390972129
   m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &7191273015705137869
@@ -1238,12 +1238,16 @@ MonoBehaviour:
   maxWater: 100
   wateringInterval: 0.1
   holdWaterAmount: 5
+  decayDelay: 7
+  decayRate: 10
   moneyGenerationInterval: 4
-  maxHealth: 8
-  currentHealth: 8
+  maxHealth: 4
+  currentHealth: 4
   waterProgressBar: {fileID: 394336012616553305}
   waterProgressText: {fileID: 3299916663104776739}
-  smoothFillDuration: 3.5
+  smoothFillDuration: 7
+  smoothDecreaseDuration: 14
+  decreaseStartDelay: 2
   WaterPanel: {fileID: 87894718791898337}
   selectedColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!60 &5497795761162965427
