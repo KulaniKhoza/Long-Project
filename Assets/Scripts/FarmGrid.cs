@@ -527,7 +527,7 @@ public class FarmGrid : MonoBehaviour
             default: return 0;
         }
     }
-        int GetSeedCountForType(SeedType seedType)
+    int GetSeedCountForType(SeedType seedType)
     {
         switch (seedType)
         {
@@ -548,7 +548,7 @@ public class FarmGrid : MonoBehaviour
             Debug.Log("No seeds available!");
             EnableAllSeedButtons();
             return;
-        } 
+        }
         int cost = GetSeedCost(seedButtonData.seedType);
         if (GameManager.Instance.Money >= cost)
         {   // Subtract cost based on seed type (1 seed per planting)
@@ -558,8 +558,8 @@ public class FarmGrid : MonoBehaviour
                     if (GameManager.Instance.seeds > 0)
                     {
                         GameManager.Instance.Money -= cost;
-                        GameManager.Instance.seeds--; 
-                        
+                        GameManager.Instance.seeds--;
+
                         GameManager.Instance.SpawnUIAboveField(transform, $"-R{cost}");
                     }
                     break;

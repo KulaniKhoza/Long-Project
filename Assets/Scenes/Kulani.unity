@@ -11018,7 +11018,7 @@ MonoBehaviour:
     defenderPrefab: {fileID: 2438595926621790931, guid: ff056fd98c5aa424c878c43c2becc2ca, type: 3}
   - button: {fileID: 2101303677}
     defenderType: 1
-    defenderPrefab: {fileID: 7416007734922913231, guid: f29b1aa9acef51741b928546d2aa9c4a, type: 3}
+    defenderPrefab: {fileID: 20250769905362933, guid: 9910a3d78f9f9ff4099823cdf5f4ec03, type: 3}
   - button: {fileID: 1076560358}
     defenderType: 2
     defenderPrefab: {fileID: 5409831688905143846, guid: 5252102dd3774804e81705555bfbb7a8, type: 3}
