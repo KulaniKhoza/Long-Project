@@ -7,8 +7,10 @@ public class ChickenMovement : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 3f;
     public string targetTag = "EnemyW"; // Only targets Worms
-    public float attackRange = 0.3f; // Reduced from minDistanceToTarget
+    public float attackRange = 0.3f;
     public float stoppingDistance = 0.1f;
+    public float noTargetCheckInterval = 2f; // How often to check for no targets
+    public float horizontalTolerance = 0.1f; // How close Y positions need to be to consider same horizontal plane
 
     [Header("Animation")]
     public Animator animator;
@@ -24,6 +26,8 @@ public class ChickenMovement : MonoBehaviour
     private bool isAttacking = false;
     private bool canAttack = true;
     private int currentKills = 0;
+    private float lastTargetCheckTime = 0f;
+    private SpriteRenderer spriteRenderer;
 
     // Track hit counts for each worm
     private System.Collections.Generic.Dictionary<GameObject, int> wormHitCounts = new System.Collections.Generic.Dictionary<GameObject, int>();
@@ -31,11 +35,20 @@ public class ChickenMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         FindTarget();
+        lastTargetCheckTime = Time.time;
     }
 
     private void Update()
     {
+        // Check for no targets periodically
+        if (Time.time - lastTargetCheckTime >= noTargetCheckInterval)
+        {
+            CheckForNoTargets();
+            lastTargetCheckTime = Time.time;
+        }
+
         // Debug visualization
         if (target != null)
             Debug.DrawLine(transform.position, target.position, Color.red);
@@ -54,24 +67,27 @@ public class ChickenMovement : MonoBehaviour
             return;
         }
 
-        // Calculate direction to target
-        Vector2 direction = target.position - transform.position;
-        float distance = direction.magnitude;
+        // Calculate horizontal direction to target
+        float horizontalDirection = target.position.x - transform.position.x;
+        float horizontalDistance = Mathf.Abs(horizontalDirection);
 
         // Check if we're close enough to attack
-        if (distance <= attackRange && canAttack)
+        if (horizontalDistance <= attackRange && canAttack)
         {
             StartAttack();
             return;
         }
 
-        // Movement logic - only move if not too close
-        if (distance > stoppingDistance)
+        // Movement logic - only move horizontally if not too close
+        if (horizontalDistance > stoppingDistance)
         {
-            if (Mathf.Abs(direction.y) > 0.1f)
-                moveDirection = new Vector2(0f, Mathf.Sign(direction.y)).normalized;
-            else
-                moveDirection = new Vector2(Mathf.Sign(direction.x), 0f).normalized;
+            moveDirection = new Vector2(Mathf.Sign(horizontalDirection), 0f);
+
+            // Flip sprite based on movement direction
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.flipX = horizontalDirection < 0;
+            }
         }
         else
         {
@@ -89,11 +105,39 @@ public class ChickenMovement : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
     }
 
+    private void CheckForNoTargets()
+    {
+        GameObject[] targets = GameObject.FindGameObjectsWithTag(targetTag);
+        if (targets.Length == 0 && target == null)
+        {
+            Debug.Log("No targets found - chicken disappearing");
+            DestroyChicken();
+        }
+    }
+
+    private void DestroyChicken()
+    {
+        // Optional: Play disappear animation
+        if (animator != null)
+        {
+            animator.SetTrigger("Disappear");
+            Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag(targetTag) && !isAttacking && canAttack)
         {
-            StartAttack();
+            // Only attack if the worm is in the same horizontal plane
+            if (IsInSameHorizontalPlane(collision.transform))
+            {
+                StartAttack();
+            }
         }
     }
 
@@ -102,8 +146,18 @@ public class ChickenMovement : MonoBehaviour
         // Also check for continuous collision
         if (collision.collider.CompareTag(targetTag) && !isAttacking && canAttack)
         {
-            StartAttack();
+            // Only attack if the worm is in the same horizontal plane
+            if (IsInSameHorizontalPlane(collision.transform))
+            {
+                StartAttack();
+            }
         }
+    }
+
+    private bool IsInSameHorizontalPlane(Transform otherTransform)
+    {
+        float yDifference = Mathf.Abs(transform.position.y - otherTransform.position.y);
+        return yDifference <= horizontalTolerance;
     }
 
     private void StartAttack()
@@ -160,7 +214,7 @@ public class ChickenMovement : MonoBehaviour
         if (currentKills >= maxKills || (currentKills >= 1 && remainingWorms == 0))
         {
             Debug.Log("Chicken completed its mission, destroying...");
-            Destroy(gameObject, 0.3f);
+            DestroyChicken();
         }
     }
 
@@ -186,6 +240,9 @@ public class ChickenMovement : MonoBehaviour
 
         // Find new target (current one might be dead or pushed away)
         FindTarget();
+
+        // Immediately check if no targets after attack
+        CheckForNoTargets();
     }
 
     private void FindTarget()
@@ -193,7 +250,7 @@ public class ChickenMovement : MonoBehaviour
         GameObject[] targets = GameObject.FindGameObjectsWithTag(targetTag);
         if (targets.Length > 0)
         {
-            // Find closest target
+            // Find closest target that's in the same horizontal plane
             GameObject closest = null;
             float closestDistance = Mathf.Infinity;
             Vector3 currentPosition = transform.position;
@@ -202,7 +259,11 @@ public class ChickenMovement : MonoBehaviour
             {
                 if (targetObj == null) continue;
 
-                float distance = Vector3.Distance(currentPosition, targetObj.transform.position);
+                // Only consider targets in the same horizontal plane
+                if (!IsInSameHorizontalPlane(targetObj.transform)) continue;
+
+                // Only consider horizontal distance for targeting
+                float distance = Mathf.Abs(currentPosition.x - targetObj.transform.position.x);
                 if (distance < closestDistance)
                 {
                     closest = targetObj;
@@ -218,12 +279,14 @@ public class ChickenMovement : MonoBehaviour
             else
             {
                 target = null;
+                CheckForNoTargets();
             }
         }
         else
         {
             target = null;
             Debug.Log("Chicken: No targets found");
+            CheckForNoTargets();
         }
     }
 
