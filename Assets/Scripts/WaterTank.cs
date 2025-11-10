@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class WaterTank : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class WaterTank : MonoBehaviour
     [Header("Refill Settings")]
     public int refillCost = 50; // Cost to refill the tank
     public float refillAmount = 1000f; // Amount to refill
+    public float refillDuration = 8f; // How long the refill animation takes
+
+    private Coroutine fillCoroutine;
 
     void Awake()
     {
@@ -26,8 +30,7 @@ public class WaterTank : MonoBehaviour
             // Optional: Don't destroy on load if you want it persistent
             // DontDestroyOnLoad(gameObject);
         }
-        Time.timeScale = 1.0f; 
-       
+        Time.timeScale = 1.0f;
     }
 
     void Start()
@@ -68,14 +71,47 @@ public class WaterTank : MonoBehaviour
         return false;
     }
 
-    // Add water to tank (for refilling)
+    // Add water to tank (for refilling) - Instant version
     public void AddWater(float amount)
     {
         currentWaterAmount = Mathf.Min(currentWaterAmount + amount, maxWaterCapacity);
         UpdateTankUI();
     }
 
-    // Refill tank button method
+    // Add water to tank with smooth animation
+    public void AddWaterSmooth(float amount)
+    {
+        if (fillCoroutine != null)
+            StopCoroutine(fillCoroutine);
+
+        fillCoroutine = StartCoroutine(FillWaterSmooth(amount));
+    }
+
+    // IEnumerator for smooth water filling
+    private IEnumerator FillWaterSmooth(float amount)
+    {
+        float targetAmount = Mathf.Min(currentWaterAmount + amount, maxWaterCapacity);
+        float startAmount = currentWaterAmount;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < refillDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / refillDuration;
+
+            // Smooth interpolation
+            currentWaterAmount = Mathf.Lerp(startAmount, targetAmount, progress);
+            UpdateTankUI();
+
+            yield return null;
+        }
+
+        // Ensure we end exactly at the target amount
+        currentWaterAmount = targetAmount;
+        UpdateTankUI();
+    }
+
+    // Refill tank button method - Instant version
     public void RefillTank()
     {
         if (GameManager.Instance.Money >= refillCost)
@@ -97,6 +133,54 @@ public class WaterTank : MonoBehaviour
         }
     }
 
+    // Refill tank with smooth animation
+    public void RefillTankSmooth()
+    {
+        if (GameManager.Instance.Money >= refillCost)
+        {
+            GameManager.Instance.Money -= refillCost;
+
+            if (fillCoroutine != null)
+                StopCoroutine(fillCoroutine);
+
+            fillCoroutine = StartCoroutine(FillToFull());
+
+            // Show UI feedback
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.SpawnUIAboveField(transform, $"-R{refillCost}");
+            }
+            Debug.Log($"Water tank refilled smoothly! Cost: R{refillCost}");
+        }
+        else
+        {
+            Debug.Log("Not enough money to refill water tank!");
+        }
+    }
+
+    // IEnumerator for filling tank to full capacity
+    private IEnumerator FillToFull()
+    {
+        float startAmount = currentWaterAmount;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < refillDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / refillDuration;
+
+            // Smooth interpolation from current to max
+            currentWaterAmount = Mathf.Lerp(startAmount, maxWaterCapacity, progress);
+            UpdateTankUI();
+
+            yield return null;
+        }
+
+        // Ensure we end exactly at max capacity
+        currentWaterAmount = maxWaterCapacity;
+        UpdateTankUI();
+    }
+
     // Get current water percentage (0-1)
     public float GetWaterPercentage()
     {
@@ -113,5 +197,15 @@ public class WaterTank : MonoBehaviour
     public bool IsEmpty()
     {
         return currentWaterAmount <= 0;
+    }
+
+    // Stop any ongoing fill coroutine
+    public void StopFillAnimation()
+    {
+        if (fillCoroutine != null)
+        {
+            StopCoroutine(fillCoroutine);
+            fillCoroutine = null;
+        }
     }
 }

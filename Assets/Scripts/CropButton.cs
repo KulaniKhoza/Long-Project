@@ -37,20 +37,22 @@ public class UniversalButton : MonoBehaviour
     void Start()
     {
         button = GetComponent<Button>();
-        buttonImage = GetComponent<Image>();
+        buttonImage = GetComponent<Image>();  // or GetComponentInChildren<Image>()
+
+        if (button == null)
+            Debug.LogError("UniversalButton missing Button component!", this);
+
         farmGrid = FarmGrid.instance;
 
         button.onClick.AddListener(OnButtonClick);
 
         if (cooldownOverlay != null)
-        {
             cooldownOverlay.gameObject.SetActive(false);
-        }
 
-        // Start disabled
         DisableButton();
         UpdateButtonDisplay();
     }
+
 
     void Update()
     {
@@ -178,21 +180,24 @@ public class UniversalButton : MonoBehaviour
         bool canAfford = GameManager.Instance.Money >= currentPrice;
 
         button.interactable = canAfford;
+        if (button != null)
+            button.interactable = canAfford ? true : false;
 
         if (buttonImage != null)
         {
             buttonImage.color = canAfford ? affordableColor : cannotAffordColor;
         }
     }
-
     public void DisableButton()
     {
         isEnabled = false;
-        button.interactable = false;
+
+        if (button != null)
+            button.interactable = false;
 
         if (buttonImage != null)
-        {
             buttonImage.color = disabledColor;
-        }
     }
+
+
 }
