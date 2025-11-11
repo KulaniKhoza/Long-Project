@@ -43,16 +43,26 @@ public class GasBullet : MonoBehaviour
             Debug.Log($"Gas bullet hit: {collision.gameObject.name}");
 
             // Apply damage to enemy
-            EnemyMovement enemy = collision.GetComponent<EnemyMovement>();
+            //EnemyMovement enemy = collision.GetComponent<EnemyMovement>();
+
+            Move_enemy enemy = collision.GetComponent<Move_enemy>();
+
             if (enemy != null)
             {
-                enemy.currentHits += (int)bulletDamage;
-                Debug.Log($"Enemy hit! Current hits: {enemy.currentHits}/{enemy.hitsToDie}");
+                //enemy.currentHits += (int)bulletDamage;
+                //Debug.Log($"Enemy hit! Current hits: {enemy.currentHits}/{enemy.hitsToDie}");
+                StartCoroutine(enemy.DamageEffect2());
+
+                SpriteRenderer sr = GetComponent<SpriteRenderer>();
+                Color c = sr.color;
+                c.a = 0f;        // Set alpha (opacity) to 0
+                sr.color = c;
+
 
                 // Check if enemy dies
-                if (enemy.currentHits >= enemy.hitsToDie)
+                if (enemy.Health <= 1)
                 {
-                    Destroy(collision.gameObject);
+                    //Destroy(collision.gameObject);
                     pesticideOwner?.OnEnemyKilled();
                     Debug.Log("Enemy destroyed by gas bullet");
                 }
@@ -65,7 +75,7 @@ public class GasBullet : MonoBehaviour
             }
 
             // Destroy projectile
-            Destroy(gameObject);
+            Destroy(gameObject, 0.25f);
         }
     }
 }

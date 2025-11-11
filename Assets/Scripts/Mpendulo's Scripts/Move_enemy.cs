@@ -30,6 +30,7 @@ public class Move_enemy : MonoBehaviour
     public SpriteRenderer spriteRenderer;
 
     public GameObject gameOverScreen;
+    public ChickenMovement Attacker;
 
 
 
@@ -131,6 +132,7 @@ public class Move_enemy : MonoBehaviour
     {
         HealthBar.value = Health;
 
+
         if (posX != -1 && posX == 0 && !destroyed)
         {
             //enemy.clones.RemoveAt(0);
@@ -189,7 +191,9 @@ public class Move_enemy : MonoBehaviour
     {
         if (collision.transform.tag == "Attacker")
         {
-            StartCoroutine(DamageEffect());
+            //StartCoroutine(DamageEffect());
+            //Attacker = collision.gameObject.GetComponent<ChickenMovement>();
+            //Attacker.currentKills++;
             //target = enemy.grid[posY][posX + 1];
             //posX++;
         }
@@ -274,18 +278,70 @@ public class Move_enemy : MonoBehaviour
     {
         DontMove = true;
         // Flash red a few times
-        for (int i = 0; i < 6; i++)
+        int temp = Health;
+        if (temp > 0)
         {
-            spriteRenderer.color = Color.red;
-            Health--;
-            yield return new WaitForSeconds(0.335f);
+            for (int i = 0; i < temp; i++)
+            {
+                spriteRenderer.color = Color.red;
+                Health--;
+                yield return new WaitForSeconds(0.335f);
 
-            spriteRenderer.color = originalColor;
+                if (spriteRenderer != null)
+                    spriteRenderer.color = originalColor;
 
-            yield return new WaitForSeconds(0.335f);
 
+                yield return new WaitForSeconds(0.335f);
+
+            }
         }
 
+
+    }
+
+    public IEnumerator DamageEffect2()
+    {
+        //DontMove = true;
+        // Flash red a few times
+
+        if (Health > 0)
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                spriteRenderer.color = Color.red;
+                Health--;
+                yield return new WaitForSeconds(0.1f);
+
+                if (spriteRenderer != null)
+                    spriteRenderer.color = originalColor;
+
+
+                yield return new WaitForSeconds(0.1f);
+
+            }
+        }
+
+
+    }
+
+
+
+    void OnDestroy()
+    {
+        Debug.Log($"{gameObject.name} OnDestroy called. Attacker = {Attacker}");
+
+        if (Attacker != null)
+        {
+            Debug.Log("Attacker found, increasing kill count");
+            Attacker.currentKills++;
+            Attacker.CheckChickenDestruction();
+            Debug.Log("Kill count: " + Attacker.currentKills);
+            Attacker.StartAttack2();
+        }
+        else
+        {
+            Debug.Log("Attacker is null!");
+        }
     }
 
 

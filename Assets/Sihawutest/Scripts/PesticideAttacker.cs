@@ -289,11 +289,12 @@ public class PesticideAttacker : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("Disappear");
-            Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
+            //Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
+            Destroy(gameObject, 1f);
         }
         else
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 13f);
         }
     }
 

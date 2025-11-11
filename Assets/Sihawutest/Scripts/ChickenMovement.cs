@@ -23,7 +23,7 @@ public class ChickenMovement : MonoBehaviour
     private Vector2 moveDirection;
     private bool isAttacking = false;
     private bool canAttack = true;
-    private int currentKills = 0;
+    public int currentKills = 0;
 
     // Track hit counts for each worm
     private System.Collections.Generic.Dictionary<GameObject, int> wormHitCounts = new System.Collections.Generic.Dictionary<GameObject, int>();
@@ -61,7 +61,7 @@ public class ChickenMovement : MonoBehaviour
         // Check if we're close enough to attack
         if (distance <= attackRange && canAttack)
         {
-            StartAttack();
+            StartAttack2();
             return;
         }
 
@@ -93,7 +93,7 @@ public class ChickenMovement : MonoBehaviour
     {
         if (collision.collider.CompareTag(targetTag) && !isAttacking && canAttack)
         {
-            StartAttack();
+            StartAttack2();
         }
     }
 
@@ -102,10 +102,47 @@ public class ChickenMovement : MonoBehaviour
         // Also check for continuous collision
         if (collision.collider.CompareTag(targetTag) && !isAttacking && canAttack)
         {
-            StartAttack();
+            StartAttack2();
         }
     }
 
+    public void StartAttack2()
+    {
+        if (!canAttack || target == null) return;
+
+        isAttacking = true;
+        canAttack = false;
+        rb.linearVelocity = Vector2.zero;
+
+        // Play peck animation
+        if (animator != null)
+        {
+            animator.SetBool("isWalking", false);
+            animator.SetTrigger("Peck");
+        }
+
+        Move_enemy enemy = target.GetComponent<Move_enemy>();
+        if (enemy != null)
+        {
+            enemy.Attacker = this; // register who’s attacking
+            StartCoroutine(enemy.DamageEffect());
+        }
+
+
+
+        Debug.Log($"Worm killed! Total kills: {currentKills}/{maxKills}");
+
+        if (currentKills >= maxKills)
+        {
+
+
+            // Check if chicken should be destroyed
+            CheckChickenDestruction();
+        }
+
+        StartCoroutine(ResumeMovementAfterAttack());
+
+    }
     private void StartAttack()
     {
         if (!canAttack || target == null) return;
@@ -153,7 +190,7 @@ public class ChickenMovement : MonoBehaviour
         StartCoroutine(ResumeMovementAfterAttack());
     }
 
-    private void CheckChickenDestruction()
+    public void CheckChickenDestruction()
     {
         int remainingWorms = GameObject.FindGameObjectsWithTag(targetTag).Length;
 
@@ -223,7 +260,7 @@ public class ChickenMovement : MonoBehaviour
         else
         {
             target = null;
-            Debug.Log("Chicken: No targets found");
+            //Debug.Log("Chicken: No targets found");
         }
     }
 

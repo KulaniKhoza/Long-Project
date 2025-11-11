@@ -4095,8 +4095,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: 0, y: -0.043303818}
+  m_Radius: 0.45669618
 --- !u!114 &667948748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4123,6 +4123,7 @@ MonoBehaviour:
   destroyed: 0
   spriteRenderer: {fileID: 0}
   gameOverScreen: {fileID: 745994864}
+  Attacker: {fileID: 0}
   HealthBar: {fileID: 1928496674}
 --- !u!212 &667948749
 SpriteRenderer:
@@ -10994,10 +10995,10 @@ MonoBehaviour:
     defenderPrefab: {fileID: 2438595926621790931, guid: ff056fd98c5aa424c878c43c2becc2ca, type: 3}
   - button: {fileID: 2101303677}
     defenderType: 1
-    defenderPrefab: {fileID: 20250769905362933, guid: 9910a3d78f9f9ff4099823cdf5f4ec03, type: 3}
+    defenderPrefab: {fileID: 5859260733632842374, guid: caeec266747f5c3469e33df71560e39a, type: 3}
   - button: {fileID: 1076560358}
     defenderType: 2
-    defenderPrefab: {fileID: 5409831688905143846, guid: 5252102dd3774804e81705555bfbb7a8, type: 3}
+    defenderPrefab: {fileID: 3871799295070800608, guid: c8660492cb444c44594759738e3f028f, type: 3}
   farmingButtons:
   - {fileID: 170440402}
   - {fileID: 1275060196}
@@ -11461,8 +11462,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: 0, y: -1.2219071}
+  m_Radius: 2.4455
 --- !u!114 &1901912272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11489,6 +11490,7 @@ MonoBehaviour:
   destroyed: 0
   spriteRenderer: {fileID: 0}
   gameOverScreen: {fileID: 745994864}
+  Attacker: {fileID: 0}
   HealthBar: {fileID: 635339740}
 --- !u!212 &1901912273
 SpriteRenderer:
