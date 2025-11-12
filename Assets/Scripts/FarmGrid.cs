@@ -90,6 +90,10 @@ public class FarmGrid : MonoBehaviour
     public List<UniversalButton> farmingButtons = new List<UniversalButton>();
     public List<UniversalButton> defendingButtons = new List<UniversalButton>();
 
+    // SIMPLE TUTORIAL INTEGRATION
+    private TutorialManager tutorialManager;
+    private bool tutorialActive = true;
+
     private void Awake()
     {
         if (instance == null)
@@ -125,6 +129,17 @@ public class FarmGrid : MonoBehaviour
         DisableAllButtons();
 
         Communicator = FindObjectOfType<TextScript>();
+        // Find simple tutorial manager
+        tutorialManager = FindFirstObjectByType<TutorialManager>();
+        if (tutorialManager == null)
+        {
+            Debug.LogWarning("SimpleTutorialManager not found in scene!");
+            tutorialActive = false;
+        }
+        else
+        {
+            Debug.Log("Simple tutorial manager found successfully!");
+        }
     }
 
     void LateUpdate()
@@ -165,7 +180,6 @@ public class FarmGrid : MonoBehaviour
 
                     selectedCrop = crop;
                     selectedCrop.SelectCrop();
-
                     CloseContextMenu();
                     ClosePlantMenu();
                     return;
@@ -681,6 +695,8 @@ public class FarmGrid : MonoBehaviour
     public void OnSowButtonClicked()
     {
         bool isField = IsGridPositionField(lastGridPosition);
+
+        Debug.Log($"SowButton clicked - IsField: {isField}");
 
         if (isField)
         {
