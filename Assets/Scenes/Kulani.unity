@@ -11226,6 +11226,10 @@ MonoBehaviour:
   - button: {fileID: 1076560358}
     defenderType: 2
     defenderPrefab: {fileID: 3871799295070800608, guid: c8660492cb444c44594759738e3f028f, type: 3}
+    defenderPrefab: {fileID: 20250769905362933, guid: 9910a3d78f9f9ff4099823cdf5f4ec03, type: 3}
+  - button: {fileID: 1076560358}
+    defenderType: 2
+    defenderPrefab: {fileID: 1177473395315208045, guid: 1475a49e3a718bd47b3ac0387cde60ca, type: 3}
   farmingButtons:
   - {fileID: 170440402}
   - {fileID: 1275060196}
