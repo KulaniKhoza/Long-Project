@@ -88,8 +88,8 @@ public class FarmGrid : MonoBehaviour
     public List<UniversalButton> farmingButtons = new List<UniversalButton>();
     public List<UniversalButton> defendingButtons = new List<UniversalButton>();
 
-    // NPC TUTORIAL INTEGRATION
-    private NPCTutorialManager tutorialManager;
+    // SIMPLE TUTORIAL INTEGRATION
+    private TutorialManager tutorialManager;
     private bool tutorialActive = true;
 
     private void Awake()
@@ -126,16 +126,16 @@ public class FarmGrid : MonoBehaviour
 
         DisableAllButtons();
 
-        // Find tutorial manager
-        tutorialManager = FindFirstObjectByType<NPCTutorialManager>();
+        // Find simple tutorial manager
+        tutorialManager = FindFirstObjectByType<TutorialManager>();
         if (tutorialManager == null)
         {
-            Debug.LogWarning("NPCTutorialManager not found in scene!");
+            Debug.LogWarning("SimpleTutorialManager not found in scene!");
             tutorialActive = false;
         }
         else
         {
-            Debug.Log("Tutorial manager found successfully!");
+            Debug.Log("Simple tutorial manager found successfully!");
         }
     }
 
@@ -177,19 +177,10 @@ public class FarmGrid : MonoBehaviour
 
                     selectedCrop = crop;
                     selectedCrop.SelectCrop();
-
                     CloseContextMenu();
                     ClosePlantMenu();
                     return;
                 }
-            }
-
-            // NEW: Check for plowed tile clicks FIRST
-            RaycastHit2D fieldHit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, fieldLayerMask);
-            if (fieldHit.collider != null && fieldHit.collider.CompareTag("field"))
-            {
-                // NOTIFY TUTORIAL: Plowed tile was clicked
-                NotifyTutorial("PlowedTileClicked", fieldHit.collider.gameObject);
             }
 
             if (!clickedCrop)
@@ -212,9 +203,6 @@ public class FarmGrid : MonoBehaviour
                     HighlightClickedGridTile(lastGridPosition);
                     ShowContextMenu();
                     ClosePlantMenu();
-
-                    // NPC TUTORIAL: Notify when grid tile is clicked
-                    NotifyTutorial("TileClicked", highlight.gameObject);
                 }
                 else
                 {
@@ -269,10 +257,6 @@ public class FarmGrid : MonoBehaviour
                         GameObject newCrop = Instantiate(seedToPlant, spawnPos, Quaternion.identity);
                         newCrop.layer = LayerMask.NameToLayer("CropsLayer");
                         Debug.Log("Planted seed at: " + spawnPos);
-
-                        // NPC TUTORIAL: Notify when plant is planted
-                        NotifyTutorial("PlantPlanted");
-
                         Normal();
                     }
                     else
@@ -290,91 +274,6 @@ public class FarmGrid : MonoBehaviour
         {
             ClosePlantMenu();
         }
-
-        // Debug tutorial state
-        if (Keyboard.current.pKey.wasPressedThisFrame)
-        {
-            DebugTutorialState();
-        }
-    }
-
-    // NPC TUTORIAL: Method to notify tutorial system
-    private void NotifyTutorial(string action, GameObject target = null)
-    {
-        if (!tutorialActive) return;
-
-        if (tutorialManager == null)
-        {
-            tutorialManager = FindFirstObjectByType<NPCTutorialManager>();
-            if (tutorialManager == null)
-            {
-                Debug.LogWarning("Tutorial manager not found for action: " + action);
-                tutorialActive = false;
-                return;
-            }
-        }
-
-        Debug.Log($"Tutorial Action: {action}");
-
-        switch (action)
-        {
-            case "TileClicked":
-                tutorialManager.OnTileClicked(target);
-                break;
-            case "PlowButtonClicked":
-                tutorialManager.OnPlowButtonClicked();
-                break;
-            case "PlantButtonClicked":
-                tutorialManager.OnPlantButtonClicked();
-                break;
-            case "PlantSelected":
-                tutorialManager.OnPlantSelected();
-                break;
-            case "PlantPlanted":
-                tutorialManager.OnPlantPlanted();
-                break;
-            case "PlantClickedToWater":
-                tutorialManager.OnPlantClickedToWater(target);
-                break;
-            case "PlantWatered":
-                tutorialManager.OnPlantWatered();
-                break;
-            case "PlowedTileClicked":
-                // NEW: Call the specific method for plowed tile clicks
-                if (tutorialManager != null)
-                {
-                    var method = tutorialManager.GetType().GetMethod("OnPlowedTileClicked");
-                    if (method != null)
-                    {
-                        method.Invoke(tutorialManager, new object[] { target });
-                    }
-                    else
-                    {
-                        // Fallback: use reflection or alternative approach
-                        Debug.Log("OnPlowedTileClicked method not found, using OnTileClicked as fallback");
-                        tutorialManager.OnTileClicked(target);
-                    }
-                }
-                break;
-            case "FieldCreated":
-                // NEW: Notify when a field is created
-                if (tutorialManager != null)
-                {
-                    var method = tutorialManager.GetType().GetMethod("OnFieldCreated");
-                    if (method != null && target != null)
-                    {
-                        method.Invoke(tutorialManager, new object[] { target, target.transform.position });
-                    }
-                }
-                break;
-        }
-    }
-
-    private void DebugTutorialState()
-    {
-        Debug.Log($"=== TUTORIAL DEBUG ===");
-        Debug.Log($"Tutorial Active: {tutorialActive}");
-        Debug.Log($"Tutorial Manager Found: {tutorialManager != null}");
     }
 
     void RemoveHighlights()
@@ -711,9 +610,6 @@ public class FarmGrid : MonoBehaviour
         }
         PlantSeedAtPosition(seedButtonData.seedType, seedButtonData.seedPrefab, lastFieldPosition);
         ClosePlantMenu();
-
-        // NPC TUTORIAL: Notify when plant type is selected
-        NotifyTutorial("PlantSelected");
     }
 
     void PlantSeedAtPosition(SeedType seedType, GameObject seedPrefab, Vector3 position)
@@ -726,9 +622,6 @@ public class FarmGrid : MonoBehaviour
         newCrop.layer = LayerMask.NameToLayer("CropsLayer");
         Debug.Log($"Planted {seedType} at: {spawnPos}");
         Normal();
-
-        // NPC TUTORIAL: Notify when plant is planted
-        NotifyTutorial("PlantPlanted");
     }
 
     bool IsPositionValidForPlanting(Vector3 position)
@@ -760,21 +653,8 @@ public class FarmGrid : MonoBehaviour
     {
         bool isField = IsGridPositionField(lastGridPosition);
 
-        Debug.Log($"SowButton clicked - IsField: {isField}, TutorialManager: {tutorialManager != null}");
+        Debug.Log($"SowButton clicked - IsField: {isField}");
 
-        // NOTIFY TUTORIAL FIRST - before any other logic
-        if (isField)
-        {
-            // NPC TUTORIAL: Notify when plant button is clicked
-            NotifyTutorial("PlantButtonClicked");
-        }
-        else
-        {
-            // NPC TUTORIAL: Notify when plow button is clicked  
-            NotifyTutorial("PlowButtonClicked");
-        }
-
-        // Then execute the game logic
         if (isField)
         {
             Sowing();
@@ -795,9 +675,6 @@ public class FarmGrid : MonoBehaviour
         GameManager.Instance.Money -= plowprice;
         GameManager.Instance.SpawnUIAboveField(newField.transform, "-10");
         Debug.Log("Created field at: " + lastGridPosition);
-
-        // NEW: NOTIFY TUTORIAL - Field was created
-        NotifyTutorial("FieldCreated", newField);
     }
 
     void PrepareDefenderWithPosition(DefenderType defenderType)

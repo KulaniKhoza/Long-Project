@@ -53,10 +53,6 @@ public class Crops : MonoBehaviour
     // Static reference for button access
     public static Crops CurrentlySelectedCrop { get; private set; }
 
-    // NPC TUTORIAL INTEGRATION
-    private NPCTutorialManager tutorialManager;
-    private bool hasBeenWatered = false;
-
     void Start()
     {
         // Initialize components
@@ -65,9 +61,6 @@ public class Crops : MonoBehaviour
 
         if (MoneyManager == null)
             MoneyManager = GameManager.Instance;
-
-        // Find tutorial manager
-        tutorialManager = FindObjectOfType<NPCTutorialManager>();
 
         // Store original color
         originalColor = spriteRenderer.color;
@@ -210,13 +203,6 @@ public class Crops : MonoBehaviour
 
         UpdateProgressBar();
 
-        // NPC TUTORIAL: Notify when plant is watered
-        if (!hasBeenWatered && waterLevel > 0 && tutorialManager != null)
-        {
-            hasBeenWatered = true;
-            tutorialManager.OnPlantWatered();
-        }
-
         if (waterLevel / 20 != oldWaterLevel / 20)
         {
             Debug.Log($"Watering crop. Water level: {waterLevel}/{maxWater}");
@@ -245,13 +231,6 @@ public class Crops : MonoBehaviour
 
         StartCoroutine(SmoothFillToMax());
         Debug.Log($"Started smooth water fill animation!");
-
-        // NPC TUTORIAL: Notify when plant is watered via button
-        if (!hasBeenWatered && tutorialManager != null)
-        {
-            hasBeenWatered = true;
-            tutorialManager.OnPlantWatered();
-        }
     }
 
     private IEnumerator SmoothFillToMax()
@@ -424,12 +403,6 @@ public class Crops : MonoBehaviour
         flashCoroutine = StartCoroutine(FlashCrop());
         WaterPanel.SetActive(true);
         Debug.Log("Crop selected for watering");
-
-        // NPC TUTORIAL: Notify when crop is selected for watering
-        if (tutorialManager != null)
-        {
-            tutorialManager.OnPlantClickedToWater(gameObject);
-        }
     }
 
     public void DeselectCrop()
