@@ -53,7 +53,6 @@ public class Crops : MonoBehaviour
     public float smoothFillDuration = 5f;
     public float smoothDecreaseDuration = 14f; // ? NEW - Duration for smooth decrease
     public float decreaseStartDelay = 2f; // ? NEW - Delay before decrease starts
-    public float smoothFillDuration = 2f;
     private Coroutine smoothFillCoroutine;
     private Coroutine smoothDecreaseCoroutine; // ? NEW - Coroutine for smooth decrease
     private bool isAnimating = false;
@@ -71,12 +70,7 @@ public class Crops : MonoBehaviour
     // ? NEW - Clickable state (collider remains enabled)
     private bool isClickable = true;
 
-    // Static reference for button access
     public static Crops CurrentlySelectedCrop { get; private set; }
-
-    // NPC TUTORIAL INTEGRATION
-    private NPCTutorialManager tutorialManager;
-    private bool hasBeenWatered = false;
 
     void Start()
     {
@@ -86,10 +80,6 @@ public class Crops : MonoBehaviour
         if (MoneyManager == null)
             MoneyManager = GameManager.Instance;
 
-        // Find tutorial manager
-        tutorialManager = FindObjectOfType<NPCTutorialManager>();
-
-        // Store original color
         originalColor = spriteRenderer.color;
         currentHealth = maxHealth;
 
@@ -120,7 +110,6 @@ public class Crops : MonoBehaviour
         if (!isAlive) return;
 
         // Watering logic
-        // Handle continuous watering if this crop is selected and W key is held
         if (isSelected && Keyboard.current.wKey.isPressed && !isWatering && !(isMaxLevel && waterLevel >= maxWater) && !isAnimating)
         {
             StartWatering();
@@ -137,7 +126,9 @@ public class Crops : MonoBehaviour
 
         GenerateMoney();
 
-        // CONTINUOUS HEALTH MONITORING
+        // ? DECAY LOGIC ALWAYS CHECKS LAST
+        HandleWaterDecay();
+
         wasDamagedThisFrame = false;
     }
 
@@ -194,7 +185,6 @@ public class Crops : MonoBehaviour
 
     void GenerateMoney()
     {
-        // Generate money at EVERY level when fully watered
         if (plantLevel >= 1)
         {
             moneyTimer += Time.deltaTime;
@@ -207,7 +197,8 @@ public class Crops : MonoBehaviour
                 {
                     MoneyManager.AddMoney(moneyToAdd);
                     MoneyManager.SpawnUIAboveField(transform, $"+R{moneyToAdd}");
-                    Debug.Log($"Money generated: +R{moneyToAdd} at level {plantLevel}. Total money: {MoneyManager.Money}");
+
+                    Debug.Log($"Money generated: +R{moneyToAdd} at level {plantLevel}. Total: {MoneyManager.Money}");
                 }
                 else
                 {
@@ -272,13 +263,6 @@ public class Crops : MonoBehaviour
 
         UpdateProgressBar();
 
-        // NPC TUTORIAL: Notify when plant is watered
-        if (!hasBeenWatered && waterLevel > 0 && tutorialManager != null)
-        {
-            hasBeenWatered = true;
-            tutorialManager.OnPlantWatered();
-        }
-
         if (waterLevel / 20 != oldWaterLevel / 20)
         {
             Debug.Log($"Watering crop. Water level: {waterLevel}/{maxWater}");
@@ -326,13 +310,6 @@ public class Crops : MonoBehaviour
 
         StartCoroutine(SmoothFillToMax());
         Debug.Log($"Started smooth water fill animation!");
-
-        // NPC TUTORIAL: Notify when plant is watered via button
-        if (!hasBeenWatered && tutorialManager != null)
-        {
-            hasBeenWatered = true;
-            tutorialManager.OnPlantWatered();
-        }
     }
 
     // ? NEW - Stop flashing and deselect crop
@@ -457,8 +434,7 @@ public class Crops : MonoBehaviour
     }
 
     // ? NEW - Wait before starting decrease
-    private IEnumerator DelayedSmoothDecrease();
-    public bool CanBeWatered()
+    private IEnumerator DelayedSmoothDecrease()
     {
         Debug.Log($"Waiting {decreaseStartDelay} seconds before starting smooth decrease...");
 
@@ -613,6 +589,9 @@ public class Crops : MonoBehaviour
     {
         if (plantLevel >= 0 && plantLevel < 3)
         {
+            // ? NEW � tell decay system to restart
+            levelUpJustHappened = true;
+
             bool wasSelected = isSelected;
 
             plantLevel++;
@@ -637,6 +616,7 @@ public class Crops : MonoBehaviour
             }
             else
             {
+                // ? Reset water level to 0 since we just decreased it
                 waterLevel = 0;
                 UpdateProgressBar();
 
@@ -644,6 +624,10 @@ public class Crops : MonoBehaviour
                 isDecaying = false;
                 decayTimer = 0f;
             }
+
+            // ? NEW - Make crop clickable again after leveling up and flash to indicate ready
+            SetClickable(true);
+            FlashReadyForWatering();
 
             if (wasSelected)
             {
@@ -698,12 +682,6 @@ public class Crops : MonoBehaviour
         flashCoroutine = StartCoroutine(FlashCrop());
         WaterPanel.SetActive(true);
         Debug.Log("Crop selected for watering");
-
-        // NPC TUTORIAL: Notify when crop is selected for watering
-        if (tutorialManager != null)
-        {
-            tutorialManager.OnPlantClickedToWater(gameObject);
-        }
     }
 
     public void DeselectCrop()
@@ -721,6 +699,7 @@ public class Crops : MonoBehaviour
             flashCoroutine = null;
         }
         WaterPanel.SetActive(false);
+
         spriteRenderer.color = originalColor;
         StopWatering();
         Debug.Log("Crop deselected");
@@ -792,11 +771,7 @@ public class Crops : MonoBehaviour
             spriteRenderer.color = Color.red;
             yield return new WaitForSeconds(0.1f);
 
-            if (isSelected)
-                spriteRenderer.color = selectedColor;
-            else
-                spriteRenderer.color = originalColor;
-
+            spriteRenderer.color = isSelected ? selectedColor : originalColor;
             yield return new WaitForSeconds(0.1f);
         }
     }

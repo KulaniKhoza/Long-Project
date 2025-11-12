@@ -18,7 +18,6 @@ TagManager:
   - Plant
   - EnemyW
   - pest1
-  - Plow
   layers:
   - Default
   - TransparentFX

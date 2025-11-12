@@ -104,14 +104,12 @@ public class GameManager : MonoBehaviour
             Debug.Log($"Unregistered crop. Total crops: {activeCrops.Count}");
         }
     }
-
     public void AddMoney(int amount)
     {
         Money += amount;
-
+        
         Debug.Log($"Money added: R{amount}. Total: R{Money}");
     }
-
     public void SpawnUIAboveField(Transform field, string textToShow)
     {
         if (uiPrefab == null || parentCanvas == null) return;
@@ -130,13 +128,12 @@ public class GameManager : MonoBehaviour
         if (tmp != null)
         {
             tmp.text = textToShow;
-            tmp.color = Color.green;
+            tmp.color = Color.green; // Changed to green for money
         }
 
         // Force Unity to refresh UI immediately
         Canvas.ForceUpdateCanvases();
     }
-
     public SimpleProgressBar SpawnProgressBar(Transform target)
     {
         if (progressBarPrefab == null || parentCanvas == null) return null;
@@ -147,10 +144,5 @@ public class GameManager : MonoBehaviour
 
         return progressBar.GetComponent<SimpleProgressBar>();
     }
-
-    public void OnTutorialComplete()
-    {
-        Debug.Log("GameManager: Tutorial completed, starting main game");
-        
-    }
+ 
 }
