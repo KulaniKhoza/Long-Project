@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4734858450408326618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6707166944235866543}
+  - component: {fileID: 6194233952222101255}
+  m_Layer: 5
+  m_Name: NPCTutorialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6707166944235866543
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4734858450408326618}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 960, y: 540}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6194233952222101255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4734858450408326618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5321762976770b448f4ab6846f29d7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialSteps:
+  - stepName: ClickEmptyTile
+    instructionText: Welcome to Last Harvest! Click on any empty grass tile to begin
+      farming
+    npcScreenPosition: {x: 0, y: 100}
+    requiredAction: 1
+    targetObject: {fileID: 0}
+    pointerOffset: {x: 0, y: 0}
+    dynamicTargetTag: 
+    useDynamicTarget: 0
+  - stepName: ClickPlowButton
+    instructionText: Excellent! Now click the 'Plow' button to prepare the soil
+    npcScreenPosition: {x: 300, y: 150}
+    requiredAction: 2
+    targetObject: {fileID: 0}
+    pointerOffset: {x: 0, y: 0}
+    dynamicTargetTag: 
+    useDynamicTarget: 0
+  - stepName: ClickPlowedTile
+    instructionText: Well done! The soil is ready. Click onplowed tile
+    npcScreenPosition: {x: 0, y: 100}
+    requiredAction: 3
+    targetObject: {fileID: 0}
+    pointerOffset: {x: 0, y: 0}
+    dynamicTargetTag: field
+    useDynamicTarget: 1
+  - stepName: ClickPlantButton
+    instructionText: Perfect! Now click the 'Plant' button to choose seeds
+    npcScreenPosition: {x: 300, y: 150}
+    requiredAction: 4
+    targetObject: {fileID: 0}
+    pointerOffset: {x: 0, y: 0}
+    dynamicTargetTag: 
+    useDynamicTarget: 0
+  - stepName: ClickPlantButton
+    instructionText: Choose any seed type from the menu. Each plant generates money!
+    npcScreenPosition: {x: 300, y: 150}
+    requiredAction: 6
+    targetObject: {fileID: 0}
+    pointerOffset: {x: 0, y: 0}
+    dynamicTargetTag: 
+    useDynamicTarget: 0
+  - stepName: ClickPlantButton
+    instructionText: Choose any seed type from the menu. Each plant generates money!
+    npcScreenPosition: {x: 300, y: 150}
+    requiredAction: 5
+    targetObject: {fileID: 0}
+    pointerOffset: {x: 0, y: 0}
+    dynamicTargetTag: 
+    useDynamicTarget: 0
+  currentStepIndex: 0
+  npcPanel: {fileID: 0}
+  npcSprite: {fileID: 0}
+  instructionText: {fileID: 0}
+  pointerArrow: {fileID: 0}
+  npcCanvasGroup: {fileID: 0}
+  fadeDuration: 0.5
+  slideDuration: 0.8
+  textTypeSpeed: 0.05
+  npcIdleSprite: {fileID: 9064893237733398578, guid: 729bb6150d2f69f4c99c7fed023b82a0, type: 3}
+  npcTalkingSprite: {fileID: 9064893237733398578, guid: 729bb6150d2f69f4c99c7fed023b82a0, type: 3}
+  npcDefaultSize: {x: 150, y: 150}
+  enableDebug: 1
+  isTutorialActive: 0
+  waitingForAction: 0
+  plantsPlanted: 0
+  plantsWatered: 0
