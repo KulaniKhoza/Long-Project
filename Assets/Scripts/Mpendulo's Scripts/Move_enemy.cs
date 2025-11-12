@@ -28,6 +28,7 @@ public class Move_enemy : MonoBehaviour
     bool DontMove = false;
     private Color originalColor;
     public SpriteRenderer spriteRenderer;
+    private SpriteRenderer[] allRenderers;
 
     public GameObject gameOverScreen;
     public ChickenMovement Attacker;
@@ -52,6 +53,9 @@ public class Move_enemy : MonoBehaviour
             spriteRenderer = GetComponent<SpriteRenderer>();
 
         originalColor = spriteRenderer.color;
+
+        // Get all SpriteRenderers in this object and its children
+        allRenderers = GetComponentsInChildren<SpriteRenderer>();
 
         pest = GetComponent<Rigidbody2D>();
         enemy = Controller.GetComponent<Enemy_Controller>();
@@ -162,6 +166,15 @@ public class Move_enemy : MonoBehaviour
             }
             Destroy(gameObject, 1f);
             destroyed = true;
+        }
+
+        // Sync all other SpriteRenderers to the master
+        foreach (SpriteRenderer sr in allRenderers)
+        {
+            if (sr != spriteRenderer)
+            {
+                sr.color = spriteRenderer.color;
+            }
         }
 
 
