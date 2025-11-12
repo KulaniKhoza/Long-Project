@@ -63,8 +63,6 @@ public class FarmGrid : MonoBehaviour
     public Color activeFieldColor = Color.red;
     public Color inactiveGridColor = Color.blue;
 
-    TextScript Communicator;
-
     [System.Serializable]
     public class SeedButtonData
     {
@@ -128,7 +126,6 @@ public class FarmGrid : MonoBehaviour
 
         DisableAllButtons();
 
-        Communicator = FindObjectOfType<TextScript>();
         // Find simple tutorial manager
         tutorialManager = FindFirstObjectByType<TutorialManager>();
         if (tutorialManager == null)
@@ -217,8 +214,8 @@ public class FarmGrid : MonoBehaviour
 
             if (Sow && !CreateField && !PlaceDefenders && !clickedCrop)
             {
-                RaycastHit2D fieldHit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, fieldLayerMask);
-                if (fieldHit.collider != null && fieldHit.collider.CompareTag("field"))
+                RaycastHit2D plantingFieldHit = Physics2D.Raycast(worldPos, Vector2.zero, Mathf.Infinity, fieldLayerMask);
+                if (plantingFieldHit.collider != null && plantingFieldHit.collider.CompareTag("field"))
                 {
                     GameObject seedToPlant = null;
                     bool hasSeed = false;
@@ -230,7 +227,7 @@ public class FarmGrid : MonoBehaviour
                             {
                                 seedToPlant = normalSeedPrefab;
                                 GameManager.Instance.seeds--;
-                                GameManager.Instance.SpawnUIAboveField(fieldHit.collider.transform, "-1");
+                                GameManager.Instance.SpawnUIAboveField(plantingFieldHit.collider.transform, "-1");
                                 hasSeed = true;
                             }
                             break;
@@ -239,7 +236,7 @@ public class FarmGrid : MonoBehaviour
                             {
                                 seedToPlant = tomatoSeedPrefab;
                                 GameManager.Instance.tomatoSeeds--;
-                                GameManager.Instance.SpawnUIAboveField(fieldHit.collider.transform, "-1");
+                                GameManager.Instance.SpawnUIAboveField(plantingFieldHit.collider.transform, "-1");
                                 hasSeed = true;
                             }
                             break;
@@ -248,7 +245,7 @@ public class FarmGrid : MonoBehaviour
                             {
                                 seedToPlant = cornSeedPrefab;
                                 GameManager.Instance.cornSeeds--;
-                                GameManager.Instance.SpawnUIAboveField(fieldHit.collider.transform, "-1");
+                                GameManager.Instance.SpawnUIAboveField(plantingFieldHit.collider.transform, "-1");
                                 hasSeed = true;
                             }
                             break;
@@ -256,7 +253,7 @@ public class FarmGrid : MonoBehaviour
 
                     if (hasSeed && seedToPlant != null)
                     {
-                        Vector3 spawnPos = fieldHit.collider.transform.position + new Vector3(0, 0.1f, 0);
+                        Vector3 spawnPos = plantingFieldHit.collider.transform.position + new Vector3(0, 0.1f, 0);
                         GameObject newCrop = Instantiate(seedToPlant, spawnPos, Quaternion.identity);
                         newCrop.layer = LayerMask.NameToLayer("CropsLayer");
                         Debug.Log("Planted seed at: " + spawnPos);
@@ -265,16 +262,6 @@ public class FarmGrid : MonoBehaviour
                     else
                     {
                         Debug.Log("Not enough seeds!");
-
-                        if (Communicator != null)
-                        {
-                            if (!Communicator.writingText)
-                            {
-                                Communicator.fullSentence = "You currently don't have enough seeds";
-                                StartCoroutine(Communicator.ShowTextLetterByLetter());
-                            }
-
-                        }
                     }
                 }
             }
@@ -398,6 +385,7 @@ public class FarmGrid : MonoBehaviour
             plantMenu.transform.position = lastFieldPosition;
             plantMenu.SetActive(true);
             plantMenuVisible = true;
+            EnableAllSeedButtons();
             CloseContextMenu();
         }
     }
@@ -436,31 +424,11 @@ public class FarmGrid : MonoBehaviour
             else
             {
                 Debug.Log($"Not enough money for defenders! Cheapest costs ${cheapestCost}");
-
-                if (Communicator != null)
-                {
-                    if (!Communicator.writingText)
-                    {
-                        Communicator.fullSentence = $"Not enough money for defenders! Cheapest costs ${cheapestCost}";
-                        StartCoroutine(Communicator.ShowTextLetterByLetter());
-                    }
-
-                }
             }
         }
         else
         {
             Debug.Log("Cannot place defender: position occupied!");
-
-            if (Communicator != null)
-            {
-                if (!Communicator.writingText)
-                {
-                    Communicator.fullSentence = "Cannot place defender: position occupied!";
-                    StartCoroutine(Communicator.ShowTextLetterByLetter());
-                }
-
-            }
         }
     }
 
@@ -565,16 +533,18 @@ public class FarmGrid : MonoBehaviour
             }
         }
     }
+
     public int GetSeedCost(SeedType seedType)
     {
         switch (seedType)
         {
-            case SeedType.Normal: return 15;  // Normal seeds cost 1 seed
-            case SeedType.Tomato: return 20;  // Tomato seeds cost 1 seed
-            case SeedType.Corn: return 25;    // Corn seeds cost 1 seed
+            case SeedType.Normal: return 15;
+            case SeedType.Tomato: return 20;
+            case SeedType.Corn: return 25;
             default: return 0;
         }
     }
+
     int GetSeedCountForType(SeedType seedType)
     {
         switch (seedType)
@@ -586,7 +556,17 @@ public class FarmGrid : MonoBehaviour
         }
     }
 
-    // UPDATED: Now subtracts seed cost when clicked
+    bool HasSeedsForType(SeedType seedType)
+    {
+        switch (seedType)
+        {
+            case SeedType.Normal: return GameManager.Instance.seeds > 0;
+            case SeedType.Tomato: return GameManager.Instance.tomatoSeeds > 0;
+            case SeedType.Corn: return GameManager.Instance.cornSeeds > 0;
+            default: return false;
+        }
+    }
+
     public void OnInventorySeedButtonClicked(SeedButtonData seedButtonData)
     {
         if (!plantMenuVisible) return;
@@ -594,22 +574,12 @@ public class FarmGrid : MonoBehaviour
         if (!HasSeedsForType(seedButtonData.seedType))
         {
             Debug.Log("No seeds available!");
-
-            if (Communicator != null)
-            {
-                if (!Communicator.writingText)
-                {
-                    Communicator.fullSentence = "You currently have no seeds available!";
-                    StartCoroutine(Communicator.ShowTextLetterByLetter());
-                }
-
-            }
             EnableAllSeedButtons();
             return;
         }
         int cost = GetSeedCost(seedButtonData.seedType);
         if (GameManager.Instance.Money >= cost)
-        {   // Subtract cost based on seed type (1 seed per planting)
+        {
             switch (seedButtonData.seedType)
             {
                 case SeedType.Normal:
@@ -617,7 +587,6 @@ public class FarmGrid : MonoBehaviour
                     {
                         GameManager.Instance.Money -= cost;
                         GameManager.Instance.seeds--;
-
                         GameManager.Instance.SpawnUIAboveField(transform, $"-R{cost}");
                     }
                     break;
@@ -643,18 +612,6 @@ public class FarmGrid : MonoBehaviour
         ClosePlantMenu();
     }
 
-    bool HasSeedsForType(SeedType seedType)
-    {
-        switch (seedType)
-        {
-            case SeedType.Normal: return GameManager.Instance.seeds > 0;
-            case SeedType.Tomato: return GameManager.Instance.tomatoSeeds > 0;
-            case SeedType.Corn: return GameManager.Instance.cornSeeds > 0;
-            default: return false;
-        }
-    }
-
-    // UPDATED: Removed duplicate cost subtraction
     void PlantSeedAtPosition(SeedType seedType, GameObject seedPrefab, Vector3 position)
     {
         if (seedPrefab == null) return;
@@ -768,16 +725,6 @@ public class FarmGrid : MonoBehaviour
             else
             {
                 Debug.Log("Position already occupied!");
-
-                if (Communicator != null)
-                {
-                    if (!Communicator.writingText)
-                    {
-                        Communicator.fullSentence = "Position already occupied!";
-                        StartCoroutine(Communicator.ShowTextLetterByLetter());
-                    }
-
-                }
             }
         }
     }
@@ -791,24 +738,20 @@ public class FarmGrid : MonoBehaviour
         return false;
     }
 
-    // UPDATED: Now subtracts defender cost when clicked
     public void OnDefenderTypeButtonClicked(DefenderButtonData defenderButtonData)
     {
         if (!PlaceDefenders) return;
 
         int cost = GetDefenderCost(defenderButtonData.defenderType);
 
-        // Check if player can afford
         if (GameManager.Instance.Money >= cost)
         {
-            // Subtract money cost
             GameManager.Instance.Money -= cost;
             GameManager.Instance.SpawnUIAboveField(transform, $"-R{cost}");
 
             currentDefender = defenderButtonData.defenderType;
             PlaceDefenderAtPosition(lastGridPosition, defenderButtonData.defenderPrefab);
 
-            // Exit defender placement mode
             PlaceDefenders = false;
             currentDefender = DefenderType.None;
             Cursor.SetCursor(basicCursor, hotspot, cursorMode);
@@ -818,20 +761,9 @@ public class FarmGrid : MonoBehaviour
         else
         {
             Debug.Log($"Not enough money! Need {cost}, have {GameManager.Instance.Money}");
-
-            if (Communicator != null)
-            {
-                if (!Communicator.writingText)
-                {
-                    Communicator.fullSentence = $"Not enough money! Need {cost}, have {GameManager.Instance.Money}";
-                    StartCoroutine(Communicator.ShowTextLetterByLetter());
-                }
-
-            }
         }
     }
 
-    // NEW: Cost method for defenders
     private int GetDefenderCost(DefenderType defenderType)
     {
         switch (defenderType)
@@ -856,7 +788,6 @@ public class FarmGrid : MonoBehaviour
         }
     }
 
-    // NEW: Place defender at position with cost handling
     void PlaceDefenderAtPosition(Vector3 position, GameObject defenderPrefab)
     {
         if (defenderPrefab == null) return;
@@ -998,5 +929,12 @@ public class FarmGrid : MonoBehaviour
         currentSeed = SeedType.None;
         EnableDefenderButtons();
         Debug.Log($"Selected {defenderType} for placement");
+    }
+
+    // NEW METHOD: Called when tutorial is complete
+    public void OnTutorialComplete()
+    {
+        Debug.Log("FarmGrid: Tutorial completed, full game systems enabled");
+        tutorialActive = false;
     }
 }
