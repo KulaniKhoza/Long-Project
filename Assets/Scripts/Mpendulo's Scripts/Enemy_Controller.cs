@@ -21,6 +21,7 @@ public class Enemy_Controller : MonoBehaviour
     bool shouldSpawn = true;
 
     public TextMeshProUGUI WaveText;
+    TextScript Communicator;
 
     public int waveCounter;
     int spawnRate;
@@ -74,6 +75,9 @@ public class Enemy_Controller : MonoBehaviour
 
         Spawn1();
 
+        Communicator = FindObjectOfType<TextScript>();
+
+
     }
 
     // Update is called once per frame
@@ -84,6 +88,9 @@ public class Enemy_Controller : MonoBehaviour
             StartCoroutine(SpawnWaves(80f, 5f));
             shouldSpawn = false;
         }
+
+
+
     }
 
     public void Spawn1()

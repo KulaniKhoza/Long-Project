@@ -28,6 +28,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: -7648912118248675125, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -7648912118248675125, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1648453689
+      objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.56
@@ -88,6 +96,22 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: -3911112479386407098, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -3911112479386407098, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1648453689
+      objectReference: {fileID: 0}
+    - target: {fileID: -3357923606588815948, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -3357923606588815948, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1648453689
+      objectReference: {fileID: 0}
     - target: {fileID: -3346276223636773435, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -103,6 +127,14 @@ PrefabInstance:
     - target: {fileID: 59259804675962326, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 117749987783692138, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 117749987783692138, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1648453689
       objectReference: {fileID: 0}
     - target: {fileID: 386791141387813222, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
       propertyPath: m_Layer
@@ -124,6 +156,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3821046529887812328, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3821046529887812328, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1648453689
+      objectReference: {fileID: 0}
     - target: {fileID: 4157741701538757237, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -131,6 +171,14 @@ PrefabInstance:
     - target: {fileID: 5627286642687538331, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5781711572336438749, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5781711572336438749, guid: 70f0d51ef21a9344780851fc92f17c23, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1648453689
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -237,7 +285,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.46357468, y: 0.46783355}
+  m_Offset: {x: 0.37240684, y: 0.49493748}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -247,7 +295,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.97919863, y: 0.58183104}
+  m_Size: {x: 0.79686296, y: 0.5276232}
   m_EdgeRadius: 0
 --- !u!114 &4473128074980074552
 MonoBehaviour:

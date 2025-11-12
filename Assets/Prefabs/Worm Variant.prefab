@@ -8,9 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 65940600026335744, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266769321180404095, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 5554711277582506078, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
       propertyPath: m_Name
       value: Worm Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554711277582506078, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5554711277582506078, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
       propertyPath: m_IsActive
@@ -18,7 +30,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5554711277582506078, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
       propertyPath: m_TagString
-      value: EnemyW
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5741997009960155269, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764304214910202864, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5764304214910202864, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 141630561
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869121860232728152, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6440497505254104653, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6459275638319171476, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6459275638319171476, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 141630561
       objectReference: {fileID: 0}
     - target: {fileID: 6763937899502239805, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59,6 +99,34 @@ PrefabInstance:
     - target: {fileID: 6763937899502239805, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -2.275
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098682991042767013, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098682991042767013, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 141630561
+      objectReference: {fileID: 0}
+    - target: {fileID: 7436310280801648836, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8305420193043858326, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425774377012445181, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8425774377012445181, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 141630561
+      objectReference: {fileID: 0}
+    - target: {fileID: 9166805464066700526, guid: 2ffff335c717560438bdb3f76b7b21fd, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

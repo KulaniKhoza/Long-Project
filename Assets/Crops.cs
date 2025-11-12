@@ -33,7 +33,7 @@ public class Crops : MonoBehaviour
     private bool isDecaying = false;
     private float decayTimer = 0f;
 
-    // ? NEW — detect level-up interruption
+    // ? NEW ï¿½ detect level-up interruption
     private bool levelUpJustHappened = false;
 
     [Header("Money Generation")]
@@ -64,6 +64,9 @@ public class Crops : MonoBehaviour
     public Color selectedColor = Color.blue;
     private Coroutine flashCoroutine;
 
+    TextScript Communicator;
+
+
     // ? NEW - Clickable state (collider remains enabled)
     private bool isClickable = true;
 
@@ -84,6 +87,7 @@ public class Crops : MonoBehaviour
         UpdateSprite();
 
         Debug.Log("Crop initialized at level: " + plantLevel);
+        Communicator = FindObjectOfType<TextScript>();
     }
 
     void InitializeProgressBar()
@@ -262,6 +266,15 @@ public class Crops : MonoBehaviour
         if (waterLevel / 20 != oldWaterLevel / 20)
         {
             Debug.Log($"Watering crop. Water level: {waterLevel}/{maxWater}");
+            if (Communicator != null)
+            {
+                if (!Communicator.writingText)
+                {
+                    Communicator.fullSentence = $"Watering crop. Water level: {waterLevel}/{maxWater}";
+                    StartCoroutine(Communicator.ShowTextLetterByLetter());
+                }
+
+            }
         }
 
         // ? Start smooth decrease when reaching max water (if not already decreasing)
@@ -576,7 +589,7 @@ public class Crops : MonoBehaviour
     {
         if (plantLevel >= 0 && plantLevel < 3)
         {
-            // ? NEW — tell decay system to restart
+            // ? NEW ï¿½ tell decay system to restart
             levelUpJustHappened = true;
 
             bool wasSelected = isSelected;
@@ -590,6 +603,16 @@ public class Crops : MonoBehaviour
                 waterLevel = maxWater;
                 UpdateProgressBar();
                 Debug.Log($"Crop reached MAX level {plantLevel}! Water stays full.");
+
+                if (Communicator != null)
+                {
+                    if (!Communicator.writingText)
+                    {
+                        Communicator.fullSentence = $"Crop reached MAX level {plantLevel}! Water stays full.";
+                        StartCoroutine(Communicator.ShowTextLetterByLetter());
+                    }
+
+                }
             }
             else
             {
@@ -613,6 +636,16 @@ public class Crops : MonoBehaviour
             }
 
             Debug.Log($"Crop leveled up to level {plantLevel}! Water level reset to {waterLevel}/{maxWater}");
+
+            if (Communicator != null)
+            {
+                if (!Communicator.writingText)
+                {
+                    Communicator.fullSentence = $"Crop leveled up to level {plantLevel}! Water level reset to {waterLevel}/{maxWater}";
+                    StartCoroutine(Communicator.ShowTextLetterByLetter());
+                }
+
+            }
         }
     }
 
