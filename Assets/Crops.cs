@@ -80,6 +80,7 @@ public class Crops : MonoBehaviour
         if (MoneyManager == null)
             MoneyManager = GameManager.Instance;
 
+        // Store original color
         originalColor = spriteRenderer.color;
         currentHealth = maxHealth;
 
@@ -310,68 +311,6 @@ public class Crops : MonoBehaviour
 
         StartCoroutine(SmoothFillToMax());
         Debug.Log($"Started smooth water fill animation!");
-    }
-
-    // ? NEW - Stop flashing and deselect crop
-    private void StopFlashingAndDeselect()
-    {
-        // Stop flashing
-        if (flashCoroutine != null)
-        {
-            StopCoroutine(flashCoroutine);
-            flashCoroutine = null;
-        }
-
-        // Reset color
-        spriteRenderer.color = originalColor;
-
-        // Deselect crop
-        if (isSelected)
-        {
-            isSelected = false;
-            if (CurrentlySelectedCrop == this)
-            {
-                CurrentlySelectedCrop = null;
-            }
-            WaterPanel.SetActive(false);
-        }
-
-        // Make unclickable (but keep collider enabled)
-        SetClickable(false);
-
-        Debug.Log("Crop deselected and made unclickable for watering");
-    }
-
-    // ? NEW - Make crop clickable or unclickable (without removing collider)
-    private void SetClickable(bool clickable)
-    {
-        isClickable = clickable;
-        // Collider remains enabled - we handle clickability through state checking
-    }
-
-    // ? NEW - Public method to check if crop can be interacted with
-    public bool CanBeClicked()
-    {
-        return isClickable && isAlive && waterLevel == 0 && !isAnimating;
-    }
-
-    // ? NEW - Smooth decrease to minimum
-    public void StartSmoothDecreaseToMinimum()
-    {
-        if (isAnimating || smoothDecreaseCoroutine != null)
-        {
-            Debug.Log("Water decrease animation already in progress!");
-            return;
-        }
-
-        if (isMaxLevel)
-        {
-            Debug.Log("Max level crop doesn't need to decrease water!");
-            return;
-        }
-
-        smoothDecreaseCoroutine = StartCoroutine(SmoothDecreaseToZero());
-        Debug.Log($"Started smooth water decrease animation!");
     }
 
     private IEnumerator SmoothFillToMax()
