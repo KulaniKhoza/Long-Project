@@ -400,7 +400,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &145351088
 RectTransform:
   m_ObjectHideFlags: 0
@@ -410,14 +410,14 @@ RectTransform:
   m_GameObject: {fileID: 145351087}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6679049, y: 0.94174594, z: 0.6679049}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 967121005}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 126, y: 24}
+  m_AnchoredPosition: {x: 147.23, y: 24.466}
   m_SizeDelta: {x: 800.5638, y: 299.8979}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &145351089
@@ -444,14 +444,14 @@ MonoBehaviour:
     - Mode switching(Farming & Defence)  \n\nLeft mouse click - placing objects "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: db09149d20c2233409a35644afd9ee67, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 8665018986508996092, guid: db09149d20c2233409a35644afd9ee67, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4279632127
+  m_fontColor: {r: 1, g: 0, b: 0.0855813, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -468,8 +468,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -509,7 +509,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -65.24722, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &145351090
@@ -1059,7 +1059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6611354144120532577, guid: afeedd15c83fc824ba508024e91ddb06, type: 3}
       propertyPath: m_text
-      value: Tutorial
+      value: Controls
       objectReference: {fileID: 0}
     - target: {fileID: 6611354144120532577, guid: afeedd15c83fc824ba508024e91ddb06, type: 3}
       propertyPath: m_margin.w
@@ -1528,7 +1528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &643940225
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2080,7 +2080,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &967121005
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3010,14 +3010,14 @@ RectTransform:
   m_GameObject: {fileID: 1859760057}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.49839255, y: 0.7027335, z: 0.49839255}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 967121005}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 61, y: 289}
+  m_AnchoredPosition: {x: 129, y: 274}
   m_SizeDelta: {x: 800.5638, y: 115.3911}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1859760059
@@ -3040,8 +3040,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Farming Procedure: \n\nFarming Mode(tab key)-> Plow field -> Press seed
-    buttons(buying) -> Plant Seeds -> Grow crops "
+  m_text: "Farming Procedure: \n\nClick Tile-> Plow field -> Press seed buttons(buying)
+    -> Plant Seeds -> Grow crops "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3068,8 +3068,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3167,14 +3167,14 @@ RectTransform:
   m_GameObject: {fileID: 2028183260}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3933722, y: 0.55465484, z: 0.3933722}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 967121005}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 33, y: -225}
+  m_AnchoredPosition: {x: 131, y: -127}
   m_SizeDelta: {x: 800.5638, y: 115.3911}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2028183262
@@ -3197,8 +3197,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "DefenceProcedure: \n\nDefence Mode(tab key)->  Press Defender buttons(buying)
-    -> Place on open field -> watch them attack"
+  m_text: "DefenceProcedure: \n\nClick Tile->  Press Defender buttons(buying) ->
+    Place on open field -> watch them attack"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3225,8 +3225,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

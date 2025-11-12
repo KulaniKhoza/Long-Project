@@ -16,6 +16,7 @@ public class Crops : MonoBehaviour
 
     [Header("Crop State")]
     public int plantLevel = 0;
+    public int maxplantlevel = 2;
     public int waterLevel = 0;
     public int maxWater = 100;
     private bool isMaxLevel = false;
@@ -183,7 +184,7 @@ public class Crops : MonoBehaviour
 
     void GenerateMoney()
     {
-        if (plantLevel >= 1)
+        if (plantLevel >= 0)
         {
             moneyTimer += Time.deltaTime;
 
@@ -212,9 +213,9 @@ public class Crops : MonoBehaviour
     {
         switch (plantLevel)
         {
-            case 1: return level1cash;
-            case 2: return level2cash;
-            case 3: return level3cash;
+            case 0: return level1cash;
+            case 1: return level2cash;
+            case 2: return level3cash;
             default: return 0;
         }
     }
@@ -409,7 +410,7 @@ public class Crops : MonoBehaviour
         isAnimating = false;
 
         // ? After filling to max, wait a bit then start the smooth decrease
-        if (!isMaxLevel && plantLevel < 3)
+        if (!isMaxLevel && plantLevel < maxplantlevel)
         {
             StartCoroutine(DelayedSmoothDecrease());
         }
@@ -480,7 +481,7 @@ public class Crops : MonoBehaviour
         smoothDecreaseCoroutine = null;
 
         // ? Level up when water reaches zero
-        if (!isMaxLevel && plantLevel < 3)
+        if (!isMaxLevel && plantLevel < maxplantlevel)
         {
             LevelUp();
         }
@@ -576,7 +577,7 @@ public class Crops : MonoBehaviour
 
     void LevelUp()
     {
-        if (plantLevel >= 0 && plantLevel < 3)
+        if (plantLevel >= 0 && plantLevel < maxplantlevel)
         {
             // ? NEW — tell decay system to restart
             levelUpJustHappened = true;
@@ -586,7 +587,7 @@ public class Crops : MonoBehaviour
             plantLevel++;
             UpdateSprite();
 
-            if (plantLevel >= 3)
+            if (plantLevel >= maxplantlevel)
             {
                 isMaxLevel = true;
                 waterLevel = maxWater;

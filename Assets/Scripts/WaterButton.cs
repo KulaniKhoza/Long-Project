@@ -24,6 +24,7 @@ public class WaterCropButton : MonoBehaviour
     {
         Crops.WaterSelectedCrop();
         WaterPanel.SetActive(false);
-        GameManager.Instance.Money -= watercost; 
+        GameManager.Instance.Money -= watercost;
+        GameManager.Instance.SpawnUIAboveField(transform, $"-R{watercost}");
     }
 }

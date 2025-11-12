@@ -1488,7 +1488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFarmingButton: 1
   seedType: 1
-  farmingPrice: 20
+  farmingPrice: 50
   defenderType: 0
   defendingPrice: 50
   priceText: {fileID: 193407308}
@@ -6458,9 +6458,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFarmingButton: 0
   seedType: 0
-  farmingPrice: 20
+  farmingPrice: 0
   defenderType: 2
-  defendingPrice: 35
+  defendingPrice: 65
   priceText: {fileID: 275461209}
   nameText: {fileID: 871107646}
   affordableColor: {r: 1, g: 1, b: 1, a: 1}
@@ -7138,7 +7138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFarmingButton: 1
   seedType: 2
-  farmingPrice: 20
+  farmingPrice: 170
   defenderType: 0
   defendingPrice: 50
   priceText: {fileID: 2112350586}
@@ -7558,7 +7558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFarmingButton: 1
   seedType: 3
-  farmingPrice: 20
+  farmingPrice: 100
   defenderType: 0
   defendingPrice: 50
   priceText: {fileID: 105101167}
@@ -8978,7 +8978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFarmingButton: 0
   seedType: 0
-  farmingPrice: 20
+  farmingPrice: 50
   defenderType: 3
   defendingPrice: 50
   priceText: {fileID: 1999772900}
@@ -11012,6 +11012,9 @@ MonoBehaviour:
   - button: {fileID: 1173023471}
     seedType: 2
     seedPrefab: {fileID: 9124510512987317584, guid: 0177f4f781be921449292d6d5daad590, type: 3}
+  normalseedprice: 50
+  CornPrice: 100
+  TomatoPrice: 150
   defenderButtons:
   - button: {fileID: 1440892729}
     defenderType: 3
@@ -11022,6 +11025,9 @@ MonoBehaviour:
   - button: {fileID: 1076560358}
     defenderType: 2
     defenderPrefab: {fileID: 1177473395315208045, guid: 1475a49e3a718bd47b3ac0387cde60ca, type: 3}
+  FencePrice: 50
+  ChickenPrice: 80
+  PesticidePrice: 65
   farmingButtons:
   - {fileID: 170440402}
   - {fileID: 1275060196}
@@ -13400,9 +13406,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFarmingButton: 0
   seedType: 0
-  farmingPrice: 20
+  farmingPrice: 80
   defenderType: 1
-  defendingPrice: 30
+  defendingPrice: 80
   priceText: {fileID: 1561299819}
   nameText: {fileID: 1526022021}
   affordableColor: {r: 1, g: 1, b: 1, a: 1}
