@@ -95,6 +95,7 @@ public class FarmGrid : MonoBehaviour
     // SIMPLE TUTORIAL INTEGRATION
     private TutorialManager tutorialManager;
     private bool tutorialActive = true;
+    TextScript Communicator;
 
     private void Awake()
     {
@@ -141,6 +142,7 @@ public class FarmGrid : MonoBehaviour
         {
             Debug.Log("Simple tutorial manager found successfully!");
         }
+        Communicator = FindObjectOfType<TextScript>();
     }
 
     void LateUpdate()
@@ -266,6 +268,12 @@ public class FarmGrid : MonoBehaviour
                     else
                     {
                         Debug.Log("Not enough seeds!");
+                        if (Communicator != null && !Communicator.writingText)
+                        {
+                            Communicator.fullSentence = "Not enough seeds!";
+                            Communicator.StartCoroutine(Communicator.ShowTextLetterByLetter());
+                        }
+
                     }
                 }
             }
@@ -428,11 +436,23 @@ public class FarmGrid : MonoBehaviour
             else
             {
                 Debug.Log($"Not enough money for defenders! Cheapest costs ${cheapestCost}");
+                if (Communicator != null && !Communicator.writingText)
+                {
+                    Communicator.fullSentence = $"Not enough money for defenders! Cheapest costs ${cheapestCost}";
+                    Communicator.StartCoroutine(Communicator.ShowTextLetterByLetter());
+                }
+
             }
         }
         else
         {
             Debug.Log("Cannot place defender: position occupied!");
+            if (Communicator != null && !Communicator.writingText)
+            {
+                Communicator.fullSentence = "Cannot place defender: position occupied!";
+                Communicator.StartCoroutine(Communicator.ShowTextLetterByLetter());
+            }
+
         }
     }
 
@@ -579,6 +599,11 @@ public class FarmGrid : MonoBehaviour
         {
             Debug.Log("No seeds available!");
             EnableAllSeedButtons();
+            if (Communicator != null && !Communicator.writingText)
+            {
+                Communicator.fullSentence = "No seeds available!";
+                Communicator.StartCoroutine(Communicator.ShowTextLetterByLetter());
+            }
             return;
         }
         int cost = GetSeedCost(seedButtonData.seedType);
@@ -766,6 +791,11 @@ public class FarmGrid : MonoBehaviour
         else
         {
             Debug.Log($"Not enough money! Need {cost}, have {GameManager.Instance.Money}");
+            if (Communicator != null && !Communicator.writingText)
+            {
+                Communicator.fullSentence = $"Not enough money! Need {cost}, have {GameManager.Instance.Money}";
+                StartCoroutine(Communicator.ShowTextLetterByLetter());
+            }
         }
     }
 
@@ -809,6 +839,12 @@ public class FarmGrid : MonoBehaviour
         else
         {
             Debug.Log("Cannot place defender: position already occupied!");
+            if (Communicator != null && !Communicator.writingText)
+            {
+                Communicator.fullSentence = "Cannot place defender: position already occupied!";
+                Communicator.StartCoroutine(Communicator.ShowTextLetterByLetter());
+            }
+
         }
     }
 
@@ -940,6 +976,11 @@ public class FarmGrid : MonoBehaviour
     public void OnTutorialComplete()
     {
         Debug.Log("FarmGrid: Tutorial completed, full game systems enabled");
+        if (Communicator != null && !Communicator.writingText)
+        {
+            Communicator.fullSentence = "FarmGrid: Tutorial completed, full game systems enabled";
+            Communicator.StartCoroutine(Communicator.ShowTextLetterByLetter());
+        }
         tutorialActive = false;
     }
 }

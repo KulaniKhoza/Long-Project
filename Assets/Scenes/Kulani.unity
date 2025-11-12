@@ -2738,8 +2738,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -529.7151, y: 370.07495}
-  m_SizeDelta: {x: -1059.4302, y: -740.1499}
+  m_AnchoredPosition: {x: 465.64, y: 370.07495}
+  m_SizeDelta: {x: -928.72, y: -740.1499}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &345168514
 MonoBehaviour:
@@ -4678,7 +4678,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 135, y: 425}
+  m_AnchoredPosition: {x: -130, y: 425}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &773249319
@@ -6376,7 +6376,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -1.1089936, y: -0.37760752}
+  m_Offset: {x: -0.5708253, y: -0.37760752}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -6386,7 +6386,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.4093093, y: 0.51153696}
+  m_Size: {x: 0.3329705, y: 0.51153696}
   m_EdgeRadius: 0
 --- !u!114 &1009185993
 MonoBehaviour:
@@ -7667,8 +7667,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0024567, y: 0.0015106}
-  m_SizeDelta: {x: 860.56, y: 339.85}
+  m_AnchoredPosition: {x: -32.679, y: 0.0015106}
+  m_SizeDelta: {x: 925.92, y: 339.85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1181376835
 MonoBehaviour:
@@ -10187,6 +10187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaterPanel: {fileID: 1960433501}
+  watercost: 5
 --- !u!114 &1579106195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11867,7 +11868,6 @@ MonoBehaviour:
   - button: {fileID: 1076560358}
     defenderType: 2
     defenderPrefab: {fileID: 3871799295070800608, guid: c8660492cb444c44594759738e3f028f, type: 3}
-    defenderPrefab: {fileID: 1177473395315208045, guid: 1475a49e3a718bd47b3ac0387cde60ca, type: 3}
   FencePrice: 50
   ChickenPrice: 80
   PesticidePrice: 65

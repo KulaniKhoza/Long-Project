@@ -53,7 +53,10 @@ public class Crops : MonoBehaviour
     public Image waterProgressBar;
     public TextMeshProUGUI waterProgressText;
     public float smoothFillDuration = 2f;
+    public float decreaseStartDelay = 2f;
+    public float smoothDecreaseDuration = 14f;
     private Coroutine smoothFillCoroutine;
+    private Coroutine smoothDecreaseCoroutine;
     private bool isAnimating = false;
     public GameObject WaterPanel;
 
@@ -62,7 +65,8 @@ public class Crops : MonoBehaviour
     private Color originalColor;
     public Color selectedColor = Color.blue;
     private Coroutine flashCoroutine;
-
+    private bool isClickable = true;
+    TextScript Communicator;
     // Static reference for button access
     public static Crops CurrentlySelectedCrop { get; private set; }
 
@@ -86,6 +90,7 @@ public class Crops : MonoBehaviour
         UpdateSprite();
 
         Debug.Log("Crop initialized at level: " + plantLevel);
+        Communicator = FindObjectOfType<TextScript>();
     }
 
     void InitializeProgressBar()
@@ -238,6 +243,11 @@ public class Crops : MonoBehaviour
         if (isMaxLevel && waterLevel >= maxWater)
         {
             Debug.Log("Crop is already at maximum water level!");
+            if (Communicator != null && !Communicator.writingText)
+            {
+                Communicator.fullSentence = "Crop is already at maximum water level!";
+                Communicator.StartCoroutine(Communicator.ShowTextLetterByLetter());
+            }
             return;
         }
 
@@ -475,6 +485,11 @@ public class Crops : MonoBehaviour
                 waterLevel = maxWater;
                 UpdateProgressBar();
                 Debug.Log($"Crop reached MAX level {plantLevel}! Water level maintained at maximum. Will generate R{CalculateMoneyAmount()} every {moneyGenerationInterval} seconds.");
+                if (Communicator != null && !Communicator.writingText)
+                {
+                    Communicator.fullSentence = $"Crop reached MAX level {plantLevel}! Water level maintained at maximum. Will generate R{CalculateMoneyAmount()} every {moneyGenerationInterval} seconds.";
+                    Communicator.StartCoroutine(Communicator.ShowTextLetterByLetter());
+                }
             }
             else
             {
@@ -488,6 +503,11 @@ public class Crops : MonoBehaviour
             }
 
             Debug.Log($"Crop leveled up to level {plantLevel}! Money generation: R{CalculateMoneyAmount()}");
+            if (Communicator != null && !Communicator.writingText)
+            {
+                Communicator.fullSentence = $"Crop leveled up to level {plantLevel}! Money generation: R{CalculateMoneyAmount()}";
+                Communicator.StartCoroutine(Communicator.ShowTextLetterByLetter());
+            }
         }
     }
 
@@ -661,6 +681,28 @@ public class Crops : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void StartSmoothDecreaseToMinimum()
+    {
+        if (isAnimating || smoothDecreaseCoroutine != null)
+        {
+            Debug.Log("Water");
+            return;
+
+        }
+
+        if (isMaxLevel)
+        {
+            return;
+        }
+
+        smoothDecreaseCoroutine = StartCoroutine(SmoothDecreaseToZero());
+    }
+
+    private void SetClickable(bool clickable)
+    {
+        isClickable = clickable;
+    }
+
     void HarvestCrop()
     {
         if (GameManager.Instance != null && GameManager.Instance.Money >= 0)
@@ -671,6 +713,11 @@ public class Crops : MonoBehaviour
                 MoneyManager.AddMoney(harvestValue);
                 MoneyManager.SpawnUIAboveField(transform, $"+R{harvestValue}");
                 Debug.Log($"Harvested level {plantLevel} crop for R{harvestValue}!");
+                if (Communicator != null && !Communicator.writingText)
+                {
+                    Communicator.fullSentence = $"Harvested level {plantLevel} crop for R{harvestValue}!";
+                    StartCoroutine(Communicator.ShowTextLetterByLetter());
+                }
             }
             isAlive = false;
             Destroy(this.gameObject);

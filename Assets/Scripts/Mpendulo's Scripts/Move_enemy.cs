@@ -46,7 +46,7 @@ public class Move_enemy : MonoBehaviour
         HealthBar.value = Health;
 
         target = transform.position;
-        speed = 0.2f;
+        speed = 0.13f;
 
         // Initialize components
         if (spriteRenderer == null)
@@ -238,7 +238,7 @@ public class Move_enemy : MonoBehaviour
     private IEnumerator MovementDelay(string direction)
     {
         //yield return new WaitForSeconds(Random.Range(lowerLimit, UpperLimit));
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(5f);
         Move(direction);
         shouldMove = true;
     }

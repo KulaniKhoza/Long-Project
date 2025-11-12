@@ -28,6 +28,8 @@ public class Enemy_Controller : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(StartDelay());
+        //gameObject.SetActive(false);
 
         waveCounter = 1;
         spawnRate = 1;
@@ -73,7 +75,7 @@ public class Enemy_Controller : MonoBehaviour
             }
         }
 
-        Spawn1();
+
 
         Communicator = FindObjectOfType<TextScript>();
 
@@ -198,4 +200,17 @@ public class Enemy_Controller : MonoBehaviour
         waveCounter++;
         shouldSpawn = true;
     }
+
+    private IEnumerator StartDelay()
+    {
+
+        yield return new WaitForSeconds(30f);
+        Spawn1();
+        //gameObject.SetActive(true);
+    }
+
+
+
 }
+
+
