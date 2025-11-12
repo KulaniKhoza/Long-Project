@@ -558,7 +558,7 @@ public class FarmGrid : MonoBehaviour
                     if (GameManager.Instance.seeds > 0)
                     {
                         GameManager.Instance.Money -= cost;
-                        GameManager.Instance.seeds--; 
+                        GameManager.Instance.seeds++; 
                         
                         GameManager.Instance.SpawnUIAboveField(transform, $"-R{cost}");
                     }
@@ -567,7 +567,7 @@ public class FarmGrid : MonoBehaviour
                     if (GameManager.Instance.tomatoSeeds > 0)
                     {
                         GameManager.Instance.Money -= cost;
-                        GameManager.Instance.tomatoSeeds--;
+                        GameManager.Instance.tomatoSeeds++;
                         GameManager.Instance.SpawnUIAboveField(transform, $"-R{cost}");
                     }
                     break;
@@ -575,7 +575,7 @@ public class FarmGrid : MonoBehaviour
                     if (GameManager.Instance.cornSeeds > 0)
                     {
                         GameManager.Instance.Money -= cost;
-                        GameManager.Instance.cornSeeds--;
+                        GameManager.Instance.cornSeeds++;
                         GameManager.Instance.SpawnUIAboveField(transform, $"-R{cost}");
                     }
                     break;

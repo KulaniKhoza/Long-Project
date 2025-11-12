@@ -19,13 +19,15 @@ public class Crops : MonoBehaviour
     public int waterLevel = 0;
     public int maxWater = 100;
     private bool isMaxLevel = false;
-
+    public int level1cash = 3; 
+    public int level2cash = 5;
+    public int level3cash = 7;
     [Header("Watering Settings")]
     private bool isWatering = false;
     private float wateringTimer = 0f;
     public float wateringInterval = 0.2f;
     public int holdWaterAmount = 8;
-
+    
     // ? WATER DECAY SYSTEM
     [Header("Water Decay Settings")]
     public float decayDelay = 7f;
@@ -210,9 +212,9 @@ public class Crops : MonoBehaviour
     {
         switch (plantLevel)
         {
-            case 1: return 5;
-            case 2: return 7;
-            case 3: return 9;
+            case 1: return level1cash;
+            case 2: return level2cash;
+            case 3: return level3cash;
             default: return 0;
         }
     }

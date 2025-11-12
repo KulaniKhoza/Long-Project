@@ -10828,9 +10828,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Money: 150
   MoneyText: {fileID: 773249319}
-  tomatoSeeds: 3
-  cornSeeds: 3
-  seeds: 3
+  tomatoSeeds: 1
+  cornSeeds: 1
+  seeds: 1
   cropData: {fileID: 0}
   uiPrefab: {fileID: 8818731800857999140, guid: 09184be17a80bea419ab20b46d548b43, type: 3}
   progressBarPrefab: {fileID: 6677439426763680124, guid: e88ff8df0b1c9dc409e780496b843905, type: 3}
