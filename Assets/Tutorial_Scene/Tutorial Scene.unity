@@ -386,6 +386,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 55582545}
   m_CullTransparentMesh: 1
+<<<<<<< Updated upstream
 --- !u!1 &59710905
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,6 +478,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 59710905}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> Stashed changes
 --- !u!1 &62593483
 GameObject:
   m_ObjectHideFlags: 0
@@ -4323,6 +4326,10 @@ MonoBehaviour:
   destroyed: 0
   spriteRenderer: {fileID: 0}
   gameOverScreen: {fileID: 745994864}
+<<<<<<< Updated upstream
+=======
+  Attacker: {fileID: 0}
+>>>>>>> Stashed changes
   HealthBar: {fileID: 1928496674}
 --- !u!212 &667948749
 SpriteRenderer:
@@ -6601,6 +6608,10 @@ MonoBehaviour:
   destroyed: 0
   spriteRenderer: {fileID: 0}
   gameOverScreen: {fileID: 745994864}
+<<<<<<< Updated upstream
+=======
+  Attacker: {fileID: 0}
+>>>>>>> Stashed changes
   HealthBar: {fileID: 547403949}
 --- !u!4 &1009185995 stripped
 Transform:
@@ -6854,6 +6865,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53c265c49f110854cb6d708a8e0f2dc0, type: 3}
+<<<<<<< Updated upstream
 --- !u!1 &1070651435
 GameObject:
   m_ObjectHideFlags: 0
@@ -6929,6 +6941,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1070651435}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> Stashed changes
 --- !u!1 &1076560355
 GameObject:
   m_ObjectHideFlags: 0
@@ -7894,6 +7908,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181376833}
   m_CullTransparentMesh: 1
+<<<<<<< Updated upstream
 --- !u!1 &1199279144
 GameObject:
   m_ObjectHideFlags: 0
@@ -8030,6 +8045,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1199279144}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> Stashed changes
 --- !u!1 &1203636630
 GameObject:
   m_ObjectHideFlags: 0
@@ -9091,6 +9108,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< Updated upstream
 --- !u!1 &1395517897
 GameObject:
   m_ObjectHideFlags: 0
@@ -9193,6 +9211,8 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+=======
+>>>>>>> Stashed changes
 --- !u!1 &1401786787
 GameObject:
   m_ObjectHideFlags: 0
@@ -10099,6 +10119,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1440892726}
   m_CullTransparentMesh: 1
+<<<<<<< Updated upstream
 --- !u!1 &1474640492
 GameObject:
   m_ObjectHideFlags: 0
@@ -10174,6 +10195,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474640492}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> Stashed changes
 --- !u!1 &1503437004
 GameObject:
   m_ObjectHideFlags: 0
@@ -12621,6 +12644,10 @@ MonoBehaviour:
   destroyed: 0
   spriteRenderer: {fileID: 0}
   gameOverScreen: {fileID: 745994864}
+<<<<<<< Updated upstream
+=======
+  Attacker: {fileID: 0}
+>>>>>>> Stashed changes
   HealthBar: {fileID: 635339740}
 --- !u!212 &1901912273
 SpriteRenderer:
@@ -14675,6 +14702,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2101883318}
   m_CullTransparentMesh: 1
+<<<<<<< Updated upstream
 --- !u!1 &2110222846
 GameObject:
   m_ObjectHideFlags: 0
@@ -14741,6 +14769,8 @@ RectTransform:
   m_AnchoredPosition: {x: 906.14905, y: 525.2927}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+=======
+>>>>>>> Stashed changes
 --- !u!1 &2112350584
 GameObject:
   m_ObjectHideFlags: 0
