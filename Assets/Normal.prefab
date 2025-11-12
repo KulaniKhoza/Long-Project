@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaterPanel: {fileID: 3719476956494058713}
+  watercost: 5
 --- !u!1 &2398035672314824454
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +337,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Hits: 1'
+  m_text: 'Hits: 2'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -797,19 +798,35 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 8cda438a6ce87e7458b1efa74cf48cc5, type: 2}
     - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: maxHealth
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: WaterPanel
       value: 
       objectReference: {fileID: 3719476956494058713}
     - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
+      propertyPath: decayDelay
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
+      propertyPath: level1cash
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
+      propertyPath: level2cash
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
+      propertyPath: level3cash
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: plantLevel
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: currentHealth
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: spriteRenderer
@@ -824,8 +841,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6871107660381961850}
     - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
+      propertyPath: smoothFillDuration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
+      propertyPath: smoothDecreaseDuration
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: levelSprites.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
+      propertyPath: moneyGenerationInterval
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3521197233734117266, guid: 4205fcbea8f12894588563e9acdd8b07, type: 3}
       propertyPath: 'levelSprites.Array.data[0]'

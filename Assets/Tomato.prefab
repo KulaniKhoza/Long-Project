@@ -19,7 +19,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3537120570421765215
 RectTransform:
   m_ObjectHideFlags: 0
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Water \nR3"
+  m_text: "Water \nR5"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -674,6 +674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaterPanel: {fileID: 87894718791898337}
+  watercost: 5
 --- !u!1 &6403785330182845514
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +740,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Hits: 3'
+  m_text: 'Hits: 4'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1232,15 +1233,22 @@ MonoBehaviour:
   MoneyManager: {fileID: 0}
   cropData: {fileID: 11400000, guid: 8315c81cff3b53e4c94559d88147c506, type: 2}
   spriteRenderer: {fileID: 0}
-  levelSprites: []
+  levelSprites:
+  - {fileID: 2110204088, guid: 8cc29e66b1b5a054c960e48d77ded7dc, type: 3}
+  - {fileID: -1323195412, guid: 8cc29e66b1b5a054c960e48d77ded7dc, type: 3}
+  - {fileID: 497602503, guid: 8cc29e66b1b5a054c960e48d77ded7dc, type: 3}
   plantLevel: 0
+  maxplantlevel: 2
   waterLevel: 0
   maxWater: 100
+  level1cash: 8
+  level2cash: 12
+  level3cash: 16
   wateringInterval: 0.1
   holdWaterAmount: 5
   decayDelay: 7
   decayRate: 10
-  moneyGenerationInterval: 4
+  moneyGenerationInterval: 6
   maxHealth: 4
   currentHealth: 4
   waterProgressBar: {fileID: 394336012616553305}

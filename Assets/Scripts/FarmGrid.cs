@@ -73,7 +73,9 @@ public class FarmGrid : MonoBehaviour
 
     public List<SeedButtonData> seedButtons = new List<SeedButtonData>();
     private bool plantMenuWasOpened = false;
-
+    public int normalseedprice = 50;
+    public int CornPrice = 100;
+    public int TomatoPrice = 150;
     [System.Serializable]
     public class DefenderButtonData
     {
@@ -83,7 +85,9 @@ public class FarmGrid : MonoBehaviour
     }
 
     public List<DefenderButtonData> defenderButtons = new List<DefenderButtonData>();
-
+    public int FencePrice = 50;
+    public int ChickenPrice = 80;
+    public int PesticidePrice = 65;
     [Header("Buttons")]
     public List<UniversalButton> farmingButtons = new List<UniversalButton>();
     public List<UniversalButton> defendingButtons = new List<UniversalButton>();
@@ -538,9 +542,9 @@ public class FarmGrid : MonoBehaviour
     {
         switch (seedType)
         {
-            case SeedType.Normal: return 15;
-            case SeedType.Tomato: return 20;
-            case SeedType.Corn: return 25;
+            case SeedType.Normal: return normalseedprice;  // Normal seeds cost 1 seed
+            case SeedType.Tomato: return TomatoPrice;  // Tomato seeds cost 1 seed
+            case SeedType.Corn: return CornPrice;    // Corn seeds cost 1 seed
             default: return 0;
         }
     }
@@ -586,7 +590,8 @@ public class FarmGrid : MonoBehaviour
                     if (GameManager.Instance.seeds > 0)
                     {
                         GameManager.Instance.Money -= cost;
-                        GameManager.Instance.seeds--;
+                        GameManager.Instance.seeds++;
+
                         GameManager.Instance.SpawnUIAboveField(transform, $"-R{cost}");
                     }
                     break;
@@ -594,7 +599,7 @@ public class FarmGrid : MonoBehaviour
                     if (GameManager.Instance.tomatoSeeds > 0)
                     {
                         GameManager.Instance.Money -= cost;
-                        GameManager.Instance.tomatoSeeds--;
+                        GameManager.Instance.tomatoSeeds++;
                         GameManager.Instance.SpawnUIAboveField(transform, $"-R{cost}");
                     }
                     break;
@@ -602,7 +607,7 @@ public class FarmGrid : MonoBehaviour
                     if (GameManager.Instance.cornSeeds > 0)
                     {
                         GameManager.Instance.Money -= cost;
-                        GameManager.Instance.cornSeeds--;
+                        GameManager.Instance.cornSeeds++;
                         GameManager.Instance.SpawnUIAboveField(transform, $"-R{cost}");
                     }
                     break;
@@ -672,8 +677,8 @@ public class FarmGrid : MonoBehaviour
     {
         GameObject newField = Instantiate(field, lastGridPosition, Quaternion.identity);
         newField.layer = LayerMask.NameToLayer("FieldLayer");
-        GameManager.Instance.Money -= plowprice;
-        GameManager.Instance.SpawnUIAboveField(newField.transform, "-10");
+        GameManager.Instance.Money -= plowprice - 5;
+        GameManager.Instance.SpawnUIAboveField(newField.transform, "-5");
         Debug.Log("Created field at: " + lastGridPosition);
     }
 
@@ -768,9 +773,9 @@ public class FarmGrid : MonoBehaviour
     {
         switch (defenderType)
         {
-            case DefenderType.Archer: return 50;
-            case DefenderType.Mage: return 75;
-            case DefenderType.Fence: return 25;
+            case DefenderType.Archer: return ChickenPrice;
+            case DefenderType.Mage: return PesticidePrice;
+            case DefenderType.Fence: return FencePrice;
             default: return 0;
         }
     }

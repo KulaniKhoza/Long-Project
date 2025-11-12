@@ -481,21 +481,28 @@ MonoBehaviour:
   MoneyManager: {fileID: 0}
   cropData: {fileID: 11400000, guid: cbc4e5f216977e74ea002dad3574d9c4, type: 2}
   spriteRenderer: {fileID: 0}
-  levelSprites: []
+  levelSprites:
+  - {fileID: 2000310983, guid: 8cc29e66b1b5a054c960e48d77ded7dc, type: 3}
+  - {fileID: -1144071842, guid: 8cc29e66b1b5a054c960e48d77ded7dc, type: 3}
+  - {fileID: 1963344282, guid: 8cc29e66b1b5a054c960e48d77ded7dc, type: 3}
   plantLevel: 0
+  maxplantlevel: 2
   waterLevel: 0
   maxWater: 100
+  level1cash: 6
+  level2cash: 9
+  level3cash: 12
   wateringInterval: 0.1
   holdWaterAmount: 5
-  decayDelay: 7
+  decayDelay: 8
   decayRate: 10
-  moneyGenerationInterval: 4
-  maxHealth: 4
-  currentHealth: 4
+  moneyGenerationInterval: 7
+  maxHealth: 3
+  currentHealth: 3
   waterProgressBar: {fileID: 8255019529407716221}
   waterProgressText: {fileID: 5676069283208166716}
-  smoothFillDuration: 7
-  smoothDecreaseDuration: 14
+  smoothFillDuration: 3
+  smoothDecreaseDuration: 7
   decreaseStartDelay: 2
   WaterPanel: {fileID: 6921262748129118577}
   selectedColor: {r: 0, g: 0, b: 1, a: 1}
@@ -1230,6 +1237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaterPanel: {fileID: 6921262748129118577}
+  watercost: 5
 --- !u!1 &8040707445464068189
 GameObject:
   m_ObjectHideFlags: 0

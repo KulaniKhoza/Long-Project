@@ -1488,7 +1488,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFarmingButton: 1
   seedType: 1
-  farmingPrice: 20
+  farmingPrice: 50
   defenderType: 0
   defendingPrice: 50
   priceText: {fileID: 193407308}
@@ -6725,9 +6725,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFarmingButton: 0
   seedType: 0
-  farmingPrice: 20
+  farmingPrice: 0
   defenderType: 2
-  defendingPrice: 35
+  defendingPrice: 65
   priceText: {fileID: 275461209}
   nameText: {fileID: 871107646}
   affordableColor: {r: 1, g: 1, b: 1, a: 1}
@@ -7541,7 +7541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFarmingButton: 1
   seedType: 2
-  farmingPrice: 20
+  farmingPrice: 170
   defenderType: 0
   defendingPrice: 50
   priceText: {fileID: 2112350586}
@@ -8097,7 +8097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFarmingButton: 1
   seedType: 3
-  farmingPrice: 20
+  farmingPrice: 100
   defenderType: 0
   defendingPrice: 50
   priceText: {fileID: 105101167}
@@ -9547,7 +9547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFarmingButton: 0
   seedType: 0
-  farmingPrice: 20
+  farmingPrice: 50
   defenderType: 3
   defendingPrice: 50
   priceText: {fileID: 1999772900}
@@ -11667,9 +11667,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Money: 150
   MoneyText: {fileID: 773249319}
-  tomatoSeeds: 3
-  cornSeeds: 3
-  seeds: 3
+  tomatoSeeds: 1
+  cornSeeds: 1
+  seeds: 1
   cropData: {fileID: 0}
   uiPrefab: {fileID: 8818731800857999140, guid: 09184be17a80bea419ab20b46d548b43, type: 3}
   progressBarPrefab: {fileID: 6677439426763680124, guid: e88ff8df0b1c9dc409e780496b843905, type: 3}
@@ -11851,6 +11851,9 @@ MonoBehaviour:
   - button: {fileID: 1173023471}
     seedType: 2
     seedPrefab: {fileID: 9124510512987317584, guid: 0177f4f781be921449292d6d5daad590, type: 3}
+  normalseedprice: 50
+  CornPrice: 100
+  TomatoPrice: 150
   defenderButtons:
   - button: {fileID: 1440892729}
     defenderType: 3
@@ -11864,6 +11867,10 @@ MonoBehaviour:
   - button: {fileID: 1076560358}
     defenderType: 2
     defenderPrefab: {fileID: 3871799295070800608, guid: c8660492cb444c44594759738e3f028f, type: 3}
+    defenderPrefab: {fileID: 1177473395315208045, guid: 1475a49e3a718bd47b3ac0387cde60ca, type: 3}
+  FencePrice: 50
+  ChickenPrice: 80
+  PesticidePrice: 65
   farmingButtons:
   - {fileID: 170440402}
   - {fileID: 1275060196}
@@ -14733,9 +14740,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFarmingButton: 0
   seedType: 0
-  farmingPrice: 20
+  farmingPrice: 80
   defenderType: 1
-  defendingPrice: 30
+  defendingPrice: 80
   priceText: {fileID: 1561299819}
   nameText: {fileID: 1526022021}
   affordableColor: {r: 1, g: 1, b: 1, a: 1}

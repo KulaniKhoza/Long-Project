@@ -15,15 +15,28 @@ public class Crops : MonoBehaviour
 
     [Header("Crop State")]
     public int plantLevel = 0;
+    public int maxplantlevel = 2;
     public int waterLevel = 0;
     public int maxWater = 100;
     private bool isMaxLevel = false;
-
+    public int level1cash = 3;
+    public int level2cash = 5;
+    public int level3cash = 7;
     [Header("Watering Settings")]
     private bool isWatering = false;
     private float wateringTimer = 0f;
     public float wateringInterval = 0.2f;
     public int holdWaterAmount = 8;
+
+    // ? WATER DECAY SYSTEM
+    [Header("Water Decay Settings")]
+    public float decayDelay = 7f;
+    public float decayRate = 10f;
+    private bool isDecaying = false;
+    private float decayTimer = 0f;
+
+    // ? NEW � detect level-up interruption
+    private bool levelUpJustHappened = false;
 
     [Header("Money Generation")]
     private float moneyTimer = 0f;
@@ -124,8 +137,7 @@ public class Crops : MonoBehaviour
 
     void GenerateMoney()
     {
-        // Generate money at EVERY level when fully watered
-        if (plantLevel >= 1)
+        if (plantLevel >= 0)
         {
             moneyTimer += Time.deltaTime;
 
@@ -153,9 +165,9 @@ public class Crops : MonoBehaviour
     {
         switch (plantLevel)
         {
-            case 1: return 5;
-            case 2: return 7;
-            case 3: return 9;
+            case 0: return level1cash;
+            case 1: return level2cash;
+            case 2: return level3cash;
             default: return 0;
         }
     }
@@ -285,12 +297,120 @@ public class Crops : MonoBehaviour
 
         isAnimating = false;
 
-        if (!isMaxLevel && plantLevel < 3)
+        // ? After filling to max, wait a bit then start the smooth decrease
+        if (!isMaxLevel && plantLevel < maxplantlevel)
         {
             LevelUp();
         }
 
         Debug.Log("Smooth water fill animation completed!");
+    }
+
+    // ? NEW - Wait before starting decrease
+    private IEnumerator DelayedSmoothDecrease()
+    {
+        Debug.Log($"Waiting {decreaseStartDelay} seconds before starting smooth decrease...");
+
+        yield return new WaitForSeconds(decreaseStartDelay);
+
+        StartSmoothDecreaseToMinimum();
+    }
+
+    // ? NEW - Smooth decrease coroutine
+    private IEnumerator SmoothDecreaseToZero()
+    {
+        isAnimating = true;
+
+        float startFill = (float)waterLevel / maxWater;
+        float targetFill = 0f;
+        float elapsedTime = 0f;
+        int startWaterLevel = waterLevel;
+
+        while (elapsedTime < smoothDecreaseDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float progress = elapsedTime / smoothDecreaseDuration;
+
+            float currentFill = Mathf.Lerp(startFill, targetFill, progress);
+
+            if (waterProgressBar != null)
+            {
+                waterProgressBar.fillAmount = currentFill;
+            }
+
+            int currentWaterValue = Mathf.RoundToInt(Mathf.Lerp(startWaterLevel, 0, progress));
+
+            if (waterProgressText != null)
+            {
+                waterProgressText.text = $"{currentWaterValue}/{maxWater}";
+            }
+
+            yield return null;
+        }
+
+        waterLevel = 0;
+
+        if (waterProgressBar != null)
+        {
+            waterProgressBar.fillAmount = 0f;
+        }
+
+        if (waterProgressText != null)
+        {
+            waterProgressText.text = $"0/{maxWater}";
+        }
+
+        isAnimating = false;
+        smoothDecreaseCoroutine = null;
+
+        // ? Level up when water reaches zero
+        if (!isMaxLevel && plantLevel < maxplantlevel)
+        {
+            LevelUp();
+        }
+        else
+        {
+            // ? NEW - If not leveling up (like during normal decay), flash to indicate ready
+            FlashReadyForWatering();
+        }
+
+        Debug.Log("Smooth water decrease animation completed! Plant leveled up.");
+    }
+
+    // ? NEW - Flash once to indicate crop is ready for watering
+    private void FlashReadyForWatering()
+    {
+        // Make crop clickable again
+        SetClickable(true);
+
+        // Start one-time flash
+        if (flashCoroutine != null)
+            StopCoroutine(flashCoroutine);
+
+        flashCoroutine = StartCoroutine(FlashOnce());
+        Debug.Log("Crop ready for watering - flashing indicator");
+    }
+
+    // ? NEW - Single flash coroutine (not continuous)
+    private IEnumerator FlashOnce()
+    {
+        // Flash on
+        spriteRenderer.color = selectedColor;
+        yield return new WaitForSeconds(0.3f);
+
+        // Flash off
+        spriteRenderer.color = originalColor;
+        yield return new WaitForSeconds(0.3f);
+
+        // Flash on again
+        spriteRenderer.color = selectedColor;
+        yield return new WaitForSeconds(0.3f);
+
+        // Return to normal
+        spriteRenderer.color = originalColor;
+
+        flashCoroutine = null;
+        Debug.Log("Ready flash completed");
     }
 
     public bool CanBeWatered()
@@ -342,14 +462,14 @@ public class Crops : MonoBehaviour
 
     void LevelUp()
     {
-        if (plantLevel >= 0 && plantLevel < 3)
+        if (plantLevel >= 0 && plantLevel < maxplantlevel)
         {
             bool wasSelected = isSelected;
 
             plantLevel++;
             UpdateSprite();
 
-            if (plantLevel >= 3)
+            if (plantLevel >= maxplantlevel)
             {
                 isMaxLevel = true;
                 waterLevel = maxWater;
